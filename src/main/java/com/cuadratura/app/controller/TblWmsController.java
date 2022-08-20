@@ -22,7 +22,7 @@ public class TblWmsController {
 	
 	@Autowired
 	private TblWmsService usuarioService;
-	//2022.8.20
+	//2022.8.20 || WILBER
 	@GetMapping(value = "/obtenerListTblWms")
 	public ResponseEntity<List<TblWms>> obtenerTodos() {
 		LOGGER.info("mysql");
