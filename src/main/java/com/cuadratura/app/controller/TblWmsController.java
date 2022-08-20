@@ -1,5 +1,6 @@
 package com.cuadratura.app.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,5 +29,10 @@ public class TblWmsController {
 		LOGGER.info("mysql");
 		return null;
 		//return ResponseEntity.ok().body(usuarioService.fetchTblWmsList());
+	}
+	
+	public void calcularHora()
+	{
+		String hora= "Aqui está la hora";
 	}
 }
