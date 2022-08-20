@@ -153,7 +153,9 @@ public class ScheduledTasks {
         for (WmsCinsDto obj :listaWmsCinsDto) {
         	tblWms = new TblWms();
         	tblWms.setIdCargaWMS(id);// reecupera id
+        	
         	//tblWms.setNroCarga(obj.getNroCarga().intValue());
+        	
         	tblWms.setNroCarga(55555);
         	tblWms.setCreateDate(obj.getCreateDate());
         	tblWms.setFacilityCode(obj.getFacilityCode());
