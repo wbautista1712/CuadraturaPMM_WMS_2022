@@ -35,4 +35,8 @@ public class TblWmsController {
 	{
 		String hora= "Aqui está la hora";
 	}
+	
+	public String capturarConexion () {
+		return "hola";
+	}
 }
