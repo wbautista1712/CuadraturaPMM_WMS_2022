@@ -37,6 +37,6 @@ public class TblWmsController {
 	}
 	
 	public String capturarConexion () {
-		return "hola  ccc";
+		return "hola  ccc  ";
 	}
 }
