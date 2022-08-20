@@ -23,4 +23,9 @@ private static final Logger LOGGER = LogManager.getLogger(CargaWmsServiceImpl.cl
 		return cargaWmsRepository;
 	}
 	
+	public Integer saveCargaWms(CargaWms cargaWms) {
+		LOGGER.info("insert");
+		return cargaWmsRepository.saveCargaWms(cargaWms);
+	}
+	
 }

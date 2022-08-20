@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cuadratura.app.mysql.entity.CargaWms;
 
 @Repository
-public interface CargaWmsRepository extends CrudRepository<CargaWms, Integer> {
+public interface CargaWmsRepository extends CrudRepository<CargaWms, Integer>, CargaWmsRepositoryCustom {
 
 }

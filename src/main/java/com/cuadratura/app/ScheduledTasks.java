@@ -147,12 +147,12 @@ public class ScheduledTasks {
         cargaWms.setIdmTipoImportacion(1);
         cargaWms.setIdmestadoCuadratura(1);
         cargaWms.setUsuarioCarga("wilber");
-        cargaWmsService.save(cargaWms);
+       Integer id = cargaWmsService.saveCargaWms(cargaWms);
         
         TblWms  tblWms = null;
         for (WmsCinsDto obj :listaWmsCinsDto) {
         	tblWms = new TblWms();
-        	tblWms.setIdCargaWMS(1);// reecupera id
+        	tblWms.setIdCargaWMS(id);// reecupera id
         	//tblWms.setNroCarga(obj.getNroCarga().intValue());
         	tblWms.setNroCarga(55555);
         	tblWms.setCreateDate(obj.getCreateDate());
