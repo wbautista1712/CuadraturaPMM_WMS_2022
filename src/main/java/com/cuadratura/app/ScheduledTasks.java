@@ -1,5 +1,6 @@
 package com.cuadratura.app;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -133,7 +134,7 @@ public class ScheduledTasks {
 
     
     
-    @Scheduled(cron = "0 42 23 ? * 6 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
+    @Scheduled(cron = "0 0 0 ? * 7 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
     //todos los meses, los días 5 (visernes).
     public void scheduleTaskWithCronExpression() throws Exception {
         logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
@@ -149,6 +150,7 @@ public class ScheduledTasks {
         cargaWms.setUsuarioCarga("wilber");
         Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
         logger.info("id ==> " +id);
+        
         TblWms  tblWms = null;
         for (WmsCinsDto obj :listaWmsCinsDto) {
         	 logger.info("xxxxx ==> " );
@@ -161,16 +163,86 @@ public class ScheduledTasks {
         	tblWms.setCreateDate(obj.getCreateDate());
         	tblWms.setFacilityCode(obj.getFacilityCode());
         	tblWms.setCompanyCode(obj.getCompanyCode());
-  
+        	
         	tblWms.setItemPartA(obj.getItemPartA());
-        	tblWms.setDownloadDate1(obj.getDownloadDate1());
-        	tblWms.setTotalInventory(obj.getTotalInventory());
+        	tblWms.setItemPartB(obj.getItemPartB());
+        	tblWms.setItemPartC(obj.getItemPartC());
+        	tblWms.setItemPartD(obj.getItemPartD());
+        	tblWms.setItemPartE(obj.getItemPartE());
+        	tblWms.setItemPartF(obj.getItemPartF());
+        	
+        	tblWms.setHierarchy1Code(obj.getHierarchy1Code());
+        	tblWms.setHierarchy2Code(obj.getHierarchy2Code());
+        	tblWms.setHierarchy3Code(obj.getHierarchy3Code());
+        	tblWms.setHierarchy4Code(obj.getHierarchy4Code());
+        	tblWms.setHierarchy5Code(obj.getHierarchy5Code());
+        	
+        	tblWms.setBatchNbr(obj.getBatchNbr());
+        	tblWms.setPrePackCode(obj.getPrePackCode());
+        	tblWms.setPrePackRatio(obj.getPrePackRatio());
+        	tblWms.setPrePackUnits(obj.getPrePackUnits());
+        	
+        	tblWms.setOblpnTotal(obj.getOblpnTotal());
+        	tblWms.setActiveTotal(obj.getActiveTotal());
+        	tblWms.setActiveAllocated(obj.getActiveAllocated());
+        	tblWms.setActiveAllocatedLockcode(obj.getActiveAllocatedLockcode());
+        	tblWms.setActiveAvailable(obj.getActiveAvailable());
         	tblWms.setActiveLockcode(obj.getActiveLockcode());
-        	tblWms.setErrorCode(obj.getErrorCode());
+        	
+        	tblWms.setIblpnTotal(obj.getIblpnTotal());
+        	tblWms.setIblpnAllocated(obj.getIblpnAllocated());
+        	tblWms.setIblpnAllocatedLockcode(obj.getIblpnAllocatedLockcode());
+        	tblWms.setIblpnAvailable(obj.getIblpnAvailable());
+        	tblWms.setIblpnNotverified(obj.getIblpnNotverified());
+        	tblWms.setIblpnLockcode(obj.getIblpnLockcode());
+        	tblWms.setIblpnLost(obj.getIblpnLost());
+        	
+        	tblWms.setTotalAllocated(obj.getTotalAllocated());
+        	
+        	tblWms.setTotalAvailable(obj.getTotalAvailable());
+        	tblWms.setTotalInventory(obj.getTotalInventory());
+        	
+        	tblWms.setFourWallInventory(obj.getFourWallInventory());
+        	tblWms.setOpenOrderQty(obj.getOpenOrderQty());
+        	
+        	tblWms.setLockCode1(obj.getLockCode1());
+        	tblWms.setLockCodeQty1(obj.getLockCodeQty1());
+        	
+        	tblWms.setLockCode2(obj.getLockCode2());
+        	tblWms.setLockCodeQty2(obj.getLockCodeQty2());
+        	
+        	tblWms.setLockCode3(obj.getLockCode3());
+        	tblWms.setLockCodeQty3(obj.getLockCodeQty3());
+        	
+        	tblWms.setLockCode4(obj.getLockCode4());
+        	tblWms.setLockCodeQty4(obj.getLockCodeQty4());
+        	
         	tblWms.setLockCode5(obj.getLockCode5());
+        	tblWms.setLockCodeQty5(obj.getLockCodeQty5());
+        	
+        	tblWms.setLockCode6(obj.getLockCode6());
+        	tblWms.setLockCodeQty6(obj.getLockCodeQty6());
+        	
+        	tblWms.setLockCode7(obj.getLockCode7());
+        	tblWms.setLockCodeQty7(obj.getLockCodeQty7());
+        	
+        	tblWms.setLockCode8(obj.getLockCode8());
+        	tblWms.setLockCodeQty8(obj.getLockCodeQty8());
+        	
+        	tblWms.setLockCode9(obj.getLockCode9());
+        	tblWms.setLockCodeQty9(obj.getLockCodeQty9());
+        	
+        	tblWms.setLockCode10(obj.getLockCode10());
+        	tblWms.setLockCodeQty10(obj.getLockCodeQty10());
+        	
+        	tblWms.setDownloadDate1(obj.getDownloadDate1());
+        	tblWms.setErrorCode(obj.getErrorCode());
+        	tblWms.setObservacionError(obj.getObservacionError());
+        	//tblWms.setFlgTipo(BigInteger.valueOf(obj.getFlgTipo()));
         	
         	tblWmsService.save(tblWms);
         	logger.info("fin insercion ==> " );
         }
+                   
     }
 }
