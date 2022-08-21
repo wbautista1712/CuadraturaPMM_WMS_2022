@@ -2,16 +2,13 @@ package com.cuadratura.app.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,12 +41,14 @@ public class TblWmsController {
 	private CargaWmsService cargaWmsService;
 
 	@PostMapping(value = "/crearCuadraturaWMS")
-	public ResponseEntity<?> crearCuadraturaWMS(@RequestBody @Valid String fechaProceso) throws Exception {
+	public String crearCuadraturaWMS(@RequestBody String  fechaProceso) throws Exception {
 		LOGGER.info("inicio");
 		List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins();
 		CargaWms cargaWms = new CargaWms();
-
-		cargaWms.setFechaCarga(new Date());
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss"); //21/08/2022 14:06:33
+		DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
+		
+		cargaWms.setFechaCarga(dateTimeProceso.toDate());
 		cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
 		cargaWms.setEstado(true);
 		cargaWms.setNumRegistros(listaWmsCinsDto.size());
@@ -151,7 +150,7 @@ public class TblWmsController {
 			tblWmsService.save(tblWms);
 			LOGGER.info("fin insercion postman  ==> ");
 		}
-
-		return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo WMS");
+return "ok";
+		//return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo WMS");
 	}
 }

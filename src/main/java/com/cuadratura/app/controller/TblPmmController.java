@@ -2,16 +2,15 @@ package com.cuadratura.app.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,15 +42,16 @@ public class TblPmmController {
 	private TblPmmService tblPmmService;
 
 	@PostMapping(value = "/crearCuadraturaPMM")
-	public ResponseEntity<?> crearCuadraturaPMM(@RequestBody @Valid String fechaProceso) throws Exception {
+	public String crearCuadraturaPMM(@RequestBody @Valid String fechaProceso) throws Exception {
 		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee();
 		TblPmm tblPmm = null;
 		LOGGER.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
-
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
 		// codigo de carga carga_pmm
 		CargaPmm cargaPmm = new CargaPmm();
 
-		cargaPmm.setFechaCarga(new Date());
+		cargaPmm.setFechaCarga(dateTimeProceso.toDate());
 		cargaPmm.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
 		cargaPmm.setNumRegistros(listaTblPmmForm.size());
 		cargaPmm.setUsuarioCarga("Wilber");
@@ -83,7 +83,7 @@ public class TblPmmController {
 			tblPmmService.save(tblPmm);
 
 		}
-
-		return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo PMM");
+		return "ok";
+		//return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo PMM");
 	}
 }
