@@ -13,6 +13,7 @@ import com.cuadratura.app.service.CargaPmmService;
 
 @Service
 public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> implements CargaPmmService{
+	
 	private static final Logger LOGGER = LogManager.getLogger(CargaPmmServiceImpl.class);
 	
 	@Autowired
