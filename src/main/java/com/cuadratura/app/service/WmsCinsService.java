@@ -6,5 +6,5 @@ import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 
 public interface WmsCinsService {
 
-	 List<WmsCinsDto>  findAllWMSWmsCins( )  throws Exception;
+	List<WmsCinsDto> findAllWMSWmsCins() throws Exception;
 }
