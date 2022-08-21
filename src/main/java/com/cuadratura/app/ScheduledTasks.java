@@ -86,12 +86,8 @@ public class ScheduledTasks {
         	tblPmm.setToOrdCost(obj.getToOrdCost());
         	tblPmm.setIdCargaPMM(id);
         	
-        	tblPmm.setOnHandQty(obj.getOnHandQty()); 
-        	
-        	
-        	
+        	tblPmm.setOnHandQty(obj.getOnHandQty());      
         	tblPmm.setOrgLvlChild( (int)obj.getFapinvbaleePK().getOrgLvlChild());
-        	
         	
         	tblPmm.setPrdLvlChild(1);
         	
