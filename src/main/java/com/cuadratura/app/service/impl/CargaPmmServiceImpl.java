@@ -19,8 +19,7 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 	private CargaPmmRepository cargaPmmRepository;
 
 	@Override
-	public CrudRepository<CargaPmm, Integer> getDao() {
-		// TODO Auto-generated method stub
+	public CrudRepository<CargaPmm, Integer> getDao() {	
 		return cargaPmmRepository;
 	}
 	
