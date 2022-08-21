@@ -52,7 +52,7 @@ public class OracleConfig {
 		
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
-		
+		em.setPersistenceUnitName("jpa_oracle");
 		Map<String, Object> properties = new HashMap<>();
 		properties.put("hibernate.hbm2ddl.auto", env.getProperty("oracle.jpa.hibernate.ddl-auto"));
 		properties.put("hibernate.show-sql", env.getProperty("oracle.jpa.show-sql"));

@@ -1,14 +1,16 @@
 package com.cuadratura.app.mysql.repository.impl;
 
-import java.math.BigInteger;
+import java.sql.PreparedStatement;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
@@ -20,27 +22,32 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 
 	private static final Logger LOGGER = LogManager.getLogger(CargaWmsRepositoryImpl.class);
 
-	protected EntityManager entityManager;
-
-	public EntityManager getEntityManager() {
-		return entityManager;
+//	@PersistenceContext(unitName = "jpa_mysql")
+//	private EntityManager entityManagerS;
+/*
+	public EntityManager getEntityManagerS() {
+		return entityManagerS;
 	}
 
 	@PersistenceContext
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+	public void setEntityManagerS(EntityManager entityManagerS) {
+		this.entityManagerS = entityManagerS;
+	}*/
+	
+	@Autowired
+	@Qualifier("jdbctemplateTwo") 
+	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public Integer saveCargaWms(CargaWms cargaWms) {
+	public Long saveCargaWms(CargaWms cargaWms) {
 		// TODO Auto-generated method stub
-		Integer GENERATED_KEYS = null;
-		try {
-			String sql = "INSERT INTO db_cuadratura.carga_wms "
+		//Integer GENERATED_KEYS = null;
+		
+			String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_wms "
 					+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado) "
 					+ "VALUES (?,?,?,?,?,?,?)";
 
-			Query query = getEntityManager().createNativeQuery(sql);
+		/*	Query query = entityManagerS.createNativeQuery(sql);
 
 			query.setParameter(1, cargaWms.getFechaCarga());
 			query.setParameter(2, cargaWms.getHoraCarga());
@@ -48,17 +55,71 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 			query.setParameter(4, cargaWms.getUsuarioCarga());
 			query.setParameter(5, cargaWms.getIdmTipoImportacion());
 			query.setParameter(6, cargaWms.getIdmestadoCuadratura());
-			query.setParameter(7, cargaWms.isEstado());
-
-
-			BigInteger id = (BigInteger) query.getSingleResult();
+			query.setParameter(7, cargaWms.isEstado());*/
+			//query.getFirstResult();
+			//GENERATED_KEYS=  query.getFirstResult();
+		/*BigInteger id = (BigInteger) query.getSingleResult();
 			GENERATED_KEYS = id.intValue();
 			LOGGER.info("GENERATED_KEYS " + GENERATED_KEYS);
+			
+			*/
+			/*
+			
+			  KeyHolder keyHolder = new GeneratedKeyHolder();
 
-		} catch (Exception e) {
-			LOGGER.error(e);
+			    jdbcTemplate.update(connection -> {
+			        PreparedStatement ps = connection
+			          .prepareStatement(INSERT_MESSAGE_SQL);
+			         
+			        java.util.Date utilDate = cargaWms.getFechaCarga();
+					java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+					
+					
+			          ps.setDate(1,sqlDate);
+			          ps.setString(2, cargaWms.getHoraCarga());
+			          ps.setInt(3, cargaWms.getNumRegistros());
+			          ps.setString(4, cargaWms.getUsuarioCarga());
+			          ps.setInt(5, cargaWms.getIdmTipoImportacion());
+			          ps.setInt(6, cargaWms.getIdmestadoCuadratura());
+					  ps.setBoolean(7, cargaWms.isEstado()) ;
+						
+				
+			          
+			          return ps;
+			        }, keyHolder);
 
-		}
-		return GENERATED_KEYS;
-	}
+			        return (long) keyHolder.getKey();
+			        */
+			        
+			  KeyHolder keyHolder = new GeneratedKeyHolder();
+			    jdbcTemplate.update(connection -> {
+			      PreparedStatement ps = connection.prepareStatement(INSERT_MESSAGE_SQL, new String[] { "idCarga_WMS" });
+			      
+			      java.util.Date utilDate = cargaWms.getFechaCarga();
+					java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+					
+					
+			          ps.setDate(1,sqlDate);
+			          ps.setString(2, cargaWms.getHoraCarga());
+			          ps.setInt(3, cargaWms.getNumRegistros());
+			          ps.setString(4, cargaWms.getUsuarioCarga());
+			          ps.setInt(5, cargaWms.getIdmTipoImportacion());
+			          ps.setInt(6, cargaWms.getIdmestadoCuadratura());
+					  ps.setBoolean(7, cargaWms.isEstado()) ;
+						
+			      
+			      
+			      
+			      return ps;
+			    }, keyHolder);
+			    LOGGER.info("ggg");
+			    
+			    return keyHolder.getKey().longValue();
+			        
+			        
+			        
+			    }
+
+	
+	
 }

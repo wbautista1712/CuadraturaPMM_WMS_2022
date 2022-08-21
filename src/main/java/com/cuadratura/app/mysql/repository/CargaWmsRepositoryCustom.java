@@ -4,6 +4,6 @@ import com.cuadratura.app.mysql.entity.CargaWms;
 
 public interface CargaWmsRepositoryCustom {
 
-	public Integer saveCargaWms(CargaWms cargaWms);
+	public Long saveCargaWms(CargaWms cargaWms);
 
 }

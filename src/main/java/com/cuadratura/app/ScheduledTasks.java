@@ -133,9 +133,9 @@ public class ScheduledTasks {
 
     
     
-    @Scheduled(cron = "0 23 18 ? * 5 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
+    @Scheduled(cron = "0 28 23 ? * 6 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
     //todos los meses, los días 5 (viernes).
-    public void scheduleTaskWithCronExpression() {
+    public void scheduleTaskWithCronExpression() throws Exception {
         logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
         List<WmsCinsDto>  listaWmsCinsDto =       wmsCinsService.findAllWMSWmsCins();
         CargaWms cargaWms = new CargaWms();
@@ -147,26 +147,28 @@ public class ScheduledTasks {
         cargaWms.setIdmTipoImportacion(1);
         cargaWms.setIdmestadoCuadratura(1);
         cargaWms.setUsuarioCarga("wilber");
-       Integer id = cargaWmsService.saveCargaWms(cargaWms);
-        
+        Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
+        logger.info("id ==> " +id);
         TblWms  tblWms = null;
         for (WmsCinsDto obj :listaWmsCinsDto) {
+        	 logger.info("xxxxx ==> " );
         	tblWms = new TblWms();
         	tblWms.setIdCargaWMS(id);// reecupera id
-        	
+       	 logger.info("44444 ==> " );
         	//tblWms.setNroCarga(obj.getNroCarga().intValue());
         	
         	tblWms.setNroCarga(55555);
         	tblWms.setCreateDate(obj.getCreateDate());
         	tblWms.setFacilityCode(obj.getFacilityCode());
         	tblWms.setCompanyCode(obj.getCompanyCode());
-        	
+        	 logger.info("55555 ==> " );
         	tblWms.setItemPartA(obj.getItemPartA());
         	tblWms.setDownloadDate1(obj.getDownloadDate1());
         	tblWms.setTotalInventory(obj.getTotalInventory());
         	tblWms.setActiveLockcode(obj.getActiveLockcode());
         	
         	tblWmsService.save(tblWms);
+        	 logger.info("fin insercion ==> " );
         }
     }
 }

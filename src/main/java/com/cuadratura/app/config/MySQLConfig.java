@@ -45,7 +45,7 @@ public class MySQLConfig {
 		
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
-		
+		em.setPersistenceUnitName("jpa_mysql");
 		Map<String, Object> properties = new HashMap<>();
 		properties.put("hibernate.hbm2ddl.auto", env.getProperty("mysql.jpa.hibernate.ddl-auto"));
 		properties.put("hibernate.show-sql", env.getProperty("mysql.jpa.show-sql"));
