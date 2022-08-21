@@ -1,6 +1,5 @@
 package com.cuadratura.app;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -55,7 +54,7 @@ public class ScheduledTasks {
     private CargaWmsService cargaWmsService;
     
 
-    @Scheduled(cron = "0 56 10 ? * 7 ") 
+    @Scheduled(cron = "0 47 10 ? * 7 ") 
     public void scheduleTaskWithFixedRate() {
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
  
@@ -77,7 +76,7 @@ public class ScheduledTasks {
     	cargaPmm.setIdmestadoCuadratura(1);      
     	cargaPmm.setOrgLvlChild(1);     // distinct 
     	
-    	cargaPmmService.save(cargaPmm);
+    	Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
     	
         for (Fapinvbalee obj :listaTblPmmForm) {
         	logger.info(".::: insert sobj.getDisponiblesWms():::. "+obj.getCurrCode());
@@ -85,7 +84,7 @@ public class ScheduledTasks {
         	tblPmm.setCurrCode(obj.getCurrCode());
         
         	tblPmm.setToOrdCost(obj.getToOrdCost());
-        	tblPmm.setIdCargaPMM(1);
+        	tblPmm.setIdCargaPMM(id);
         	
         	tblPmm.setOnHandQty(obj.getOnHandQty()); 
         	

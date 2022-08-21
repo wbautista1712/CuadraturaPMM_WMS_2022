@@ -24,5 +24,8 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 		return cargaPmmRepository;
 	}
 	
-	
+	public Long saveCargaPmm(CargaPmm cargaPmm) {
+		LOGGER.info("insert saveCargaPmm");
+		return cargaPmmRepository.saveCargaPmm(cargaPmm);
+	}
 }
