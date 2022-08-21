@@ -29,7 +29,7 @@ import com.cuadratura.app.service.TblPmmService;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/wmsmysql")
 public class TblPmmController {
-	private static final Logger LOGGER = LogManager.getLogger(TblWmsController.class);
+	private static final Logger LOGGER = LogManager.getLogger(TblPmmController.class);
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
