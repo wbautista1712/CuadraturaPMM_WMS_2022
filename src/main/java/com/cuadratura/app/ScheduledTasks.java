@@ -54,8 +54,8 @@ public class ScheduledTasks {
     @Autowired
     private CargaWmsService cargaWmsService;
     
-    /*
-    @Scheduled(fixedRate = 2000)
+
+    @Scheduled(cron = "0 56 10 ? * 7 ") 
     public void scheduleTaskWithFixedRate() {
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
  
@@ -105,7 +105,7 @@ public class ScheduledTasks {
        
     }
 
-    */
+   
     
     /*
     @Scheduled(fixedDelay = 2000)
@@ -134,7 +134,7 @@ public class ScheduledTasks {
 
     
     
-    @Scheduled(cron = "0 0 0 ? * 7 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
+    @Scheduled(cron = "0 24 10 ? * 7 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
     //todos los meses, los días 5 (visernes).
     public void scheduleTaskWithCronExpression() throws Exception {
         logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
@@ -153,10 +153,10 @@ public class ScheduledTasks {
         
         TblWms  tblWms = null;
         for (WmsCinsDto obj :listaWmsCinsDto) {
-        	 logger.info("xxxxx ==> " );
+      
         	tblWms = new TblWms();
         	tblWms.setIdCargaWMS(id);// reecupera id
-       	    logger.info("44444 ==> " );
+       	
         	//tblWms.setNroCarga(obj.getNroCarga().intValue());
         	
         	tblWms.setNroCarga(obj.getNroCarga().intValue());
@@ -238,10 +238,10 @@ public class ScheduledTasks {
         	tblWms.setDownloadDate1(obj.getDownloadDate1());
         	tblWms.setErrorCode(obj.getErrorCode());
         	tblWms.setObservacionError(obj.getObservacionError());
-        	//tblWms.setFlgTipo(BigInteger.valueOf(obj.getFlgTipo()));
+        	tblWms.setFlgTipo(obj.getFlgTipo().intValue());
         	
         	tblWmsService.save(tblWms);
-        	logger.info("fin insercion ==> " );
+        	logger.info("fin insercion ok  ==> " );
         }
                    
     }

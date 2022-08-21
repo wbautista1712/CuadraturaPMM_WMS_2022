@@ -27,14 +27,15 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 	public List<WmsCinsDto> findAllWMSWmsCins() throws Exception {
 		// TODO Auto-generated method stub
 		WmsCinsDto wmsCinsDto = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		List<Object[]> list = wmsCinsRepository.findAllWMSWmsCins();
 		List<WmsCinsDto> listConciliaPf = new ArrayList<WmsCinsDto>();
-		Integer i = 1;
+		String i = "";
+		Date date  = null;
 		for (Object[] fila : list) {
 			wmsCinsDto = new WmsCinsDto();
 			LOGGER.info(" inicio list "+list.size());
-			LOGGER.info(" inicio wmsCinsRepository "+listConciliaPf.size());
+		
 			wmsCinsDto.setNroCarga(((BigDecimal) fila[0] == null ? 0 : ((BigDecimal) fila[0])).longValue());
 			wmsCinsDto.setCreateDate((String) fila[1]);
 			wmsCinsDto.setFacilityCode((String) fila[2]);
@@ -109,20 +110,20 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 			wmsCinsDto.setLockCode10((String) fila[56]);
 			wmsCinsDto.setLockCodeQty10(((BigDecimal) fila[57] == null ? 0 : ((BigDecimal) fila[57])).intValue());
 			
-			LOGGER.info("  fffff ");
-			//Date date = formatter.parse(fila[58].toString());
-			wmsCinsDto.setDownloadDate1(new Date());
+		
+			if (fila[58] != null) {
+				 date = formatter.parse( fila[58].toString());
+			}			
+			wmsCinsDto.setDownloadDate1(date);
 
 			wmsCinsDto.setErrorCode(((BigDecimal) fila[59] == null ? 0 : ((BigDecimal) fila[59])).intValue());
-			LOGGER.info("  rrrr ");
+	
 			wmsCinsDto.setObservacionError((String) fila[60]);
-			LOGGER.info("  pppp ");
-			wmsCinsDto.setFlgTipo(new BigInteger("" + i ) );
+			
+			i= fila[61] == null ? "0" : ((String) fila[61]);
+			wmsCinsDto.setFlgTipo(new BigInteger(i) );
 					
-			LOGGER.info("  xxxxx ");
-					
-				//	(((Integer) fila[61] == null ? 0 : ((Integer) fila[61])))  );
-			LOGGER.info("  uuu ");
+	
 			listConciliaPf.add(wmsCinsDto);
 		}
 		LOGGER.info(" fin wmsCinsRepository "+listConciliaPf.size());
