@@ -133,8 +133,8 @@ public class ScheduledTasks {
 
     
     
-    @Scheduled(cron = "0 28 23 ? * 6 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
-    //todos los meses, los días 5 (viernes).
+    @Scheduled(cron = "0 42 23 ? * 6 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
+    //todos los meses, los días 5 (visernes).
     public void scheduleTaskWithCronExpression() throws Exception {
         logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
         List<WmsCinsDto>  listaWmsCinsDto =       wmsCinsService.findAllWMSWmsCins();
@@ -154,21 +154,23 @@ public class ScheduledTasks {
         	 logger.info("xxxxx ==> " );
         	tblWms = new TblWms();
         	tblWms.setIdCargaWMS(id);// reecupera id
-       	 logger.info("44444 ==> " );
+       	    logger.info("44444 ==> " );
         	//tblWms.setNroCarga(obj.getNroCarga().intValue());
         	
-        	tblWms.setNroCarga(55555);
+        	tblWms.setNroCarga(obj.getNroCarga().intValue());
         	tblWms.setCreateDate(obj.getCreateDate());
         	tblWms.setFacilityCode(obj.getFacilityCode());
         	tblWms.setCompanyCode(obj.getCompanyCode());
-        	 logger.info("55555 ==> " );
+  
         	tblWms.setItemPartA(obj.getItemPartA());
         	tblWms.setDownloadDate1(obj.getDownloadDate1());
         	tblWms.setTotalInventory(obj.getTotalInventory());
         	tblWms.setActiveLockcode(obj.getActiveLockcode());
+        	tblWms.setErrorCode(obj.getErrorCode());
+        	tblWms.setLockCode5(obj.getLockCode5());
         	
         	tblWmsService.save(tblWms);
-        	 logger.info("fin insercion ==> " );
+        	logger.info("fin insercion ==> " );
         }
     }
 }

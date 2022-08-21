@@ -24,102 +24,46 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 
 //	@PersistenceContext(unitName = "jpa_mysql")
 //	private EntityManager entityManagerS;
-/*
-	public EntityManager getEntityManagerS() {
-		return entityManagerS;
-	}
+	/*
+	 * public EntityManager getEntityManagerS() { return entityManagerS; }
+	 * 
+	 * @PersistenceContext public void setEntityManagerS(EntityManager
+	 * entityManagerS) { this.entityManagerS = entityManagerS; }
+	 */
 
-	@PersistenceContext
-	public void setEntityManagerS(EntityManager entityManagerS) {
-		this.entityManagerS = entityManagerS;
-	}*/
-	
 	@Autowired
-	@Qualifier("jdbctemplateTwo") 
+	@Qualifier("jdbctemplateTwo")
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Long saveCargaWms(CargaWms cargaWms) {
 		// TODO Auto-generated method stub
-		//Integer GENERATED_KEYS = null;
-		
-			String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_wms "
-					+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado) "
-					+ "VALUES (?,?,?,?,?,?,?)";
 
-		/*	Query query = entityManagerS.createNativeQuery(sql);
+		String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_wms "
+				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado) "
+				+ "VALUES (?,?,?,?,?,?,?)";
 
-			query.setParameter(1, cargaWms.getFechaCarga());
-			query.setParameter(2, cargaWms.getHoraCarga());
-			query.setParameter(3, cargaWms.getNumRegistros());
-			query.setParameter(4, cargaWms.getUsuarioCarga());
-			query.setParameter(5, cargaWms.getIdmTipoImportacion());
-			query.setParameter(6, cargaWms.getIdmestadoCuadratura());
-			query.setParameter(7, cargaWms.isEstado());*/
-			//query.getFirstResult();
-			//GENERATED_KEYS=  query.getFirstResult();
-		/*BigInteger id = (BigInteger) query.getSingleResult();
-			GENERATED_KEYS = id.intValue();
-			LOGGER.info("GENERATED_KEYS " + GENERATED_KEYS);
-			
-			*/
-			/*
-			
-			  KeyHolder keyHolder = new GeneratedKeyHolder();
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(connection -> {
+			PreparedStatement ps = connection.prepareStatement(INSERT_MESSAGE_SQL, new String[] { "idCarga_WMS" });
 
-			    jdbcTemplate.update(connection -> {
-			        PreparedStatement ps = connection
-			          .prepareStatement(INSERT_MESSAGE_SQL);
-			         
-			        java.util.Date utilDate = cargaWms.getFechaCarga();
-					java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-					
-					
-			          ps.setDate(1,sqlDate);
-			          ps.setString(2, cargaWms.getHoraCarga());
-			          ps.setInt(3, cargaWms.getNumRegistros());
-			          ps.setString(4, cargaWms.getUsuarioCarga());
-			          ps.setInt(5, cargaWms.getIdmTipoImportacion());
-			          ps.setInt(6, cargaWms.getIdmestadoCuadratura());
-					  ps.setBoolean(7, cargaWms.isEstado()) ;
-						
-				
-			          
-			          return ps;
-			        }, keyHolder);
+			java.util.Date utilDate = cargaWms.getFechaCarga();
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-			        return (long) keyHolder.getKey();
-			        */
-			        
-			  KeyHolder keyHolder = new GeneratedKeyHolder();
-			    jdbcTemplate.update(connection -> {
-			      PreparedStatement ps = connection.prepareStatement(INSERT_MESSAGE_SQL, new String[] { "idCarga_WMS" });
-			      
-			      java.util.Date utilDate = cargaWms.getFechaCarga();
-					java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-					
-					
-			          ps.setDate(1,sqlDate);
-			          ps.setString(2, cargaWms.getHoraCarga());
-			          ps.setInt(3, cargaWms.getNumRegistros());
-			          ps.setString(4, cargaWms.getUsuarioCarga());
-			          ps.setInt(5, cargaWms.getIdmTipoImportacion());
-			          ps.setInt(6, cargaWms.getIdmestadoCuadratura());
-					  ps.setBoolean(7, cargaWms.isEstado()) ;
-						
-			      
-			      
-			      
-			      return ps;
-			    }, keyHolder);
-			    LOGGER.info("ggg");
-			    
-			    return keyHolder.getKey().longValue();
-			        
-			        
-			        
-			    }
+			ps.setDate(1, sqlDate);
+			ps.setString(2, cargaWms.getHoraCarga());
+			ps.setInt(3, cargaWms.getNumRegistros());
+			ps.setString(4, cargaWms.getUsuarioCarga());
+			ps.setInt(5, cargaWms.getIdmTipoImportacion());
+			ps.setInt(6, cargaWms.getIdmestadoCuadratura());
+			ps.setBoolean(7, cargaWms.isEstado());
 
-	
-	
+			return ps;
+		}, keyHolder);
+		LOGGER.info("recupera");
+
+		return keyHolder.getKey().longValue();
+
+	}
+
 }

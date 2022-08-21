@@ -15,7 +15,7 @@ public class JdbcTemplateConfig {
 	JdbcTemplate jdbctemplateOne(@Qualifier("dsOne") DataSource dsOne) {
 		return new JdbcTemplate(dsOne);
 	}
-	
+
 	@Bean
 	JdbcTemplate jdbctemplateTwo(@Qualifier("dsTwo") DataSource dsTwo) {
 		return new JdbcTemplate(dsTwo);

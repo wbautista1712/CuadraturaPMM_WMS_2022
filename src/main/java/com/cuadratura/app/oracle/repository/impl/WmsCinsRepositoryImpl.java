@@ -43,7 +43,7 @@ public class WmsCinsRepositoryImpl implements WmsCinsRepository {
 				+ "FROM INTEGRACION.WMS_CINS WHERE FACILITY_CODE IN ('CD06','CD11','CD12','CD ECO')  AND hierarchy2_code ='F01' AND item_alternate= '141211'  AND nro_carga ='10925' ";
 		Query q = entityManager.createNativeQuery(sql);
 		List<Object[]> customerList = q.getResultList();
-		LOGGER.info("customerList "+customerList.size());
+		LOGGER.info("WMS_CINS_List "+customerList.size());
 		return customerList;
 	}
 
