@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class JdbcTemplateConfig {
+	
 	@Bean
 	@Primary
 	JdbcTemplate jdbctemplateOne(@Qualifier("dsOne") DataSource dsOne) {

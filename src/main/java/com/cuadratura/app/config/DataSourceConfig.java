@@ -24,6 +24,5 @@ public class DataSourceConfig   {
 	@ConfigurationProperties (prefix= "mysql.datasource")
 	DataSource dsTwo (){
 		 return DruidDataSourceBuilder.create().build();
-	}
-	
+	}	
 }
