@@ -43,6 +43,7 @@ import lombok.ToString;
 
 @Table(name = "FAPINVBALEE", schema="PMM")
 public class Fapinvbalee implements Serializable {
+	
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected FapinvbaleePK fapinvbaleePK;
