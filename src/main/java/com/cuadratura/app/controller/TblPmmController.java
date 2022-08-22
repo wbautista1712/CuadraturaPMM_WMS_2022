@@ -68,17 +68,65 @@ public class TblPmmController {
 			LOGGER.info(".::: insert sobj.getDisponiblesWms():::. " + obj.getCurrCode());
 			tblPmm = new TblPmm();
 			tblPmm.setCurrCode(obj.getCurrCode());
-
-			tblPmm.setToOrdCost(obj.getToOrdCost());
+			tblPmm.setFirstPisDate(obj.getFirstPisDate());
+			tblPmm.setFirstSalesDate(obj.getFirstSalesDate());
+			tblPmm.setFirstShippedDate(obj.getFirstShippedDate());
+			
 			tblPmm.setIdCargaPMM(id);
-
-			tblPmm.setOnHandQty(obj.getOnHandQty());
-			tblPmm.setOrgLvlChild((int) obj.getFapinvbaleePK().getOrgLvlChild());
-
-			tblPmm.setPrdLvlChild(1);
-
 			tblPmm.setInvTypeCode("01");
+			
+			tblPmm.setLastChgDate(obj.getLastChgDate());
+			tblPmm.setLastPisDate(obj.getLastPisDate());
+			tblPmm.setLtdCost(obj.getLtdCost());
+			
+			tblPmm.setLtdQty(obj.getLtdQty());
+			tblPmm.setLtdRetl(obj.getLtdRetl());
+			tblPmm.setLtdWeight(obj.getLtdWeight());
+			
+			tblPmm.setOnHandCost(obj.getOnHandCost());
+			tblPmm.setOnHandCostHm(obj.getOnHandCostHm());
+			tblPmm.setOnHandEaches(obj.getOnHandEaches());
+			tblPmm.setOnHandQty(obj.getOnHandQty());
+			
+			tblPmm.setOnHandRetl(obj.getOnHandRetl());
+			tblPmm.setOnHandRetlHm(obj.getOnHandRetlHm());
+			tblPmm.setOnHandWeight(obj.getOnHandWeight());
+			
+			
+			// tblPmm.setOrgLvlChild(obj.getOrgLvlChild());
+			tblPmm.setOrgLvlChild((int) obj.getFapinvbaleePK().getOrgLvlChild());
+			
+			tblPmm.setPoIntrnCost(obj.getPoIntrnCost());
+			tblPmm.setPoIntrnQty(obj.getPoIntrnQty());
+			
+			tblPmm.setPoIntrnRetl(obj.getPoIntrnRetl());
+			tblPmm.setPoIntrnWeight(obj.getPoIntrnWeight());
+			tblPmm.setPoOrdCost(obj.getPoOrdCost());
+			tblPmm.setPoOrdQty(obj.getPoOrdQty());
+			tblPmm.setPoOrdRetl(obj.getPoOrdRetl());
+			tblPmm.setPoOrdWeight(obj.getPoOrdWeight());
+			
+			//tblPmm.setPrdLvlChild(obj.getPrdLvlChild());
+			tblPmm.setPrdLvlChild(1);
+			
+			tblPmm.setPrdSllUom(obj.getPrdSllUom());			
+			tblPmm.setToIntrnCost(obj.getToIntrnCost());
+			tblPmm.setToIntrnCostHm(obj.getToIntrnCostHm());
+			tblPmm.setToIntrnQty(obj.getToIntrnQty());
+			tblPmm.setToIntrnRetl(obj.getToIntrnRetl());
+			tblPmm.setToIntrnRetlHm(obj.getToIntrnRetlHm());
+			tblPmm.setToIntrnWeight(obj.getToIntrnWeight());
+			tblPmm.setToOrdCost(obj.getToOrdCost());
+			tblPmm.setToOrdQty(obj.getToOrdQty());
+			
+			tblPmm.setToOrdRetl(obj.getToOrdRetl());
+			tblPmm.setToOrdWeight(obj.getToOrdWeight());
+
+			//tblPmm.setTransLote(obj.getTransLote());
 			tblPmm.setTransLote(obj.getFapinvbaleePK().getTransLote());
+			
+			tblPmm.setTransVctoLote(obj.getTransVctoLote());
+			tblPmm.setWeightUom(obj.getWeightUom());
 
 			tblPmmService.save(tblPmm);
 
@@ -86,4 +134,5 @@ public class TblPmmController {
 		return "ok";
 		//return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo PMM");
 	}
+	
 }

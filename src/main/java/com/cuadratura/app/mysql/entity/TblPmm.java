@@ -52,7 +52,7 @@ public class TblPmm implements Serializable {
 	private Integer idTblPMM;
 	@Basic(optional = false)
 	@Column(name = "org_lvl_child")
-	private int orgLvlChild;
+	private Integer orgLvlChild;
 	@Basic(optional = false)
 	@Column(name = "trans_lote")
 	private String transLote;
@@ -62,7 +62,7 @@ public class TblPmm implements Serializable {
 	@Column(name = "on_hand_qty")
 	private BigDecimal onHandQty;
 	@Column(name = "on_hand_retl")
-	private String onHandRetl;
+	private BigDecimal onHandRetl;
 	@Column(name = "on_hand_cost")
 	private BigDecimal onHandCost;
 	@Column(name = "po_ord_qty")
@@ -90,9 +90,9 @@ public class TblPmm implements Serializable {
 	@Column(name = "to_intrn_cost")
 	private BigDecimal toIntrnCost;
 	@Column(name = "first_pis_date")
-	private BigDecimal firstPisDate;
+	private Date firstPisDate;
 	@Column(name = "last_pis_date")
-	private BigDecimal lastPisDate;
+	private Date lastPisDate;
 	@Column(name = "ltd_qty")
 	private BigDecimal ltdQty;
 	@Column(name = "ltd_retl")
@@ -100,7 +100,7 @@ public class TblPmm implements Serializable {
 	@Column(name = "ltd_cost")
 	private BigDecimal ltdCost;
 	@Column(name = "last_chg_date")
-	private String lastChgDate;
+	private Date lastChgDate;
 	@Column(name = "tbl_pmmcol")
 	@Temporal(TemporalType.DATE)
 	private Date tblPmmcol;
