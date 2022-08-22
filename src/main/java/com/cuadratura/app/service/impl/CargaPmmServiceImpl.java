@@ -1,5 +1,7 @@
 package com.cuadratura.app.service.impl;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.repository.CargaPmmRepository;
+import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
 import com.cuadratura.app.service.CargaPmmService;
 
 
@@ -27,5 +30,10 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 	public Long saveCargaPmm(CargaPmm cargaPmm) {
 		LOGGER.info("insert saveCargaPmm");
 		return cargaPmmRepository.saveCargaPmm(cargaPmm);
+	}
+	
+	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta){
+		LOGGER.info("get getAllFindFotoPmm");
+		return cargaPmmRepository.getAllFindFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta);
 	}
 }
