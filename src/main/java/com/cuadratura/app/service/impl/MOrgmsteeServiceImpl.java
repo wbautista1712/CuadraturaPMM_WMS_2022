@@ -20,6 +20,7 @@ public class MOrgmsteeServiceImpl extends GenericServiceImpl<MOrgmstee, Integer>
 	@Override
 	public CrudRepository<MOrgmstee, Integer> getDao() {
 		// TODO Auto-generated method stub
+		LOGGER.info("dddddddddd");
 		return mOrgmsteeRepository;
 	}
 }
