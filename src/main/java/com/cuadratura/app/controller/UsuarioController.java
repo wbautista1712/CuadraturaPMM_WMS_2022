@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ import com.cuadratura.app.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 	
 	private static final Logger LOGGER = LogManager.getLogger(UsuarioController.class);
@@ -44,6 +46,7 @@ public class UsuarioController {
 
 	@GetMapping("/usuarios")
 	public List<Usuario> index() {
+		LOGGER.info("UsuarioController ");
 		return usuarioService.findAll();
 	}
 
@@ -159,7 +162,7 @@ public class UsuarioController {
 
 		response.put("mensaje", "El usuario ha sido actualizado con éxito!");
 		response.put("cliente", usuarioUpdated);
-
+		LOGGER.info("update ");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 }
