@@ -143,6 +143,7 @@ public class ScheduledTasks {
         cargaWms.setIdmTipoImportacion(1);
         cargaWms.setIdmestadoCuadratura(1);
         cargaWms.setUsuarioCarga("wilber");
+		cargaWms.setOrgLvlChild(1);
         Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
         logger.info("id ==> " +id);
         
