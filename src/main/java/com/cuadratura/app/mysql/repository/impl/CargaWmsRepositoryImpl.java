@@ -36,8 +36,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public Long saveCargaWms(CargaWms cargaWms) {
-		// TODO Auto-generated method stub
+	public Long saveCargaWms(CargaWms cargaWms) {		
 
 		String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_wms "
 				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado, org_lvl_child) "
