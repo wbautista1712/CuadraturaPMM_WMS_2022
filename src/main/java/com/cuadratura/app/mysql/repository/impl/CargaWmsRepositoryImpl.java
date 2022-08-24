@@ -40,8 +40,8 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 		// TODO Auto-generated method stub
 
 		String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_wms "
-				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado) "
-				+ "VALUES (?,?,?,?,?,?,?)";
+				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado, org_lvl_child) "
+				+ "VALUES (?,?,?,?,?,?,?, ?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(connection -> {
@@ -57,7 +57,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 			ps.setInt(5, cargaWms.getIdmTipoImportacion());
 			ps.setInt(6, cargaWms.getIdmestadoCuadratura());
 			ps.setBoolean(7, cargaWms.isEstado());
-
+			ps.setInt(8, cargaWms.getOrgLvlChild());
 			return ps;
 		}, keyHolder);
 		LOGGER.info("recupera");
