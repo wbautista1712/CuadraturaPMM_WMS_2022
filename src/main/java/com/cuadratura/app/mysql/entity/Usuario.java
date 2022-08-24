@@ -1,19 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cuadratura.app.mysql.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,10 +26,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- *
- * @author ARANGO
- */
 @Entity
 @Getter
 @Setter
@@ -36,32 +35,34 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "usuario", schema = "db_cuadratura")
-
 public class Usuario implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idUsuario")
-    private Integer idUsuario;
-    @Basic(optional = false)
-    @Column(name = "apPaterno")
-    private String apPaterno;
-    @Basic(optional = false)
-    @Column(name = "apMaterno")
-    private String apMaterno;
-    @Basic(optional = false)
-    @Column(name = "nombres")
-    private String nombres;
-    @Basic(optional = false)
-    @Column(name = "email")
-    private String email;
-    @Basic(optional = false)
-    @Column(name = "password")
-    private String password;
-    @Basic(optional = false)
-    @Column(name = "estado")
-    private boolean estado;
 
-   
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	private Long idusuario;
+
+	@Column(name = "username", unique = true, length = 20)
+	private String username;
+
+	@Column(length = 60)
+	private String password;
+
+	private Boolean estado;
+
+	private String nombres;
+	private String appaterno;
+	private String apmaterno;
+
+	@Column(unique = true)
+	private String email;
+
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "idusuario"), inverseJoinColumns = @JoinColumn(name = "idrol"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "idusuario", "idrol" }) })
+	private List<Rol> roles;
+
 }
