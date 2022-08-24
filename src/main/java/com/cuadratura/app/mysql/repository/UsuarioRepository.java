@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cuadratura.app.mysql.entity.Usuario;
 
 
-public interface IUsuarioDao extends JpaRepository<Usuario, Long>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	public Usuario findByUsername(String username);
 	

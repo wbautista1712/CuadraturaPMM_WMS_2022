@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cuadratura.app.mysql.entity.Usuario;
-import com.cuadratura.app.mysql.repository.IUsuarioDao;
+import com.cuadratura.app.mysql.repository.UsuarioRepository;
 import com.cuadratura.app.service.UsuarioService;
 
 
@@ -29,7 +29,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService{
 	private Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
 	@Autowired
-	private IUsuarioDao usuarioDao;
+	private UsuarioRepository usuarioDao;
 	
 	@Override
 	@Transactional(readOnly=true)
