@@ -38,7 +38,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "m_tipo_logica", schema = "db_cuadratura")
+@Table(name = "m_tipo_logica", schema = "cuadratura")
 
 public class MTipoLogica implements Serializable {
     private static final long serialVersionUID = 1L;

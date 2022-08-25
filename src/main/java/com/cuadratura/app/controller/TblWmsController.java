@@ -54,8 +54,8 @@ public class TblWmsController {
 		cargaWms.setNumRegistros(listaWmsCinsDto.size());
 		cargaWms.setIdmTipoImportacion(1);
 		cargaWms.setIdmestadoCuadratura(1);
-		cargaWms.setUsuarioCarga("wilber");
-		cargaWms.setOrgLvlChild(1);
+		cargaWms.setUsuarioCarga("WBAUTISTA");
+		cargaWms.setOrgNameShort("CD04");
 		Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
 		LOGGER.info("id ==> " + id);
 

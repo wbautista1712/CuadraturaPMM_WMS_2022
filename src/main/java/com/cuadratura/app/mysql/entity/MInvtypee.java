@@ -36,7 +36,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "m_invtypee", schema = "db_cuadratura")
+@Table(name = "m_invtypee", schema = "cuadratura")
 
 public class MInvtypee implements Serializable {
     private static final long serialVersionUID = 1L;

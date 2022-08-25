@@ -41,10 +41,11 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "carga_wms", schema = "db_cuadratura")
+@Table(name = "carga_wms", schema = "cuadratura")
 
 public class CargaWms implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -66,18 +67,20 @@ public class CargaWms implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private boolean estado;
-    @Column(name = "id_m_TipoImportacion")  
+    
+    @Column(name = "org_name_short")
+    private String orgNameShort;
+    
+    @Column(name = "id_m_TipoImportacion")
     private Integer idmTipoImportacion;
-    @Column(name = "id_m_estadoCuadratura")    
+    
+    @Column(name = "id_m_estadoCuadratura")
     private Integer idmestadoCuadratura;
-    
-    @Column(name = "org_lvl_child")    
-    private Integer orgLvlChild;
-    
+    /*
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaWMS")
     private Collection<TblPmmWms> tblPmmWmsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaWMS")
     private Collection<TblWms> tblWmsCollection;
-
+*/
     
 }

@@ -38,8 +38,8 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 	@Override
 	public Long saveCargaWms(CargaWms cargaWms) {		
 
-		String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_wms "
-				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado, org_lvl_child) "
+		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.carga_wms "
+				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado, org_name_short) "
 				+ "VALUES (?,?,?,?,?,?,?, ?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -56,7 +56,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 			ps.setInt(5, cargaWms.getIdmTipoImportacion());
 			ps.setInt(6, cargaWms.getIdmestadoCuadratura());
 			ps.setBoolean(7, cargaWms.isEstado());
-			ps.setInt(8, cargaWms.getOrgLvlChild());
+			ps.setString(8, cargaWms.getOrgNameShort());
 			return ps;
 		}, keyHolder);
 		LOGGER.info("recupera");

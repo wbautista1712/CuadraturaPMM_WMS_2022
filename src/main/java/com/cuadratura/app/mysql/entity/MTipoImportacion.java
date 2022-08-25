@@ -38,7 +38,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "m_tipo_importacion", schema = "db_cuadratura")
+@Table(name = "m_tipo_importacion", schema = "cuadratura")
 
 public class MTipoImportacion implements Serializable {
     private static final long serialVersionUID = 1L;
