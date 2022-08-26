@@ -74,7 +74,7 @@ public class TblPmmController {
 			tblPmm.setFirstShippedDate(obj.getFirstShippedDate());
 
 			tblPmm.setIdCargaPMM(id);
-			tblPmm.setInvTypeCode("01");
+			tblPmm.setInvTypeCode(obj.getFapinvbaleePK().getInvTypeCode());
 
 			tblPmm.setLastChgDate(obj.getLastChgDate());
 			tblPmm.setLastPisDate(obj.getLastPisDate());
