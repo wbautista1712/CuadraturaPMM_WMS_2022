@@ -45,7 +45,7 @@ public class TblWmsController {
 		LOGGER.info("inicio");
 		List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins();
 		CargaWms cargaWms = new CargaWms();
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss"); //21/08/2022 14:06:33
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); //21/08/2022 14:06:33
 		DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
 		
 		cargaWms.setFechaCarga(dateTimeProceso.toDate());
