@@ -29,7 +29,7 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 	@Override
 	public Long saveCargaPmm(CargaPmm cargaPmm) {
 	
-		String INSERT_MESSAGE_SQL = "INSERT INTO db_cuadratura.carga_pmm "
+		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.carga_pmm "
 				+ "(estado, fechaCarga, horaCarga, id_m_TipoImportacion, id_m_estadoCuadratura, nombreArchivo, numRegistros, org_lvl_child, usuarioCarga) "
 				+ "VALUES (?,?,?,?,?,?,?,?,?)";
 
@@ -37,12 +37,12 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 		jdbcTemplate.update(connection -> {
 			PreparedStatement ps = connection.prepareStatement(INSERT_MESSAGE_SQL, new String[] { "idCarga_PMM" });
 
-			java.util.Date utilDate = cargaPmm.getFechaCarga();
+			java.util.Date utilDate = cargaPmm.getFechaFoto();
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			
 			ps.setBoolean(1, cargaPmm.isEstado());
 			ps.setDate(2, sqlDate);
-			ps.setString(3, cargaPmm.getHoraCarga());
+			ps.setString(3, cargaPmm.getHoraFoto());
 			ps.setInt(4, cargaPmm.getIdmTipoImportacion());
 			ps.setInt(5, cargaPmm.getIdmestadoCuadratura());
 			ps.setString(6,  cargaPmm.getNombreArchivo());

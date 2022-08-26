@@ -48,12 +48,12 @@ public class CargaPmm implements Serializable {
     @Column(name = "idCarga_PMM")
     private Integer idCargaPMM;
     @Basic(optional = false)
-    @Column(name = "fechaCarga")
+    @Column(name = "fechaFoto")
     @Temporal(TemporalType.DATE)
-    private Date fechaCarga;
+    private Date fechaFoto;
     @Basic(optional = false)
-    @Column(name = "horaCarga")
-    private String horaCarga;
+    @Column(name = "horaFoto")
+    private String horaFoto;
     @Basic(optional = false)
     @Column(name = "numRegistros")
     private int numRegistros;

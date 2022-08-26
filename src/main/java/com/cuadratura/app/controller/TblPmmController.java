@@ -51,8 +51,8 @@ public class TblPmmController {
 		// codigo de carga carga_pmm
 		CargaPmm cargaPmm = new CargaPmm();
 
-		cargaPmm.setFechaCarga(dateTimeProceso.toDate());
-		cargaPmm.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
+		cargaPmm.setFechaFoto(dateTimeProceso.toDate());
+		cargaPmm.setHoraFoto(dateTimeFormatter.format(LocalDateTime.now()));
 		cargaPmm.setNumRegistros(listaTblPmmForm.size());
 		cargaPmm.setUsuarioCarga("Wilber");
 

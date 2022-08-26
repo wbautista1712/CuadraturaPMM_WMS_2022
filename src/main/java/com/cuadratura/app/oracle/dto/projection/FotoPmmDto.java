@@ -2,19 +2,21 @@ package com.cuadratura.app.oracle.dto.projection;
 
 public interface FotoPmmDto {
 
-	public String getIdCargaPmm();
+	public String getIdCarga_Pmm();
 
-	public String getFechaCarga();
+	public String getFecha_Foto();
 
-	public String getHoraCarga();
+	public String getHora_Foto();
 
-	public String getNumRegistros();
+	public String getFecha_Carga();
 
-	public String getNombreArchivo();
+	public String getHora_Carga();
 
-	public String getUsuarioCarga();
+	public String getRegistros();
 
-	public String getNombreTi();
+	public String getUsuario();
+
+	public String getNombre_Archivo();
 
 	public String getEstado();
 

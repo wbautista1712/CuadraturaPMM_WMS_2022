@@ -65,8 +65,8 @@ public class ScheduledTasks {
     	//codigo de carga carga_pmm
     	CargaPmm cargaPmm = new CargaPmm();
 
-    	cargaPmm.setFechaCarga(new Date());
-    	cargaPmm.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));    
+    	cargaPmm.setFechaFoto(new Date());
+    	cargaPmm.setHoraFoto(dateTimeFormatter.format(LocalDateTime.now()));    
     	cargaPmm.setNumRegistros(listaTblPmmForm.size());    
     	cargaPmm.setUsuarioCarga("Wilber"); 
     	

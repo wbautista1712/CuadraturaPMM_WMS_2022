@@ -10,11 +10,10 @@ import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
 
 @Repository
 public interface CargaPmmRepository extends CrudRepository<CargaPmm, Integer>, CargaPmmRepositoryCustom {
-	@Query(value = "SELECT PMM.idcarga_PMM idCargaPMM, PMM.fechaCarga, PMM.horaCarga,  PMM.numRegistros, PMM.nombreArchivo, PMM.usuarioCarga, "
-			+ "TI.nombreTI, EC.nombreEC AS estado "
-			+ "FROM db_cuadratura.carga_pmm PMM "
-			+ "INNER JOIN m_tipo_importacion TI ON PMM.id_m_TipoImportacion=TI.id_m_TipoImportacion "
-			+ "INNER JOIN m_estado_cuadratura EC ON PMM.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "
-			+ "WHERE PMM.org_lvl_child=1 AND PMM.fechaCarga BETWEEN '2022-08-21' AND '2022-08-21' ", nativeQuery = true)
+	@Query(value = "SELECT C.idCarga_PMM, C.fechaFoto AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d-%m-%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
+			+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
+			+ "FROM cuadratura.carga_pmm C "
+			+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "
+			+ "WHERE C.org_lvl_child=:idCentroDistribucion AND C.fechaFoto BETWEEN :fechaDesde AND :fechaHasta ", nativeQuery = true)
 	List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta);
 }
