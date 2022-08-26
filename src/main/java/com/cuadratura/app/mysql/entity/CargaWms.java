@@ -82,5 +82,7 @@ public class CargaWms implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargaWMS")
     private Collection<TblWms> tblWmsCollection;
 */
+    @Column(name = "nombreArchivo")
+    private String nombreArchivo;
     
 }

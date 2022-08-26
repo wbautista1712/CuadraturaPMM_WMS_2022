@@ -56,6 +56,7 @@ public class TblWmsController {
 		cargaWms.setIdmestadoCuadratura(1);
 		cargaWms.setUsuarioCarga("WBAUTISTA");
 		cargaWms.setOrgNameShort("CD04");
+	//	cargaWms.setNombreArchivo(nombreArchivo);
 		Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
 		LOGGER.info("id ==> " + id);
 
