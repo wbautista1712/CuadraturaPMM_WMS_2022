@@ -13,7 +13,11 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class MOrgmsteePK implements Serializable {
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Basic(optional = false)
     @Column(name = "org_lvl_child")
     private int orgLvlChild;
     @Basic(optional = false)

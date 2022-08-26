@@ -1,0 +1,40 @@
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+mysql:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: s1st3m4-cv4dr4tvr4.D3v
+    url: jdbc:mysql://127.0.0.1:3309/cuadratura?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: sistema-cuadratura-dev
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+oracle:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    password: Crd4##$$21Pm#M
+    url: jdbc:oracle:thin:@10.86.1.44:1521/PMMQAS
+    username: CUADRATURAWYP
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+server:
+  port: 6666
+spring:
+  datasource:
+    hikari:
+      connectionTimeout: '30000   '
+      idleTimeout: '600000          '
+      maxLifetime: '1800000      '
+      maximumPoolSize: 30
+  jpa:
+    open-in-view: false
+  main:
+    allow-circular-references: true
