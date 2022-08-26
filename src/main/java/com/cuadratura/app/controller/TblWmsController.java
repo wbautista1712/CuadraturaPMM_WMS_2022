@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
@@ -21,6 +22,7 @@ import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 import com.cuadratura.app.service.CargaWmsService;
 import com.cuadratura.app.service.TblWmsService;
 import com.cuadratura.app.service.WmsCinsService;
+import com.cuadratura.app.util.Constantes;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -41,22 +43,23 @@ public class TblWmsController {
 	private CargaWmsService cargaWmsService;
 
 	@PostMapping(value = "/crearCuadraturaWMS")
-	public String crearCuadraturaWMS(@RequestBody String  fechaProceso) throws Exception {
+	public String crearCuadraturaWMS(@RequestParam String fechaProceso, @RequestParam String idCD) throws Exception {
 		LOGGER.info("inicio");
 		List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins();
 		CargaWms cargaWms = new CargaWms();
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); //21/08/2022 14:06:33
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022
+																									// 14:06:33
 		DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
-		
+
 		cargaWms.setFechaCarga(dateTimeProceso.toDate());
 		cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
 		cargaWms.setEstado(true);
 		cargaWms.setNumRegistros(listaWmsCinsDto.size());
-		cargaWms.setIdmTipoImportacion(1);
-		cargaWms.setIdmestadoCuadratura(1);
-		cargaWms.setUsuarioCarga("WBAUTISTA");
-		cargaWms.setOrgNameShort("CD04");
-	//	cargaWms.setNombreArchivo(nombreArchivo);
+		cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
+		cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
+		cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+		cargaWms.setOrgNameShort(idCD);
+		// cargaWms.setNombreArchivo(nombreArchivo);
 		Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
 		LOGGER.info("id ==> " + id);
 
@@ -152,7 +155,8 @@ public class TblWmsController {
 			tblWmsService.save(tblWms);
 			LOGGER.info("fin insercion postman  ==> ");
 		}
-return "ok";
-		//return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo WMS");
+		return "ok";
+		// return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo
+		// WMS");
 	}
 }
