@@ -2,17 +2,19 @@ package com.cuadratura.app.oracle.dto.projection;
 
 public interface FotoWmsDto {
 
-	public String getIdCargaWms();
+	public Integer getIdCarga_Wms();
 
-	public String getFechaCarga();
+	public String getFecha_Foto();
 
-	public String getHoraCarga();
+	public String getHora_Foto();
 
-	public String getNumRegistros();
+	public String getFecha_Carga();
 
-	public String getUsuarioCarga();
+	public String getHora_Carga();
 
-	public String getNombreTi();
+	public Integer getRegistros();
+
+	public String getUsuario();
 
 	public String getEstado();
 
