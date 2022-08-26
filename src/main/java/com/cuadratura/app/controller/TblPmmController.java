@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
@@ -37,12 +38,11 @@ public class TblPmmController {
 
 	@Autowired
 	private CargaPmmService cargaPmmService;
-
 	@Autowired
 	private TblPmmService tblPmmService;
 
 	@PostMapping(value = "/crearCuadraturaPMM")
-	public String crearCuadraturaPMM(@RequestBody @Valid String fechaProceso) throws Exception {
+	public String crearCuadraturaPMM(@RequestParam @Valid String fechaProceso, @RequestParam @Valid Integer idCD) throws Exception {
 		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee();
 		TblPmm tblPmm = null;
 		LOGGER.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
@@ -60,7 +60,7 @@ public class TblPmmController {
 
 		cargaPmm.setIdmTipoImportacion(1);
 		cargaPmm.setIdmestadoCuadratura(1);
-		cargaPmm.setOrgLvlChild(1); // distinct
+		cargaPmm.setOrgLvlChild(idCD); // distinct
 
 		Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 

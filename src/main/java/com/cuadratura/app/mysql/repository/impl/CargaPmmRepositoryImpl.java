@@ -28,7 +28,7 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 	
 	@Override
 	public Long saveCargaPmm(CargaPmm cargaPmm) {
-	
+		//prd_lvl_child
 		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.carga_pmm "
 				+ "(estado, fechaFoto, horaFoto, id_m_TipoImportacion, id_m_estadoCuadratura, nombreArchivo, numRegistros, org_lvl_child, usuarioCarga) "
 				+ "VALUES (?,?,?,?,?,?,?,?,?)";
