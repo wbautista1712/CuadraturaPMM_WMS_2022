@@ -1,27 +1,42 @@
 version: '3'
 services:
-  web:
-    build: .
-    container_name: web-server
-    restart: always
-    volumes:
-      - imagedata:/app/static/images/upload
-    ports:
-      - "8086:8086"
-    depends_on:
-      - mysql
-  mysql:
-    image: mysql:8.0.26
-    container_name: mysql
-    restart: always
-    volumes:
-      - dbdata:/var/lib/mysql
+  #Oracle Service
+  appOracleArango:
+    image: gvenzl/oracle-xe:21-slim  
+    container_name: arango_oracle
+    hostname: 127.0.0.1
     environment:
-      MYSQL_DATABASE: webserver #Create an initial empty database called webserver
-      MYSQL_ROOT_USER: root #root user
-      MYSQL_ROOT_PASSWORD: QWEasd123 #root password
-      MYSQL_ROOT_HOST: '%' 
-      TZ: Asia/Shanghai #time zone
-volumes:
-  dbdata:
-  imagedata:
+      - POSTGRES_DB=dbtest
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+
+
+    ports:
+      - '9091:5432'
+
+    networks:
+      - app-network
+
+ 
+
+  #MySQL Service
+  dbMysqlArango:
+    image: mysql:8.0
+    restart: always
+    container_name: arango_mysql
+    tty: true
+    environment:
+      MYSQL_DATABASE: 'dbdesa'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - "3306:3306"
+  
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge

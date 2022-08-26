@@ -25,8 +25,8 @@ public class CargaPmmController {
 	@Autowired
 	private CargaPmmService cargaPmmService;
 
-	@GetMapping(value = "/getAllFotoPmmm")
-	public ResponseEntity<List<FotoPmmDto>> getAllFotoPmmm(@RequestParam String idCD,
+	@GetMapping(value = "/getAllFotoPmm")
+	public ResponseEntity<List<FotoPmmDto>> getAllFotoPmm(@RequestParam String idCD,
 			@RequestParam String fechaDesde, @RequestParam String fechaHasta) {
 		try {
 			LOGGER.info("getAllFotoPmmm  fechaDesde "+fechaDesde);
