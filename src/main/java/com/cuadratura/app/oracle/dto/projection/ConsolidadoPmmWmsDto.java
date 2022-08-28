@@ -71,5 +71,4 @@ public interface ConsolidadoPmmWmsDto {
 	public String getBolsa_Discrepancia_Bj();
 
 	public String getEconomato_Disponible_Ec();
-
 }
