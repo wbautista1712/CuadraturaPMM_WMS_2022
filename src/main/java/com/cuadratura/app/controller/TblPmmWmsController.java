@@ -35,6 +35,7 @@ public class TblPmmWmsController {
 			List<ConsolidadoPmmWmsDto> result = tblPmmWmsService.getAllConsolidadoPmmWms(idCargaWms, idCargaPmm, idCD);
 			LOGGER.info("result getAllConsolidadoPmmWms "+result.size());
 			return ResponseEntity.status(HttpStatus.OK).body(result);
+			
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
