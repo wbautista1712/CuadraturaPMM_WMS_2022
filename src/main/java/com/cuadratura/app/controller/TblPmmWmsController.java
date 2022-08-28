@@ -20,6 +20,7 @@ import com.cuadratura.app.service.TblPmmWmsService;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/wmsmysql")
 public class TblPmmWmsController {
+	
 	private static final Logger LOGGER = LogManager.getLogger(TblPmmWmsController.class);
 
 	@Autowired
