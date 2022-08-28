@@ -21,7 +21,7 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService{
 	
 	@Override
 	public List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD) {
-		// TODO Auto-generated method stub
+	
 		LOGGER.info("paso");
 		return tblPmmWmsRepository.getAllConsolidadoPmmWms(idCargaWms, idCargaPmm, idCD);
 	}
