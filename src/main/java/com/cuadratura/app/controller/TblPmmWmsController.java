@@ -30,7 +30,6 @@ public class TblPmmWmsController {
 			@RequestParam Integer idCargaPmm, @RequestParam String idCD) {
 		try {
 			LOGGER.info("getAllFotoPmmm  idCargaWms "+idCargaWms);
-
 			List<ConsolidadoPmmWmsDto> result = tblPmmWmsService.getAllConsolidadoPmmWms(idCargaWms, idCargaPmm, idCD);
 			LOGGER.info("result getAllConsolidadoPmmWms "+result.size());
 			return ResponseEntity.status(HttpStatus.OK).body(result);
