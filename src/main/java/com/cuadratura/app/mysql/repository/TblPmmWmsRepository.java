@@ -11,7 +11,7 @@ import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
 import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 
 @Repository
-public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer>{
+public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> , TblPmmWmsRepositoryCustom{
 	
 	@Query(value = "	SELECT  		"+
 			"	T_WMS.idCarga_WMS,		"+

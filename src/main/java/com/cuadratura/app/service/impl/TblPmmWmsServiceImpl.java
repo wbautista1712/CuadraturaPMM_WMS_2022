@@ -32,4 +32,9 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 		return tblPmmWmsRepository.getAllResultadoPmmWms(idCargaWms, idCargaPmm);
 	}
 
+	@Override
+	public void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario) {
+		this.tblPmmWmsRepository.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario);
+	}
+
 }
