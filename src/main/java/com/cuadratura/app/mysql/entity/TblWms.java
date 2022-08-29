@@ -83,8 +83,6 @@ public class TblWms implements Serializable {
     private String batchNbr;
     @Column(name = "pre_pack_code")
     private String prePackCode;
-    @Column(name = "tbl_wmscol")
-    private String tblWmscol;
     @Column(name = "pre_pack_ratio")
     private Integer prePackRatio;
     @Column(name = "pre_pack_units")
