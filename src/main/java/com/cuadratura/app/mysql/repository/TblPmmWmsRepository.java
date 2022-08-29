@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.TblPmmWms;
 import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 
 @Repository
 public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer>{
@@ -69,4 +70,32 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer>{
 			"	)T_WMS ON T_PMM.CENTRO =T_WMS.CENTRO AND T_PMM.LOTE =T_WMS.LOTE AND T_PMM.COD_MATERIAL =T_WMS.COD_MATERIAL		"+
 			"	ORDER  BY T_WMS.MATERIAL, T_WMS.LOTE	", nativeQuery = true)
 	List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD);
+	
+	
+	@Query(value = "	SELECT 		"+
+			"	 date_format(DATE(NOW()),'%d/%m/%Y')  as fec_match,		"+
+			"	 TIME(NOW()) as hora_match,		"+
+			"	 t_wms.usuario_carga usuarios,		"+
+			"	t_pmm.CD cd_stk_pmm, t_pmm.CD cd_stk_wms, 		"+
+			"	t_pmm.fechaFoto fec_foto_pmm, t_pmm.horaFoto  hora_foto_pmm, 		"+
+			"	t_wms.fecha_foto fec_foto_wms, t_wms.hora_foto hora_foto_wms		"+
+			"	from 		"+
+			"	(		"+
+			"	SELECT distinct PMM.idCarga_PMM,  date_format(PMM.fechaFoto,'%d/%m/%Y') AS fechaFoto, PMM.horaFoto, C.org_name_short AS CD		"+
+			"	FROM cuadratura.carga_pmm PMM		"+
+			"	INNER JOIN cuadratura.m_orgmstee C ON PMM.org_lvl_child=C.org_lvl_child		"+
+			"	WHERE PMM.idCarga_PMM=10		"+
+			"	) t_pmm INNER  join 		"+
+			"	(		"+
+			"	SELECT distinct C.idCarga_WMS,		"+
+			"	date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS fecha_foto,		"+
+			"	CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS hora_foto,		"+
+			"	C.fechaCarga,		"+
+			"	C.horaCarga, C.usuario_carga, C.org_name_short AS CD		"+
+			"	FROM cuadratura.carga_wms C		"+
+			"	INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS		"+
+			"	WHERE C.idCarga_WMS=26		"+
+			"	) t_wms		"+
+			"	on t_pmm.CD = t_wms.cd		", nativeQuery = true)
+	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( Integer idCargaWms,	Integer idCargaPmm);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 import com.cuadratura.app.service.TblPmmWmsService;
 
 @RestController
@@ -31,10 +32,26 @@ public class TblPmmWmsController {
 			@RequestParam Integer idCargaPmm, @RequestParam String idCD) {
 		try {
 			
-			LOGGER.info("getAllFotoPmmm  idCargaWms "+idCargaWms);
+			LOGGER.info("getAllConsolidadoPmmWms  idCargaWms "+idCargaWms);
 			
 			List<ConsolidadoPmmWmsDto> result = tblPmmWmsService.getAllConsolidadoPmmWms(idCargaWms, idCargaPmm, idCD);
 			LOGGER.info("result getAllConsolidadoPmmWms "+result.size());
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+			
+		} catch (Exception ex) {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+		}
+	}
+	
+	@GetMapping(value = "/getAllResultadoPmmWms")
+	public ResponseEntity<List<ResultadoPmmWmsDto>> getAllResultadoPmmWms(@RequestParam Integer idCargaWms,
+			@RequestParam Integer idCargaPmm) {
+		try {
+			
+			LOGGER.info("getAllResultadoPmmWms  idCargaWms "+idCargaWms);
+			
+			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCargaWms, idCargaPmm);
+			LOGGER.info("result getAllResultadoPmmWms "+result.size());
 			return ResponseEntity.status(HttpStatus.OK).body(result);
 			
 		} catch (Exception ex) {

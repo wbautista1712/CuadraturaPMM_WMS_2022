@@ -9,21 +9,27 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.repository.TblPmmWmsRepository;
 import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 import com.cuadratura.app.service.TblPmmWmsService;
 
 @Service
-public class TblPmmWmsServiceImpl implements TblPmmWmsService{
+public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 
 	private static final Logger LOGGER = LogManager.getLogger(TblPmmWmsServiceImpl.class);
-	
+
 	@Autowired
 	private TblPmmWmsRepository tblPmmWmsRepository;
-	
+
 	@Override
-	public List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD) {
-	
+	public List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms(Integer idCargaWms, Integer idCargaPmm, String idCD) {
+
 		LOGGER.info("paso");
 		return tblPmmWmsRepository.getAllConsolidadoPmmWms(idCargaWms, idCargaPmm, idCD);
+	}
+
+	@Override
+	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(Integer idCargaWms, Integer idCargaPmm) {
+		return tblPmmWmsRepository.getAllResultadoPmmWms(idCargaWms, idCargaPmm);
 	}
 
 }
