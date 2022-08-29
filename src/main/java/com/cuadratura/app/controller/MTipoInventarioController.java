@@ -18,11 +18,11 @@ import com.cuadratura.app.service.MTipoInventarioService;
 @RequestMapping(path = "/api/wmsmysql")
 @CrossOrigin(origins = "*")
 public class MTipoInventarioController {
-private static final Logger LOGGER = LogManager.getLogger(MTipoInventarioController.class);
-	
+	private static final Logger LOGGER = LogManager.getLogger(MTipoInventarioController.class);
+
 	@Autowired
 	private MTipoInventarioService mTipoInventarioService;
-	
+
 	@GetMapping(value = "/obtenerTipoInventario")
 	public ResponseEntity<List<MTipoInventario>> obtenerTipoInventario() {
 		LOGGER.info("getAll");
