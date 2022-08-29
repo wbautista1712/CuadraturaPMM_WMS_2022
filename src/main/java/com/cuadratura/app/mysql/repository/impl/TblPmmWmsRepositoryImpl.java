@@ -9,11 +9,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.repository.TblPmmWmsRepositoryCustom;
-import com.cuadratura.app.oracle.repository.impl.WmsCinsRepositoryImpl;
 
 @Repository
 public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom{
-	private static final Logger LOGGER = LogManager.getLogger(WmsCinsRepositoryImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(TblPmmWmsRepositoryImpl.class);
 
 	@PersistenceContext(unitName = "jpa_mysql")
 	private EntityManager entityManager;
