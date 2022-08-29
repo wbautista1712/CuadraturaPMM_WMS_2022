@@ -100,9 +100,6 @@ public class TblPmm implements Serializable {
 	private BigDecimal ltdCost;
 	@Column(name = "last_chg_date")
 	private Date lastChgDate;
-	@Column(name = "tbl_pmmcol")
-	@Temporal(TemporalType.DATE)
-	private Date tblPmmcol;
 	@Column(name = "on_hand_weight")
 	private BigDecimal onHandWeight;
 	@Column(name = "weight_uom")
