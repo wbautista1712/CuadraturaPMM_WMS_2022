@@ -84,7 +84,7 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer>{
 			"	SELECT distinct PMM.idCarga_PMM,  date_format(PMM.fechaFoto,'%d/%m/%Y') AS fechaFoto, PMM.horaFoto, C.org_name_short AS CD		"+
 			"	FROM cuadratura.carga_pmm PMM		"+
 			"	INNER JOIN cuadratura.m_orgmstee C ON PMM.org_lvl_child=C.org_lvl_child		"+
-			"	WHERE PMM.idCarga_PMM=10		"+
+			"	WHERE PMM.idCarga_PMM=:idCargaPmm		"+
 			"	) t_pmm INNER  join 		"+
 			"	(		"+
 			"	SELECT distinct C.idCarga_WMS,		"+
@@ -94,7 +94,7 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer>{
 			"	C.horaCarga, C.usuario_carga, C.org_name_short AS CD		"+
 			"	FROM cuadratura.carga_wms C		"+
 			"	INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS		"+
-			"	WHERE C.idCarga_WMS=26		"+
+			"	WHERE C.idCarga_WMS=:idCargaWms		"+
 			"	) t_wms		"+
 			"	on t_pmm.CD = t_wms.cd		", nativeQuery = true)
 	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( Integer idCargaWms,	Integer idCargaPmm);
