@@ -1,7 +1,6 @@
 package com.cuadratura.app.oracle.dto.projection;
 
 public interface ResultadoPmmWmsDto {
-
 	
 	public String getFec_Match();
 	public String getHora_Match();
