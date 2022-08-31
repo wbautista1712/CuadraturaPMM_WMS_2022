@@ -42,8 +42,17 @@ public class MTipoInventarioServiceImpl  extends GenericServiceImpl<MTipoInventa
 			LOGGER.info(" fin fffff ");
 			
 			wmsCinsDto.setIdCrucePmmWms(((BigDecimal) fila[0] == null ? 0 : ((BigDecimal) fila[0])).intValue());
+
+			LOGGER.info(" fin fffff ");
+			
 			wmsCinsDto.setIdTblPmmWms(((BigDecimal) fila[1] == null ? 0 : ((BigDecimal) fila[1])).intValue());
+
+			LOGGER.info(" fin fffff ");
+			
 			wmsCinsDto.setFechaMatch(((BigDecimal) fila[2] == null ? 0 : ((BigDecimal) fila[2])).intValue());
+
+			LOGGER.info(" fin fffff ");
+			
 			wmsCinsDto.setHoraMatch(((BigDecimal) fila[3] == null ? 0 : ((BigDecimal) fila[3])).intValue());
 			wmsCinsDto.setMatPrdLvlChild(((BigDecimal) fila[4] == null ? 0 : ((BigDecimal) fila[4])).intValue());
 			wmsCinsDto.setTransLote(((BigDecimal) fila[5] == null ? 0 : ((BigDecimal) fila[5])).intValue());
