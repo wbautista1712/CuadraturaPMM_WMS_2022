@@ -33,8 +33,8 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 	}
 
 	@Override
-	public void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario) {
-		this.tblPmmWmsRepository.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario);
+	public void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario, int idCrucePmmWms) {
+		this.tblPmmWmsRepository.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, idCrucePmmWms);
 	}
 
 }

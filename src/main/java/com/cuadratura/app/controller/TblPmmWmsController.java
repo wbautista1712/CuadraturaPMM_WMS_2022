@@ -1,5 +1,8 @@
 package com.cuadratura.app.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
 import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
+import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;
+import com.cuadratura.app.util.Constantes;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -25,8 +31,13 @@ public class TblPmmWmsController {
 
 	private static final Logger LOGGER = LogManager.getLogger(TblPmmWmsController.class);
 
+	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
 	@Autowired
 	private TblPmmWmsService tblPmmWmsService;
+
+	@Autowired
+	private CrucePmmWmsService crucePmmWmsService;
 
 	@GetMapping(value = "/getAllConsolidadoPmmWms")
 	public ResponseEntity<List<ConsolidadoPmmWmsDto>> getAllConsolidadoPmmWms(@RequestParam Integer idCargaWms,
@@ -63,9 +74,22 @@ public class TblPmmWmsController {
 	@PostMapping(value = "/crearCrucePmmWms")
 	public ResponseEntity<?> crearCrucePmmWms(@RequestParam Integer idCargaPMM, @RequestParam Integer idCargaWMS,
 			@RequestParam String idCD, @RequestParam Integer idUsuario) throws Exception {
-		if (idCargaPMM == null)
+		if (idCargaPMM == null) {
 			return ResponseEntity.badRequest().body("Error Procesamiento");
-		tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario);
-		return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
+		} else {
+			CrucePmmWms crucePmmWms = new CrucePmmWms();
+
+			crucePmmWms.setFechaMatch(new Date());
+			crucePmmWms.setHoraMatch(dateTimeFormatter.format(LocalDateTime.now()));
+			crucePmmWms.setIdCargaPMM(idCargaPMM);
+			crucePmmWms.setIdCargaWMS(idCargaWMS);
+
+			crucePmmWms.setIdEstadoCuadratura(Constantes.ESTADO_CUADRATURA);
+
+			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
+
+			tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
+			return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
+		}
 	}
 }

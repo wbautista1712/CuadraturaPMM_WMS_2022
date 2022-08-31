@@ -72,30 +72,11 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> 
 	List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD);
 	
 	
-	@Query(value = "	SELECT 		"+
-			"	 date_format(DATE(NOW()),'%d/%m/%Y')  as fec_match,		"+
-			"	 TIME(NOW()) as hora_match,		"+
-			"	 t_wms.usuario_carga usuarios,		"+
-			"	t_pmm.CD cd_stk_pmm, t_pmm.CD cd_stk_wms, 		"+
-			"	t_pmm.fechaFoto fec_foto_pmm, t_pmm.horaFoto  hora_foto_pmm, 		"+
-			"	t_wms.fecha_foto fec_foto_wms, t_wms.hora_foto hora_foto_wms		"+
-			"	from 		"+
-			"	(		"+
-			"	SELECT distinct PMM.idCarga_PMM,  date_format(PMM.fechaFoto,'%d/%m/%Y') AS fechaFoto, PMM.horaFoto, C.org_name_short AS CD		"+
-			"	FROM cuadratura.carga_pmm PMM		"+
-			"	INNER JOIN cuadratura.m_orgmstee C ON PMM.org_lvl_child=C.org_lvl_child		"+
-			"	WHERE PMM.idCarga_PMM=:idCargaPmm		"+
-			"	) t_pmm INNER  join 		"+
-			"	(		"+
-			"	SELECT distinct C.idCarga_WMS,		"+
-			"	date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS fecha_foto,		"+
-			"	CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS hora_foto,		"+
-			"	C.fechaCarga,		"+
-			"	C.horaCarga, C.usuario_carga, C.org_name_short AS CD		"+
-			"	FROM cuadratura.carga_wms C		"+
-			"	INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS		"+
-			"	WHERE C.idCarga_WMS=:idCargaWms		"+
-			"	) t_wms		"+
-			"	on t_pmm.CD = t_wms.cd		", nativeQuery = true)
+	@Query(value = "xx	SELECT DISTINCT PW.id_tbl_pmm_wms, date_format(PW.fecha_match, '%d/%m/%Y') AS fecha_match, PW.hora_match, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
+			+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFoto, PMM.horaFoto, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCarga, WMS.horaCarga "
+			+ "FROM cuadratura.tbl_pmm_wms PW "
+			+ "INNER JOIN cuadratura.carga_pmm PMM ON PW.idCarga_PMM=PW.idCarga_PMM "
+			+ "INNER JOIN cuadratura.carga_wms WMS on WMS.idCarga_WMS=PW.idCarga_WMS "
+			+ "WHERE PW.id_tbl_pmm_wms=15	", nativeQuery = true)
 	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( Integer idCargaWms,	Integer idCargaPmm);
 }
