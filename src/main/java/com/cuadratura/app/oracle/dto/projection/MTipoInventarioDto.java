@@ -11,9 +11,9 @@ public class MTipoInventarioDto {
 	private String horaMatch;
 	private Integer matPrdLvlChild;
 	private String transLote;
-	private BigDecimal pmmDisponible;
-	private BigDecimal wmsDisponible;
-	private BigDecimal diferencia;
+	private Integer pmmDisponible;
+	private Integer wmsDisponible;
+	private Integer diferencia;
 	public Integer getIdCrucePmmWms() {
 		return idCrucePmmWms;
 	}
@@ -50,22 +50,22 @@ public class MTipoInventarioDto {
 	public void setTransLote(String transLote) {
 		this.transLote = transLote;
 	}
-	public BigDecimal getPmmDisponible() {
+	public Integer getPmmDisponible() {
 		return pmmDisponible;
 	}
-	public void setPmmDisponible(BigDecimal pmmDisponible) {
+	public void setPmmDisponible(Integer pmmDisponible) {
 		this.pmmDisponible = pmmDisponible;
 	}
-	public BigDecimal getWmsDisponible() {
+	public Integer getWmsDisponible() {
 		return wmsDisponible;
 	}
-	public void setWmsDisponible(BigDecimal wmsDisponible) {
+	public void setWmsDisponible(Integer wmsDisponible) {
 		this.wmsDisponible = wmsDisponible;
 	}
-	public BigDecimal getDiferencia() {
+	public Integer getDiferencia() {
 		return diferencia;
 	}
-	public void setDiferencia(BigDecimal diferencia) {
+	public void setDiferencia(Integer diferencia) {
 		this.diferencia = diferencia;
 	}
 	
