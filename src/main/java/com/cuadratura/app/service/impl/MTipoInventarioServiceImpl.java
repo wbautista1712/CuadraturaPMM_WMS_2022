@@ -35,30 +35,39 @@ public class MTipoInventarioServiceImpl  extends GenericServiceImpl<MTipoInventa
 		MTipoInventarioDto wmsCinsDto = null;
 		List<Object[]> list =this.mTipoInventarioRepository.listAnalisisAjustePmmWms(idCrucePmmWms, idTipoInventario);
 		List<MTipoInventarioDto> listConciliaPf = new ArrayList<MTipoInventarioDto>();
+		LOGGER.info(" fin fffff list "+list.size());
 		for (Object[] fila : list) {
 			wmsCinsDto = new MTipoInventarioDto();
 			
-
-			LOGGER.info(" fin fffff ");
+			/*
+			SELECT C.idCruce_pmm_wms, TBL.id_tbl_pmm_wms,date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch,
+			TBL.mat_prd_lvl_child, TBL.trans_lote, ifnull(TBL.pmm_disponible,0) as pmm_disponible, ifnull(TBL.wms_disponible,0) as wms_disponible, (ifnull(TBL.pmm_disponible,0)-ifnull(TBL.wms_disponible,0)) AS Diferencia
+			FROM cuadratura.cruce_pmm_wms C
+			INNER JOIN cuadratura.tbl_pmm_wms TBL ON C.idCruce_pmm_wms=TBL.idCruce_pmm_wms
+			WHERE C.idCruce_pmm_wms=idCruce_pmm_wms;
+			*/
 			
-			wmsCinsDto.setIdCrucePmmWms(((BigDecimal) fila[0] == null ? 0 : ((BigDecimal) fila[0])).intValue());
 
-			LOGGER.info(" fin fffff ");
+			LOGGER.info(" fin fffff 1 "+fila[0]);
+			
+			wmsCinsDto.setIdCrucePmmWms((fila[0] == null ? 0 : ((Integer) fila[0])));
+
+			LOGGER.info(" fin fffff 2 "+fila[1]);
 			
 			wmsCinsDto.setIdTblPmmWms(((BigDecimal) fila[1] == null ? 0 : ((BigDecimal) fila[1])).intValue());
 
-			LOGGER.info(" fin fffff ");
+			LOGGER.info(" fin fffff 3");
 			
-			wmsCinsDto.setFechaMatch(((BigDecimal) fila[2] == null ? 0 : ((BigDecimal) fila[2])).intValue());
+			wmsCinsDto.setFechaMatch((fila[2] == null ?"" : ((String) fila[2])));
 
-			LOGGER.info(" fin fffff ");
+			LOGGER.info(" fin fffff4 ");
 			
-			wmsCinsDto.setHoraMatch(((BigDecimal) fila[3] == null ? 0 : ((BigDecimal) fila[3])).intValue());
+			wmsCinsDto.setHoraMatch((fila[3] == null ?"" : ((String) fila[3])));
 			wmsCinsDto.setMatPrdLvlChild(((BigDecimal) fila[4] == null ? 0 : ((BigDecimal) fila[4])).intValue());
-			wmsCinsDto.setTransLote(((BigDecimal) fila[5] == null ? 0 : ((BigDecimal) fila[5])).intValue());
-			wmsCinsDto.setPmmDisponible(((BigDecimal) fila[6] == null ? 0 : ((BigDecimal) fila[6])).intValue());
-			wmsCinsDto.setWmsDisponible(((BigDecimal) fila[7] == null ? 0 : ((BigDecimal) fila[7])).intValue());
-			wmsCinsDto.setDiferencia(((BigDecimal) fila[8] == null ? 0 : ((BigDecimal) fila[8])).intValue());
+			wmsCinsDto.setTransLote((fila[5] == null ?"" : ((String) fila[5])));
+			wmsCinsDto.setPmmDisponible(((BigDecimal) fila[6] == null ?  BigDecimal.ZERO  : ((BigDecimal) fila[6])));
+			wmsCinsDto.setWmsDisponible(((BigDecimal) fila[7] == null ?  BigDecimal.ZERO  : ((BigDecimal) fila[7])));
+			wmsCinsDto.setDiferencia(((BigDecimal) fila[8] == null ?  BigDecimal.ZERO  : ((BigDecimal) fila[8])));
 			listConciliaPf.add(wmsCinsDto);
 			
 		}
