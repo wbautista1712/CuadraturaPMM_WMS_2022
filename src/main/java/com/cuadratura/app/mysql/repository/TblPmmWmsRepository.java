@@ -72,11 +72,13 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> 
 	List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD);
 	
 	
-	@Query(value = "xx	SELECT DISTINCT PW.id_tbl_pmm_wms, date_format(PW.fecha_match, '%d/%m/%Y') AS fecha_match, PW.hora_match, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-			+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFoto, PMM.horaFoto, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCarga, WMS.horaCarga "
-			+ "FROM cuadratura.tbl_pmm_wms PW "
-			+ "INNER JOIN cuadratura.carga_pmm PMM ON PW.idCarga_PMM=PW.idCarga_PMM "
-			+ "INNER JOIN cuadratura.carga_wms WMS on WMS.idCarga_WMS=PW.idCarga_WMS "
-			+ "WHERE PW.id_tbl_pmm_wms=15	", nativeQuery = true)
+	@Query(value = "SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
+			+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS, "
+			+ "PMM.idCarga_PMM, WMS.idCarga_WMS "
+			+ "FROM cuadratura.cruce_pmm_wms C "
+			+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
+			+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+			+ "WHERE C.idCarga_PMM=:idCargaPmm and C.idCarga_WMS=:idCargaWms "
+			+ "ORDER BY C.fechaMatch DESC	", nativeQuery = true)
 	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( Integer idCargaWms,	Integer idCargaPmm);
 }
