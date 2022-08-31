@@ -56,13 +56,12 @@ public class TblPmmWmsController {
 	}
 
 	@GetMapping(value = "/getAllResultadoPmmWms")
-	public ResponseEntity<List<ResultadoPmmWmsDto>> getAllResultadoPmmWms(@RequestParam Integer idCargaWms,
-			@RequestParam Integer idCargaPmm) {
+	public ResponseEntity<List<ResultadoPmmWmsDto>> getAllResultadoPmmWms(@RequestParam String idCD_org_name_short) {
 		try {
 
-			LOGGER.info("getAllResultadoPmmWms  idCargaWms " + idCargaWms);
+			LOGGER.info("getAllResultadoPmmWms  idCD_org_name_short " + idCD_org_name_short);
 
-			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCargaWms, idCargaPmm);
+			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCD_org_name_short);
 			LOGGER.info("result getAllResultadoPmmWms " + result.size());
 			return ResponseEntity.status(HttpStatus.OK).body(result);
 

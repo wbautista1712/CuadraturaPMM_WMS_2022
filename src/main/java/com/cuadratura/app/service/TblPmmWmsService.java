@@ -9,7 +9,8 @@ public interface TblPmmWmsService {
 	
 	List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD);
 	
-	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( Integer idCargaWms,	Integer idCargaPmm);
+	// Modificado W
+	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( String idCD_org_name_short);
 	
 	void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario, int idCrucePmmWms) ;
 }

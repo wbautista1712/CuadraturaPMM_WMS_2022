@@ -78,7 +78,7 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> 
 			+ "FROM cuadratura.cruce_pmm_wms C "
 			+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
 			+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
-			+ "WHERE C.idCarga_PMM=:idCargaPmm and C.idCarga_WMS=:idCargaWms "
+			+ "WHERE C.org_name_short=:org_name_short "
 			+ "ORDER BY C.fechaMatch DESC	", nativeQuery = true)
-	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( Integer idCargaWms,	Integer idCargaPmm);
+	List<ResultadoPmmWmsDto> getAllResultadoPmmWms( String idCD_org_name_short);
 }

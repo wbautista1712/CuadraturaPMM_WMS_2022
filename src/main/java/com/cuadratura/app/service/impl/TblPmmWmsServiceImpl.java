@@ -28,8 +28,8 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 	}
 
 	@Override
-	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(Integer idCargaWms, Integer idCargaPmm) {
-		return tblPmmWmsRepository.getAllResultadoPmmWms(idCargaWms, idCargaPmm);
+	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short) {
+		return tblPmmWmsRepository.getAllResultadoPmmWms(idCD_org_name_short);
 	}
 
 	@Override
