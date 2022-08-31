@@ -1,87 +1,75 @@
 package com.cuadratura.app.oracle.dto.projection;
 
+import java.math.BigDecimal;
+
 public class MTipoInventarioDto {
 
 	private Integer idCrucePmmWms;
+	
 	private Integer idTblPmmWms;
-	private Integer fechaMatch;
-	private Integer horaMatch;
+	private String fechaMatch;
+	private String horaMatch;
 	private Integer matPrdLvlChild;
-	private Integer transLote;
-	private Integer pmmDisponible;
-	private Integer wmsDisponible;
-	private Integer diferencia;
-
+	private String transLote;
+	private BigDecimal pmmDisponible;
+	private BigDecimal wmsDisponible;
+	private BigDecimal diferencia;
 	public Integer getIdCrucePmmWms() {
 		return idCrucePmmWms;
 	}
-
 	public void setIdCrucePmmWms(Integer idCrucePmmWms) {
 		this.idCrucePmmWms = idCrucePmmWms;
 	}
-
 	public Integer getIdTblPmmWms() {
 		return idTblPmmWms;
 	}
-
 	public void setIdTblPmmWms(Integer idTblPmmWms) {
 		this.idTblPmmWms = idTblPmmWms;
 	}
-
-	public Integer getFechaMatch() {
+	public String getFechaMatch() {
 		return fechaMatch;
 	}
-
-	public void setFechaMatch(Integer fechaMatch) {
+	public void setFechaMatch(String fechaMatch) {
 		this.fechaMatch = fechaMatch;
 	}
-
-	public Integer getHoraMatch() {
+	public String getHoraMatch() {
 		return horaMatch;
 	}
-
-	public void setHoraMatch(Integer horaMatch) {
+	public void setHoraMatch(String horaMatch) {
 		this.horaMatch = horaMatch;
 	}
-
 	public Integer getMatPrdLvlChild() {
 		return matPrdLvlChild;
 	}
-
 	public void setMatPrdLvlChild(Integer matPrdLvlChild) {
 		this.matPrdLvlChild = matPrdLvlChild;
 	}
-
-	public Integer getTransLote() {
+	public String getTransLote() {
 		return transLote;
 	}
-
-	public void setTransLote(Integer transLote) {
+	public void setTransLote(String transLote) {
 		this.transLote = transLote;
 	}
-
-	public Integer getPmmDisponible() {
+	public BigDecimal getPmmDisponible() {
 		return pmmDisponible;
 	}
-
-	public void setPmmDisponible(Integer pmmDisponible) {
+	public void setPmmDisponible(BigDecimal pmmDisponible) {
 		this.pmmDisponible = pmmDisponible;
 	}
-
-	public Integer getWmsDisponible() {
+	public BigDecimal getWmsDisponible() {
 		return wmsDisponible;
 	}
-
-	public void setWmsDisponible(Integer wmsDisponible) {
+	public void setWmsDisponible(BigDecimal wmsDisponible) {
 		this.wmsDisponible = wmsDisponible;
 	}
-
-	public Integer getDiferencia() {
+	public BigDecimal getDiferencia() {
 		return diferencia;
 	}
-
-	public void setDiferencia(Integer diferencia) {
+	public void setDiferencia(BigDecimal diferencia) {
 		this.diferencia = diferencia;
 	}
-
+	
+	
+	
+	
 }
