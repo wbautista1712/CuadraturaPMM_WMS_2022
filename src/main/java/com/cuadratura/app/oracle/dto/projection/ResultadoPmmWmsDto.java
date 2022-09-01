@@ -22,4 +22,5 @@ public interface ResultadoPmmWmsDto {
 
 	public Integer getIdcarga_Wms();
 
+	public String getEstado();
 }
