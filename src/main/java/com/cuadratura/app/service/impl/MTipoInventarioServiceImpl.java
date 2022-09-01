@@ -32,25 +32,25 @@ public class MTipoInventarioServiceImpl extends GenericServiceImpl<MTipoInventar
 	@Override
 	public List<MTipoInventarioDto> listAnalisisAjustePmmWms(int idCrucePmmWms, int idTipoInventario) {
 		// TODO Auto-generated method stub
-		MTipoInventarioDto wmsCinsDto = null;
+		MTipoInventarioDto mTipoInventarioDto = null;
 		List<Object[]> list = this.mTipoInventarioRepository.listAnalisisAjustePmmWms(idCrucePmmWms, idTipoInventario);
 		List<MTipoInventarioDto> listConciliaPf = new ArrayList<MTipoInventarioDto>();
 		LOGGER.info("  list " + list.size());
 
 		for (Object[] fila : list) {
-			wmsCinsDto = new MTipoInventarioDto();
+			mTipoInventarioDto = new MTipoInventarioDto();
 
-			wmsCinsDto.setIdCrucePmmWms(fila[0] == null ? 0 : ((Integer) fila[0]));
-			wmsCinsDto.setIdTblPmmWms(fila[1] == null ? 0 : ((Integer) fila[1]));
-			wmsCinsDto.setFechaMatch(fila[2] == null ? "" : ((String) fila[2]));
-			wmsCinsDto.setHoraMatch(fila[3] == null ? "" : ((String) fila[3]));
-			wmsCinsDto.setMatPrdLvlChild(fila[4] == null ? 0 : ((Integer) fila[4]));
-			wmsCinsDto.setTransLote(fila[5] == null ? "" : ((String) fila[5]));
-			wmsCinsDto.setPmmDisponible(fila[6] == null ? 0 : Integer.valueOf(fila[6].toString()));
-			wmsCinsDto.setWmsDisponible(fila[7] == null ? 0 : Integer.valueOf(fila[7].toString()));
-			wmsCinsDto.setDiferencia(fila[8] == null ? 0 : Integer.valueOf(fila[8].toString()));
+			mTipoInventarioDto.setIdCrucePmmWms(fila[0] == null ? 0 : ((Integer) fila[0]));
+			mTipoInventarioDto.setIdTblPmmWms(fila[1] == null ? 0 : ((Integer) fila[1]));
+			mTipoInventarioDto.setFechaMatch(fila[2] == null ? "" : ((String) fila[2]));
+			mTipoInventarioDto.setHoraMatch(fila[3] == null ? "" : ((String) fila[3]));
+			mTipoInventarioDto.setMatPrdLvlChild(fila[4] == null ? 0 : ((Integer) fila[4]));
+			mTipoInventarioDto.setTransLote(fila[5] == null ? "" : ((String) fila[5]));
+			mTipoInventarioDto.setPmmDisponible(fila[6] == null ? 0 : Integer.valueOf(fila[6].toString()));
+			mTipoInventarioDto.setWmsDisponible(fila[7] == null ? 0 : Integer.valueOf(fila[7].toString()));
+			mTipoInventarioDto.setDiferencia(fila[8] == null ? 0 : Integer.valueOf(fila[8].toString()));
 
-			listConciliaPf.add(wmsCinsDto);
+			listConciliaPf.add(mTipoInventarioDto);
 
 		}
 		LOGGER.info(" fin listAnalisisAjustePmmWms " + listConciliaPf.size());
