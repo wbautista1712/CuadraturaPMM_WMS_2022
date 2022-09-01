@@ -1,6 +1,7 @@
 package com.cuadratura.app.oracle.dto.projection;
 
 public class CrucePmmWmsDto {
+	
 	private Integer idcrucePmmWms;
 	private Integer idTblPmmWms;
 	private String cd;
