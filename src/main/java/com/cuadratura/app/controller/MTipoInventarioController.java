@@ -37,7 +37,6 @@ public class MTipoInventarioController {
 			@RequestParam Integer idTipoInventario) {
 		try {
 			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms "+idCrucePmmWms);
-
 			List<MTipoInventarioDto> result = mTipoInventarioService.listAnalisisAjustePmmWms(idCrucePmmWms, idTipoInventario);
 			LOGGER.info("result "+result.size());
 			return ResponseEntity.status(HttpStatus.OK).body(result);
