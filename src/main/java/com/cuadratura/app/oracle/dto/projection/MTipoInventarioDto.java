@@ -1,7 +1,5 @@
 package com.cuadratura.app.oracle.dto.projection;
 
-import java.math.BigDecimal;
-
 public class MTipoInventarioDto {
 
 	private Integer idCrucePmmWms;
