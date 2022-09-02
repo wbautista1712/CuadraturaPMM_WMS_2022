@@ -6,9 +6,9 @@ logging:
 mysql:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: s1st3m4-cv4dr4tvr4.D3v
     url: jdbc:mysql://127.0.0.1:3309/cuadratura?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     username: sistema-cuadratura-dev
+    password: s1st3m4-cv4dr4tvr4.D3v
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
@@ -26,7 +26,7 @@ oracle:
       ddl-auto: none
     show-sql: false
 server:
-  port: 6666
+  port: 9000
 spring:
   datasource:
     hikari:
