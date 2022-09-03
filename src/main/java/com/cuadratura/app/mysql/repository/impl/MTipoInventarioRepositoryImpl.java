@@ -28,5 +28,4 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
 				MTipoInventario.class).getResultList();
 		return listOfEmailDomains;
 	}
-
 }
