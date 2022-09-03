@@ -281,5 +281,4 @@ public class AjustePmmWmsDto {
 	public void setBolsaDiscrepanciaEcono(String bolsaDiscrepanciaEcono) {
 		this.bolsaDiscrepanciaEcono = bolsaDiscrepanciaEcono;
 	}
-
 }
