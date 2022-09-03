@@ -2,7 +2,9 @@ package com.cuadratura.app.mysql.repository;
 
 import java.util.List;
 
+import com.cuadratura.app.mysql.entity.MTipoInventario;
+
 public interface MTipoInventarioCustom {
 	
-	//public   List<Object[]> listAnalisisAjustePmmWmsNCD12(int idCrucePmmWms, int idTipoInventario);
+	public   List<MTipoInventario> getTipoInventario();
 }

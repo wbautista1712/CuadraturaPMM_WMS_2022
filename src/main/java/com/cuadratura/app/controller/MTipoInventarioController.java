@@ -25,8 +25,8 @@ public class MTipoInventarioController {
 
 	@GetMapping(value = "/obtenerTipoInventario")
 	public ResponseEntity<List<MTipoInventario>> obtenerTipoInventario() {
-		LOGGER.info("getAll");
-		return ResponseEntity.ok().body(mTipoInventarioService.getAll());
+		LOGGER.info("obtenerTipoInventario");
+		return ResponseEntity.ok().body(mTipoInventarioService.getTipoInventario());
 	}
 	
 }

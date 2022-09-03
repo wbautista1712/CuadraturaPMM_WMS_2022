@@ -1,5 +1,7 @@
 package com.cuadratura.app.service.impl;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.MTipoInventario;
-import com.cuadratura.app.mysql.repository.CargaWmsRepository;
 import com.cuadratura.app.mysql.repository.MTipoInventarioRepository;
 import com.cuadratura.app.service.MTipoInventarioService;
 
@@ -19,8 +20,6 @@ public class MTipoInventarioServiceImpl extends GenericServiceImpl<MTipoInventar
 	@Autowired
 	private MTipoInventarioRepository mTipoInventarioRepository;
 	
-	@Autowired
-	private CargaWmsRepository cargaWmsRepository;
 
 	@Override
 	public CrudRepository<MTipoInventario, Integer> getDao() {
@@ -30,7 +29,9 @@ public class MTipoInventarioServiceImpl extends GenericServiceImpl<MTipoInventar
 	}
 
 	
-	
+	public List<MTipoInventario> getTipoInventario() {
+		return mTipoInventarioRepository.getTipoInventario();
+	}
 	
 
 }
