@@ -27,14 +27,12 @@ public class CrucePmmWmsController {
 	private CrucePmmWmsService crucePmmWmsService;
 
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
-	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam int idCrucePmmWms,
-			@RequestParam String idCDOrgNameShort) {
+	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam int idCrucePmmWms) {
 		try {
 
 			LOGGER.info("getAjusteBolsaDiscrepancia");
 
-			List<CrucePmmWmsDto> result = crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms,
-					idCDOrgNameShort);
+			List<CrucePmmWmsDto> result = crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
 			return ResponseEntity.status(HttpStatus.OK).body(result);
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);

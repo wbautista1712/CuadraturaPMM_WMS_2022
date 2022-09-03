@@ -44,11 +44,11 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 	}
 
 	@Override
-	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort) {
+	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms) {
 		// TODO Auto-generated method stub
 		LOGGER.info("idCrucePmmWms: " + idCrucePmmWms);
-
-		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::...");
+	    String idCDOrgNameShort = cargaWmsRepository.getCDCrucePmmWms(idCrucePmmWms);
+		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::..."+idCDOrgNameShort);
 		Map<String, Object> mapList = crucePmmWmsRepository.listarAjusteBolsaDiscrepancia(idCrucePmmWms,
 				idCDOrgNameShort);
 
@@ -88,6 +88,10 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 				if (jsonarr.getJSONObject(i).has("COD_MAT")) {
 					libro.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
+				}
+				
+				if (jsonarr.getJSONObject(i).has("desc_Material")) {
+					libro.setDescMaterial(jsonarr.getJSONObject(i).getString("desc_Material"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("LOTE")) {
@@ -131,7 +135,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 		String cd = cargaWmsRepository.getCDCrucePmmWms(idCrucePmmWms);
 
-		Map<String, Object> mapList = this.crucePmmWmsRepository.listAnalisisAjustePmmWms(idCrucePmmWms);
+		Map<String, Object> mapList = this.crucePmmWmsRepository.listAnalisisAjustePmmWms(idCrucePmmWms, cd);
 
 		List<AjustePmmWmsDto> list = new ArrayList<AjustePmmWmsDto>();
 

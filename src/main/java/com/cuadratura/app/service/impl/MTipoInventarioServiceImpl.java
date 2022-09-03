@@ -1,8 +1,5 @@
 package com.cuadratura.app.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.cuadratura.app.mysql.entity.MTipoInventario;
 import com.cuadratura.app.mysql.repository.CargaWmsRepository;
 import com.cuadratura.app.mysql.repository.MTipoInventarioRepository;
-import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
 import com.cuadratura.app.service.MTipoInventarioService;
 
 @Service

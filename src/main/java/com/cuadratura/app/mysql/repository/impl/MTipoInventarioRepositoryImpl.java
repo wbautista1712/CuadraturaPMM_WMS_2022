@@ -1,11 +1,7 @@
 package com.cuadratura.app.mysql.repository.impl;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
-import javax.persistence.StoredProcedureQuery;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
