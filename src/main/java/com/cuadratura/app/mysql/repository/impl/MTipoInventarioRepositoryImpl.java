@@ -20,9 +20,11 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
 	@PersistenceContext(unitName = "jpa_mysql")
 	private EntityManager em;
 	
+	
+	/*
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Object[]> listAnalisisAjustePmmWms(int idCrucePmmWms, int idTipoInventario) {
+	public List<Object[]> listAnalisisAjustePmmWmsNCD12(int idCrucePmmWms, int idTipoInventario) {
 		LOGGER.info("idCrucePmmWms " + idCrucePmmWms);	
 
 		StoredProcedureQuery query = em.createStoredProcedureQuery("cuadratura.sp_listar_ajuste_param")
@@ -32,6 +34,6 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
 				.setParameter(2, idTipoInventario);
 		  List<Object[]> personComments = query.getResultList();
 		  return personComments;
-	}
+	}*/
 
 }

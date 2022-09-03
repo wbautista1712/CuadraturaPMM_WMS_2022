@@ -2,8 +2,11 @@ package com.cuadratura.app.mysql.repository.impl;
 
 import java.sql.PreparedStatement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
@@ -79,6 +82,30 @@ public class CrucePmmWmsRepositoryImpl  implements CrucePmmWmsCustom{
 		LOGGER.info("tamano::. "+simpleJdbcCallResult.size());
 
 		return simpleJdbcCallResult;
+
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms) {
+		LOGGER.info("idCrucePmmWms " + idCrucePmmWms);	
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
+				.withProcedureName("sp_listar_prueba");
+
+		Map<String, Object> inParamMap = new HashMap<String, Object>();
+
+		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
+
+	
+
+		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+		
+		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		LOGGER.info("tamano::. "+simpleJdbcCallResult.size());
+
+		return simpleJdbcCallResult;
+		
 
 	}
 

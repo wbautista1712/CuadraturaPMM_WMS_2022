@@ -23,4 +23,9 @@ public interface CargaWmsRepository extends CrudRepository<CargaWms, Integer>, C
 			+ "WHERE CD.org_lvl_child=:idCentroDistribucion AND "
 			+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') BETWEEN :fechaDesde AND :fechaHasta LIMIT 1 ", nativeQuery = true)
 	List<FotoWmsDto> getAllFindFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta);
+	
+	@Query(value = "SELECT DISTINCT WMS.org_name_short FROM cuadratura.cruce_pmm_wms C "
+			+ "                INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+			+ "                WHERE C.idCruce_pmm_wms=:idCrucePmmWms", nativeQuery = true)
+	String getCDCrucePmmWms( int  idCrucePmmWms);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
+import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
 import com.cuadratura.app.service.CrucePmmWmsService;
 
 @RestController
@@ -34,6 +35,18 @@ public class CrucePmmWmsController {
 
 			List<CrucePmmWmsDto> result = crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms,
 					idCDOrgNameShort);
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+		} catch (Exception ex) {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+		}
+	}
+	
+	@GetMapping(value = "/getAnalisisAjustePmmWms")
+	public ResponseEntity<List<AjustePmmWmsDto>> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms) {
+		try {
+			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms "+idCrucePmmWms);
+			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms);
+			LOGGER.info("result "+result.size());
 			return ResponseEntity.status(HttpStatus.OK).body(result);
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
