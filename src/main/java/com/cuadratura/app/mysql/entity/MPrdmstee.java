@@ -53,11 +53,4 @@ public class MPrdmstee implements Serializable {
     @Basic(optional = false)
     @Column(name = "prd_name_full")
     private String prdNameFull;
-    @Basic(optional = false)
-    @Column(name = "estado")
-    private boolean estado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prdLvlChild")
-    private Collection<TblPmm> tblPmmCollection;
-
-   
 }

@@ -28,6 +28,6 @@ public class MPrdmsteeController {
 	@GetMapping(value = "/obtenerMaterial")
 	public ResponseEntity<List<MPrdmstee>> obtenerMaterial(@RequestParam String nombreMaterial) {
 		LOGGER.info("nombreMaterial");
-		return ResponseEntity.ok().body(mPrdmsteeService.getMaterialLote(nombreMaterial));
+		return ResponseEntity.ok().body(mPrdmsteeService.getMaterialLote(nombreMaterial.toUpperCase()));
 	}
 }
