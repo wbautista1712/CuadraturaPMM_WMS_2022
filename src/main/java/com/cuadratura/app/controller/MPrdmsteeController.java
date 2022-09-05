@@ -19,11 +19,11 @@ import com.cuadratura.app.service.MPrdmsteeService;
 @RequestMapping(path = "/api/wmsmysql")
 @CrossOrigin(origins = "*")
 public class MPrdmsteeController {
-private static final Logger LOGGER = LogManager.getLogger(MOrgmsteeController.class);
-	
+	private static final Logger LOGGER = LogManager.getLogger(MPrdmsteeController.class);
+
 	@Autowired
 	private MPrdmsteeService mPrdmsteeService;
-	
+
 	@GetMapping(value = "/obtenerMaterial")
 	public ResponseEntity<List<MPrdmstee>> obtenerMaterial(@RequestParam String nombreMaterial) {
 		LOGGER.info("nombreMaterial");

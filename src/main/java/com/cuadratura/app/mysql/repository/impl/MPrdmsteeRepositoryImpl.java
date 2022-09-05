@@ -19,16 +19,16 @@ public class MPrdmsteeRepositoryImpl implements MPrdmsteeCustom {
 
 	@PersistenceContext(unitName = "jpa_mysql")
 	private EntityManager em;
-		
+
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<MPrdmstee> getMaterialLote(String nombreMaterial) {	
+	public List<MPrdmstee> getMaterialLote(String nombreMaterial) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT * from cuadratura.m_prdmstee x WHERE x.prd_name_full LIKE :nombreMaterial ");
-		
+
 		LOGGER.info(sb.toString());
 		Query q = em.createNativeQuery(sb.toString(), MPrdmstee.class);
-		q.setParameter("nombreMaterial", "%"+nombreMaterial+"%");
+		q.setParameter("nombreMaterial", "%" + nombreMaterial + "%");
 		return q.getResultList();
 	}
 
