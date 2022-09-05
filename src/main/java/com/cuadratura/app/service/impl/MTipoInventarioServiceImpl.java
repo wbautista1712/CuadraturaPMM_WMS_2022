@@ -1,5 +1,6 @@
 package com.cuadratura.app.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +20,6 @@ public class MTipoInventarioServiceImpl extends GenericServiceImpl<MTipoInventar
 
 	@Autowired
 	private MTipoInventarioRepository mTipoInventarioRepository;
-	
 
 	@Override
 	public CrudRepository<MTipoInventario, Integer> getDao() {
@@ -28,10 +28,23 @@ public class MTipoInventarioServiceImpl extends GenericServiceImpl<MTipoInventar
 		return mTipoInventarioRepository;
 	}
 
-	
 	public List<MTipoInventario> getTipoInventario() {
 		return mTipoInventarioRepository.getTipoInventario();
 	}
-	
 
+	public List<MTipoInventario> getTipoInventarioLote(String idTipoInventario) {
+
+		List<Object[]> listObject = mTipoInventarioRepository.getTipoInventarioLote(idTipoInventario);
+
+		MTipoInventario comboDTO;
+		List<MTipoInventario> listReturn = new ArrayList<MTipoInventario>();
+		for (Object[] row : listObject) {
+			LOGGER.info("oooooo");
+			comboDTO = new MTipoInventario();
+			comboDTO.setIdTipoInventario((Integer) row[0]);
+			comboDTO.setNombre((String) row[1]);
+			listReturn.add(comboDTO);
+		}
+		return listReturn;
+	}
 }

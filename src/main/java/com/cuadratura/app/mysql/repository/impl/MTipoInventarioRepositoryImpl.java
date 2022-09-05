@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.MTipoInventario;
 import com.cuadratura.app.mysql.repository.MTipoInventarioCustom;
+import com.cuadratura.app.util.Constantes;
 
 @Repository
 public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
@@ -27,5 +29,31 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
 				"SELECT I.id_tipo_inventario, I.nombre FROM cuadratura.m_tipo_inventario I WHERE estado=1",
 				MTipoInventario.class).getResultList();
 		return listOfEmailDomains;
+
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getTipoInventarioLote(String idTipoInventario) {
+		LOGGER.info("getTipoInventario ");
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT I.id_tipo_inventario, I.nombre FROM cuadratura.m_tipo_inventario I ");
+		sb.append("WHERE I.estado = :estado ");
+		if (!idTipoInventario.equals(Constantes.VACIO)) {
+			sb.append("AND I.id_tipo_inventario IN (");
+			String cad[] = idTipoInventario.split(",");
+			for (int i = 0; i < cad.length; i++) {
+				if (i == 0)
+					sb.append("'" + cad[i] + "'");
+				else
+					sb.append(",'" + cad[i] + "'");
+			}
+			sb.append(") ");
+		}
+		Query q = em.createNativeQuery(sb.toString());
+		q.setParameter("estado", Constantes.ESTADO_ACTIVO);
+		LOGGER.info(sb.toString());
+		return q.getResultList();
+
 	}
 }

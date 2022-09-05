@@ -6,5 +6,5 @@ import com.cuadratura.app.mysql.entity.MTipoInventario;
 
 public interface MTipoInventarioService extends GenericService<MTipoInventario, Integer> {
 	public List<MTipoInventario> getTipoInventario() ;
-	
+	public List<MTipoInventario> getTipoInventarioLote(String idTipoInventario) ;
 }

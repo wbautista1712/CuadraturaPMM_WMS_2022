@@ -7,4 +7,6 @@ import com.cuadratura.app.mysql.entity.MTipoInventario;
 public interface MTipoInventarioCustom {
 	
 	public   List<MTipoInventario> getTipoInventario();
+	
+	public   List<Object[]> getTipoInventarioLote(String idTipoInventario);
 }
