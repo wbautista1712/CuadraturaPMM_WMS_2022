@@ -34,5 +34,7 @@ public class MTipoInventarioController {
 		LOGGER.info("obtenerTipoInventario2");
 		return ResponseEntity.ok().body(mTipoInventarioService.getTipoInventarioLote(codigoMaterial));
 	}
+	
+	
 
 }
