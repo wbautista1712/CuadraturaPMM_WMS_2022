@@ -131,7 +131,6 @@ public class UsuarioController {
 	public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
 
 		Usuario usuarioActual = usuarioService.findById(id);
-
 		Usuario usuarioUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
