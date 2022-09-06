@@ -56,4 +56,10 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
 		return q.getResultList();
 
 	}
+
+	@Override
+	public List<MTipoInventario> getObtenerLote(String nombreLote) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
