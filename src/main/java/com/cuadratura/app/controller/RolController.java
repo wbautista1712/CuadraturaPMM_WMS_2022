@@ -24,7 +24,7 @@ import com.cuadratura.app.mysql.entity.Rol;
 import com.cuadratura.app.service.RolService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/seguridad")
 @CrossOrigin(origins = "*")
 public class RolController{
 
