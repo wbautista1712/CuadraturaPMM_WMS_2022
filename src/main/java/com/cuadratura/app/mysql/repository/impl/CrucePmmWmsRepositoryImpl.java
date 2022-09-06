@@ -79,8 +79,9 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 	@Override
 	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort) {
-		LOGGER.info("idCrucePmmWms " + idCrucePmmWms);
-
+		LOGGER.info("idCrucePmmWms::: " + idCrucePmmWms);
+		LOGGER.info("idCDOrgNameShort::: " + idCDOrgNameShort);
+		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
 				.withProcedureName("sp_listar_ajuste_param");
 

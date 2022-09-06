@@ -21,7 +21,7 @@ public class AjustePmmWmsDto {
 	private Integer difAcondAcQc;
 	private Integer pmmCanjeMercaderia;
 	private Integer wmsCj;
-	private String difMercaderiaCj;
+	private Integer difMercaderiaCj;
 	private Integer pmmMermas;
 	private Integer wmsBj;
 	private Integer difMermasBj;
@@ -186,11 +186,11 @@ public class AjustePmmWmsDto {
 		this.wmsCj = wmsCj;
 	}
 
-	public String getDifMercaderiaCj() {
+	public Integer getDifMercaderiaCj() {
 		return difMercaderiaCj;
 	}
 
-	public void setDifMercaderiaCj(String difMercaderiaCj) {
+	public void setDifMercaderiaCj(Integer difMercaderiaCj) {
 		this.difMercaderiaCj = difMercaderiaCj;
 	}
 

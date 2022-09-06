@@ -153,25 +153,27 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 			for (int i = 0; i < jsonarr.length(); i++) {
 
 				ajustePmmWmsDto = new AjustePmmWmsDto();
-
-				if (jsonarr.getJSONObject(i).has("idcruce_pmm_wms")) {
-					ajustePmmWmsDto.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idcruce_pmm_wms"));
+				LOGGER.info("idcruce_pmm_wms ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
+				LOGGER.info("cd===> " +jsonarr.getJSONObject(i).getString("CD").toString());
+				
+				if (jsonarr.getJSONObject(i).has("idCruce_pmm_wms")) {
+					ajustePmmWmsDto.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("id_tbl_pmm_wms")) {
 					ajustePmmWmsDto.setIdTblPmmWms(jsonarr.getJSONObject(i).getInt("id_tbl_pmm_wms"));
 				}
 
-				if (jsonarr.getJSONObject(i).has("cd")) {
-					ajustePmmWmsDto.setCd(jsonarr.getJSONObject(i).getString("cd").toString());
+				if (jsonarr.getJSONObject(i).has("CD")) {
+					ajustePmmWmsDto.setCd(jsonarr.getJSONObject(i).getString("CD").toString());
 				}
 
-				if (jsonarr.getJSONObject(i).has("cod_mat")) {
-					ajustePmmWmsDto.setCodMat(jsonarr.getJSONObject(i).getInt("cod_mat"));
+				if (jsonarr.getJSONObject(i).has("COD_MAT")) {
+					ajustePmmWmsDto.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
 				}
 
-				if (jsonarr.getJSONObject(i).has("lote")) {
-					ajustePmmWmsDto.setLote(jsonarr.getJSONObject(i).getString("lote").toString());
+				if (jsonarr.getJSONObject(i).has("LOTE")) {
+					ajustePmmWmsDto.setLote(jsonarr.getJSONObject(i).getString("LOTE").toString());
 				}
 
 				if (jsonarr.getJSONObject(i).has("pmm_disponible")) {
@@ -182,8 +184,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					ajustePmmWmsDto.setWmsDisponible(jsonarr.getJSONObject(i).getInt("wms_disponible"));
 				}
 
-				if (jsonarr.getJSONObject(i).has("dif_dispon")) {
-					ajustePmmWmsDto.setDifDispon(jsonarr.getJSONObject(i).getInt("dif_dispon"));
+				if (jsonarr.getJSONObject(i).has("Dif_DISPON")) {
+					ajustePmmWmsDto.setDifDispon(jsonarr.getJSONObject(i).getInt("Dif_DISPON"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("pmm_en_puerta")) {
@@ -194,8 +196,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					ajustePmmWmsDto.setWmsPu(jsonarr.getJSONObject(i).getInt("wms_pu"));
 				}
 
-				if (jsonarr.getJSONObject(i).has("dif_enpuerta")) {
-					ajustePmmWmsDto.setDifEnpuerta(jsonarr.getJSONObject(i).getInt("dif_enpuerta"));
+				if (jsonarr.getJSONObject(i).has("Dif_ENPUERTA")) {
+					ajustePmmWmsDto.setDifEnpuerta(jsonarr.getJSONObject(i).getInt("Dif_ENPUERTA"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("pmm_perdido_no_disponible")) {
@@ -206,8 +208,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				if (jsonarr.getJSONObject(i).has("wms_pa_pd")) {
 					ajustePmmWmsDto.setWmsPaPd(jsonarr.getJSONObject(i).getInt("wms_pa_pd"));
 				}
-				if (jsonarr.getJSONObject(i).has("dif_perdido")) {
-					ajustePmmWmsDto.setDifPerdido(jsonarr.getJSONObject(i).getInt("dif_perdido"));
+				if (jsonarr.getJSONObject(i).has("Dif_PERDIDO")) {
+					ajustePmmWmsDto.setDifPerdido(jsonarr.getJSONObject(i).getInt("Dif_PERDIDO"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("pmm_acondiciona_cuarentena")) {
@@ -229,9 +231,9 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					ajustePmmWmsDto.setWmsCj(jsonarr.getJSONObject(i).getInt("wms_cj"));
 				}
 
-				if (jsonarr.getJSONObject(i).has("dif_mercaderia_cj")) {
+				if (jsonarr.getJSONObject(i).has("Dif_MERCADERIA_CJ")) {
 					ajustePmmWmsDto
-							.setDifMercaderiaCj(jsonarr.getJSONObject(i).getString("dif_mercaderia_cj").toString());
+							.setDifMercaderiaCj(jsonarr.getJSONObject(i).getInt("Dif_MERCADERIA_CJ"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("pmm_mermas")) {
@@ -241,8 +243,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				if (jsonarr.getJSONObject(i).has("wms_bj")) {
 					ajustePmmWmsDto.setWmsBj(jsonarr.getJSONObject(i).getInt("wms_bj"));
 				}
-				if (jsonarr.getJSONObject(i).has("dif_mermas_bj")) {
-					ajustePmmWmsDto.setDifMermasBj(jsonarr.getJSONObject(i).getInt("dif_mermas_bj"));
+				if (jsonarr.getJSONObject(i).has("Dif_MERMAS_BJ")) {
+					ajustePmmWmsDto.setDifMermasBj(jsonarr.getJSONObject(i).getInt("Dif_MERMAS_BJ"));
 				}
 
 				if (!cd.equalsIgnoreCase("CD12")) {
