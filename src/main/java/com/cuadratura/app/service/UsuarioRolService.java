@@ -7,4 +7,5 @@ public interface UsuarioRolService {
 	public UsuarioRol save(UsuarioRol usuarioRol);
 	
 	public UsuarioRol findById(int id);
+	
 }
