@@ -83,13 +83,7 @@ public class UsuarioController {
 
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
-
-	/*
-	 * @GetMapping("/usuarios/filtrarUsuario/{nombreUsername}")
-	 * //@ResponseStatus(HttpStatus.OK) public List<Usuario>
-	 * buscarDatos(@PathVariable String nombreUsername) { return
-	 * usuarioService.findByNameOrLastName(nombreUsername); }
-	 */
+	
 
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/usuarioCreate")
@@ -137,7 +131,6 @@ public class UsuarioController {
 	public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
 
 		Usuario usuarioActual = usuarioService.findById(id);
-
 		Usuario usuarioUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
