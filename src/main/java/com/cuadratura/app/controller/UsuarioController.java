@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.Usuario;
+import com.cuadratura.app.mysql.entity.UsuarioRol;
+import com.cuadratura.app.service.UsuarioRolService;
 import com.cuadratura.app.service.UsuarioService;
 
 @RestController
@@ -40,6 +42,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private UsuarioRolService usuarioRolService;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -164,5 +169,27 @@ public class UsuarioController {
 		response.put("cliente", usuarioUpdated);
 		LOGGER.info("update ");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@PostMapping("/usuariorol")
+	public ResponseEntity<?> crearUsuarioRol(@Valid @RequestBody Usuario usuario, @PathVariable Integer idRol) 
+	{
+		/*
+		// Usuario
+		passwordEncoder = new BCryptPasswordEncoder();
+		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		
+		Long idUsuario = this.usuarioService.save(usuario).intValue();
+		
+		
+		// Usuario - Rol
+		UsuarioRol oUsuarioRol=new UsuarioRol();
+		oUsuarioRol.setIdRol(1);
+		oUsuarioRol.setIdUsuario(oUsuario.getIdusuario());
+		usuarioRolService.save(null);
+		*/
+				
+		return new ResponseEntity<>("Insertado correctamente", HttpStatus.OK);
 	}
 }
