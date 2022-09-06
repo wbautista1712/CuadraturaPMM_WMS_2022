@@ -58,7 +58,6 @@ public class CargaPmmController {
 		response.setHeader(headerKey, headerValue);
 
 		List<FotoPmmDto> listOfStudents = this.cargaPmmService.getAllFindFotoPmm(idCD, fechaDesde, fechaHasta);
-
 		ExcelGeneratorFotoPmm generator = new ExcelGeneratorFotoPmm(listOfStudents);
 
 		generator.generateExcelFile(response);
