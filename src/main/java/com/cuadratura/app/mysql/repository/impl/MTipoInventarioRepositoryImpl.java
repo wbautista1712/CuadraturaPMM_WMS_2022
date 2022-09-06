@@ -26,7 +26,7 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
 	public List<MTipoInventario> getTipoInventario() {
 		LOGGER.info("getTipoInventario ");
 		List<MTipoInventario> listOfEmailDomains = em.createNativeQuery(
-				"SELECT I.id_tipo_inventario, I.nombre FROM cuadratura.m_tipo_inventario I WHERE estado=1",
+				" SELECT I.* FROM cuadratura.m_tipo_inventario I WHERE I.estado= true ",
 				MTipoInventario.class).getResultList();
 		return listOfEmailDomains;
 
