@@ -33,15 +33,15 @@ public class ExcelGeneratorFotoPmm {
 		font.setBold(true);
 		font.setFontHeight(16);
 		style.setFont(font);
-		createCell(row, 0, "getIdCarga_Pmm", style);
-		createCell(row, 1, "getFecha_Foto", style);
-		createCell(row, 2, "getHora_Foto", style);
-		createCell(row, 3, "getFecha_Carga", style);
-		createCell(row, 4, "getHora_Carga", style);
-		createCell(row, 5, "getRegistros", style);
-		createCell(row, 6, "getUsuario", style);
-		createCell(row, 7, "getNombre_Archivo", style);
-		createCell(row, 8, "getEstado", style);
+		createCell(row, 0, "IDCARGA_PMM", style);
+		createCell(row, 1, "FECHA FOTO", style);
+		createCell(row, 2, "HORA FOTO", style);
+		createCell(row, 3, "FECHA CARGA", style);
+		createCell(row, 4, "HORA CARGA", style);
+		createCell(row, 5, "CANT. REGISTROS", style);
+		createCell(row, 6, "USUARIO", style);
+		createCell(row, 7, "ARCHIVO", style);
+		createCell(row, 8, "ESTADO", style);
 	}
 
 	private void createCell(Row row, int columnCount, Object valueOfCell, CellStyle style) {
