@@ -83,13 +83,7 @@ public class UsuarioController {
 
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
-
-	/*
-	 * @GetMapping("/usuarios/filtrarUsuario/{nombreUsername}")
-	 * //@ResponseStatus(HttpStatus.OK) public List<Usuario>
-	 * buscarDatos(@PathVariable String nombreUsername) { return
-	 * usuarioService.findByNameOrLastName(nombreUsername); }
-	 */
+	
 
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/usuarioCreate")
