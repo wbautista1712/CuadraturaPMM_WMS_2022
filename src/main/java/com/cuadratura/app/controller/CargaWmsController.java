@@ -59,7 +59,6 @@ public class CargaWmsController {
 
 		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWms(idCD, fechaDesde, fechaHasta);
 		ExcelGeneratorFotoWms generator = new ExcelGeneratorFotoWms(listOfStudents);
-
 		generator.generateExcelFile(response);
 	}
 }

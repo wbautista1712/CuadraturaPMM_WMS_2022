@@ -23,9 +23,7 @@ public interface CargaWmsRepository extends CrudRepository<CargaWms, Integer>, C
 			+ "WHERE CD.org_lvl_child=:idCentroDistribucion AND "
 			+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') BETWEEN :fechaDesde AND :fechaHasta LIMIT 1 ", nativeQuery = true)
 	*/
-	
-	
-	
+		
 	@Query(value = "SELECT CD.org_lvl_child,  C.idCarga_WMS,  "
 			+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS FECHA_FOTO, "
 			+ "CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS HORA_FOTO, "
