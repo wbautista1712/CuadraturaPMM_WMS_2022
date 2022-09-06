@@ -88,12 +88,10 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService{
 	public void delete(Long id) {
 		usuarioDao.deleteById(id);
 	}
-/*
-	@Override
-	@Transactional(readOnly = true)
-	public List<Usuario> findByNameOrLastName(String nombreUsername) {
-		return usuarioDao.findByNameOrLastNameContainingIgnoreCase(nombreUsername);
+
+	@Secured({"ROLE_ADMIN"})
+	public Long saveUsuario(Usuario usuario) {
+		return usuarioDao.saveUsuario(usuario);
 	}
-*/
 	
 }

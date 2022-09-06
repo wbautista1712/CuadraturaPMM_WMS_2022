@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.Usuario;
@@ -34,7 +35,7 @@ import com.cuadratura.app.service.UsuarioRolService;
 import com.cuadratura.app.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/seguridad")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
 	
@@ -91,13 +92,15 @@ public class UsuarioController {
 	 */
 
 	@Secured("ROLE_ADMIN")
-	@PostMapping("/usuarios")
-	public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, BindingResult result) {
+	@PostMapping("/usuarioCreate")
+	public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, BindingResult result, @RequestParam Integer idRol) {
 
 		passwordEncoder = new BCryptPasswordEncoder();
 		Usuario usuarioNew = null;
 		Map<String, Object> response = new HashMap<>();
-
+        Integer idUser = null;
+        UsuarioRol usuarioRol = new UsuarioRol();
+		
 		if (result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors().stream()
@@ -110,7 +113,14 @@ public class UsuarioController {
 
 		try {
 			usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-			usuarioNew = usuarioService.save(usuario);
+			//usuarioNew = usuarioService.save(usuario);// cambiar aqui 			
+			idUser = this.usuarioService.saveUsuario(usuario).intValue();
+			LOGGER.info("idRol ===>> "+idRol);
+			LOGGER.info("idUser ===>> "+idUser);
+			usuarioRol.setIdRol(idRol);
+			usuarioRol.setIdUsuario(idUser);
+			this.usuarioRolService.save(usuarioRol);
+			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

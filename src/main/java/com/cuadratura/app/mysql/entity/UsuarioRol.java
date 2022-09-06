@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -47,13 +45,11 @@ public class UsuarioRol implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUsuario_rol")
     private Integer idUsuariorol;
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
-    @ManyToOne(optional = false)
-    private Usuario idUsuario;
-    @JoinColumn(name = "idRol", referencedColumnName = "idRol")
-    @ManyToOne(optional = false)
-    private Rol idRol;
 
-   
+    @Column(name = "idUsuario")
+    private Integer idUsuario;
+
+    @Column(name = "idRol")
+    private Integer idRol;   
     
 }

@@ -8,7 +8,7 @@ import com.cuadratura.app.mysql.repository.UsuarioRolRepository;
 import com.cuadratura.app.service.UsuarioRolService;
 
 @Service
-public class UsuarioRolImpl implements UsuarioRolService{
+public class UsuarioRolServiceImpl implements UsuarioRolService{
 
 	@Autowired
 	private UsuarioRolRepository usuarioRolRepository;
