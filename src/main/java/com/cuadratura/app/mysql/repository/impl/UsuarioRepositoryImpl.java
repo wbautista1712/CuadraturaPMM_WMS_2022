@@ -44,7 +44,9 @@ private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.
 			ps.setString(7, usuario.getUsername());
 			
 			return ps;
+			
 		}, keyHolder);
+		
 		LOGGER.info("id recupera usuario");
 
 		return keyHolder.getKey().longValue();
