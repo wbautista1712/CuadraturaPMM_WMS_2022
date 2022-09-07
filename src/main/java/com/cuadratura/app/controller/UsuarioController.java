@@ -157,8 +157,8 @@ public class UsuarioController {
 			usuarioActual.setApmaterno(usuario.getApmaterno().toUpperCase());
 			usuarioActual.setNombres(usuario.getNombres().toUpperCase());
 			usuarioActual.setEmail(usuario.getEmail());
-			usuarioActual.setUsername(usuario.getUsername());
-			usuarioActual.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		//	usuarioActual.setUsername(usuario.getUsername());
+		//	usuarioActual.setPassword(passwordEncoder.encode(usuario.getPassword()));
 			usuarioActual.setEstado(usuario.getEstado());
 
 			usuarioUpdated = this.usuarioService.save(usuarioActual);
