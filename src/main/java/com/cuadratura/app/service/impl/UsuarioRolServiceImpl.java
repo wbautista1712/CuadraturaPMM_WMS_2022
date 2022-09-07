@@ -1,5 +1,7 @@
 package com.cuadratura.app.service.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +11,9 @@ import com.cuadratura.app.service.UsuarioRolService;
 
 @Service
 public class UsuarioRolServiceImpl implements UsuarioRolService{
-
+	
+	private static final Logger LOGGER = LogManager.getLogger(UsuarioRolServiceImpl.class);
+	
 	@Autowired
 	private UsuarioRolRepository usuarioRolRepository;
 	
@@ -24,8 +28,14 @@ public class UsuarioRolServiceImpl implements UsuarioRolService{
 	}
 	
 	@Override
-	public UsuarioRol findUsuarioRol(UsuarioRol usuarioRol) {
-		return usuarioRolRepository.findUsuarioRol(usuarioRol);
+	public UsuarioRol findUsuarioRol(Integer idUsuario) {
+		return usuarioRolRepository.findUsuarioRol(idUsuario);
+	}
+	
+	public void updateUsuarioRol(Integer idUsuarioRol, Integer idRol) {
+		LOGGER.info("idUsuarioRol==>> "+idUsuarioRol);
+		LOGGER.info("idRol==>> "+idRol);
+		this.usuarioRolRepository.updateUsuarioRol(idUsuarioRol, idRol);
 	}
 
 }

@@ -24,19 +24,19 @@ public class UsuarioRolRepositoryImpl implements   UsuarioRolCustom{
 	
 	
 	@Override
-	public UsuarioRol findUsuarioRol(UsuarioRol usuarioRol) {
+	public UsuarioRol findUsuarioRol(Integer idUsuario) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT * FROM cuadratura.usuario_rol x WHERE  x.idRol = :idRol and x.idUsuario = :idUsuario ");
+		sb.append("SELECT * FROM cuadratura.usuario_rol x WHERE x.idUsuario = :idUsuario ");
 
 		LOGGER.info(sb.toString());
-		Query q = em.createNativeQuery(sb.toString(), UsuarioRol.class);
-		q.setParameter("idRol", usuarioRol.getIdRol());
-		q.setParameter("idUsuario",usuarioRol.getIdUsuario());
+		Query q = em.createNativeQuery(sb.toString(), UsuarioRol.class);		
+		q.setParameter("idUsuario",idUsuario);
 		return (UsuarioRol) q.getSingleResult();
 	}
 	
-	public void updateUsuarioRol(Integer idUsuarioRol,Integer idRol) {
-		
+	public void updateUsuarioRol(Integer idUsuarioRol, Integer idRol) {
+		em.createNativeQuery("UPDATE  cuadratura.usuario_rol x  set x.idRol = :idRol WHERE  x.idUsuario_rol  = :idUsuarioRol ").setParameter(1, idRol)
+	      .setParameter(2, idUsuarioRol).executeUpdate();
 	}
 
 }

@@ -8,5 +8,7 @@ public interface UsuarioRolService {
 	
 	public UsuarioRol findById(int id);
 	
-	public UsuarioRol findUsuarioRol(UsuarioRol usuarioRol);
+	public UsuarioRol findUsuarioRol(Integer idUsuario);
+	
+	public void updateUsuarioRol(Integer idUsuarioRol, Integer idRol);
 }
