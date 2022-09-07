@@ -21,4 +21,6 @@ public interface UsuarioService {
 	public void delete(Long id);
 
 	public Long saveUsuario(Usuario usuario);
+	
+	public void updateUsuario(Usuario usuario);
 }

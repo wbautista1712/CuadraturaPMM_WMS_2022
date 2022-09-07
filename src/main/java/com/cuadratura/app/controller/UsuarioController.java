@@ -130,7 +130,7 @@ public class UsuarioController {
 	public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id, @RequestParam Integer idRol ) {
 
 		Usuario usuarioActual = usuarioService.findById(id);
-		Usuario usuarioUpdated = null;
+	//	Usuario usuarioUpdated = null;
 		UsuarioRol usuarioRolActual= new UsuarioRol();
 		
 		Map<String, Object> response = new HashMap<>();
@@ -156,12 +156,13 @@ public class UsuarioController {
 			usuarioActual.setAppaterno(usuario.getAppaterno().toUpperCase());
 			usuarioActual.setApmaterno(usuario.getApmaterno().toUpperCase());
 			usuarioActual.setNombres(usuario.getNombres().toUpperCase());
-			usuarioActual.setEmail(usuario.getEmail());
+		//	usuarioActual.setEmail(usuario.getEmail());
 		//	usuarioActual.setUsername(usuario.getUsername());
 		//	usuarioActual.setPassword(passwordEncoder.encode(usuario.getPassword()));
 			usuarioActual.setEstado(usuario.getEstado());
-
-			usuarioUpdated = this.usuarioService.save(usuarioActual);
+			usuarioActual.setIdusuario(id);
+		//	usuarioUpdated = this.usuarioService.save(usuarioActual);
+			this.usuarioService.updateUsuario(usuarioActual);
 			
 			//actualizacion rol
 			
@@ -176,7 +177,7 @@ public class UsuarioController {
 		}
 
 		response.put("mensaje", "El usuario ha sido actualizado con éxito!");
-		response.put("cliente", usuarioUpdated);
+		//response.put("cliente", usuarioActual);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	

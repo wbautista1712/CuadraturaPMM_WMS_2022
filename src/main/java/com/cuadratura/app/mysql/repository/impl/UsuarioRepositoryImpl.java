@@ -51,5 +51,25 @@ private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.
 
 		return keyHolder.getKey().longValue();
 	}
+	
+	public void updateUsuario(Usuario usuario) {
+		LOGGER.info("getAppaterno "+   usuario.getAppaterno());
+		LOGGER.info("getApmaterno "+   usuario.getApmaterno());
+		/*  this.jdbcTemplate.update(
+	                " UPDATE  cuadratura.usuario x  set x.apPaterno  = ? , "
+	                + " x.apMaterno  =  ? , x.nombres  =  ? "
+	                + " WHERE  x.idUsuario =  ? ", 
+	                usuario.getAppaterno(), usuario.getApmaterno(),  usuario.getNombres(), usuario.getIdusuario());
+		  */
+		  String sql = " UPDATE  cuadratura.usuario x  set x.apPaterno  = ? , "
+	                + " x.apMaterno  =  ? , x.nombres  =  ? "
+	                + " WHERE  x.idUsuario =  ? ";
+		
+		    jdbcTemplate.update(sql,
+				   usuario.getAppaterno(),
+				   usuario.getApmaterno(),
+				   usuario.getNombres(),  usuario.getIdusuario());
+	}
+
 
 }

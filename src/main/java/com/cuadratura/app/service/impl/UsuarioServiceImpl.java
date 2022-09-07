@@ -95,4 +95,8 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService{
 		return usuarioDao.saveUsuario(usuario);
 	}
 	
+	@Secured({"ROLE_ADMIN"})
+	public void updateUsuario(Usuario usuario) {
+		usuarioDao.updateUsuario(usuario);
+	}
 }
