@@ -27,6 +27,7 @@ import com.cuadratura.app.service.UsuarioService;
 public class UsuarioServiceImpl implements UsuarioService, UserDetailsService{
 	
 	private Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
+	
 
 	@Autowired
 	private UsuarioRepository usuarioDao;
