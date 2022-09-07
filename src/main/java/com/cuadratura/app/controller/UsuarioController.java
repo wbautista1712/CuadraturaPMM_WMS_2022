@@ -153,8 +153,9 @@ public class UsuarioController {
 
 		try {
 
-			usuarioActual.setAppaterno(usuario.getAppaterno());
-			usuarioActual.setNombres(usuario.getNombres());
+			usuarioActual.setAppaterno(usuario.getAppaterno().toUpperCase());
+			usuarioActual.setApmaterno(usuario.getApmaterno().toUpperCase());
+			usuarioActual.setNombres(usuario.getNombres().toUpperCase());
 			usuarioActual.setEmail(usuario.getEmail());
 			usuarioActual.setUsername(usuario.getUsername());
 			usuarioActual.setPassword(passwordEncoder.encode(usuario.getPassword()));
