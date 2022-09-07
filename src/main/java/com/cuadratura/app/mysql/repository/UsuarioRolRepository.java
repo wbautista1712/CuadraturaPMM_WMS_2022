@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cuadratura.app.mysql.entity.UsuarioRol;
 
 @Repository
-public interface UsuarioRolRepository extends CrudRepository<UsuarioRol, Integer>{
+public interface UsuarioRolRepository extends CrudRepository<UsuarioRol, Integer>, UsuarioRolCustom{
 
 }

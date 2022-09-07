@@ -127,11 +127,12 @@ public class UsuarioController {
 	}
 
 	@Secured("ROLE_ADMIN")
-	@PutMapping("/usuarios/{id}")
+	@PutMapping("/usuarioUpdate/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
 
 		Usuario usuarioActual = usuarioService.findById(id);
 		Usuario usuarioUpdated = null;
+		UsuarioRol usuarioRolActual= new UsuarioRol();
 
 		Map<String, Object> response = new HashMap<>();
 
@@ -161,6 +162,13 @@ public class UsuarioController {
 			usuarioActual.setEstado(usuario.getEstado());
 
 			usuarioUpdated = usuarioService.save(usuarioActual);
+			
+			//actualizacion rol
+			/*
+			usuarioRolActual = usuarioRolService.findUsuarioRol(usuarioRolActual)
+			usuarioRolActual.setIdRol(2);
+			usuarioRolActual.setIdUsuario(usuarioActual.getIdusuario().intValue());
+			this.usuarioRolService.save(usuarioRolActual);*/
 
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el cliente en la base de datos");

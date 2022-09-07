@@ -22,5 +22,10 @@ public class UsuarioRolServiceImpl implements UsuarioRolService{
 	public UsuarioRol findById(int id) {
 		return usuarioRolRepository.findById(id).orElse(null);
 	}
+	
+	@Override
+	public UsuarioRol findUsuarioRol(UsuarioRol usuarioRol) {
+		return usuarioRolRepository.findUsuarioRol(usuarioRol);
+	}
 
 }
