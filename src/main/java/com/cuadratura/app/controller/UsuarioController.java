@@ -88,13 +88,11 @@ public class UsuarioController {
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/usuarioCreate")
 	public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, BindingResult result, @RequestParam Integer idRol) {
-
 		passwordEncoder = new BCryptPasswordEncoder();
 		Usuario usuarioNew = null;
 		Map<String, Object> response = new HashMap<>();
         Integer idUser = null;
         UsuarioRol usuarioRol = new UsuarioRol();
-		
 		if (result.hasErrors()) {
 
 			List<String> errors = result.getFieldErrors().stream()
@@ -104,10 +102,11 @@ public class UsuarioController {
 			response.put("errors", errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-
+		
 		try {
 			usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-			//usuarioNew = usuarioService.save(usuario);// cambiar aqui 			
+			//usuarioNew = usuarioService.save(usuario);// cambiar aqui
+			
 			idUser = this.usuarioService.saveUsuario(usuario).intValue();
 			LOGGER.info("idRol ===>> "+idRol);
 			LOGGER.info("idUser ===>> "+idUser);
@@ -177,7 +176,6 @@ public class UsuarioController {
 
 		response.put("mensaje", "El usuario ha sido actualizado con éxito!");
 		response.put("cliente", usuarioUpdated);
-		LOGGER.info("update ");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
