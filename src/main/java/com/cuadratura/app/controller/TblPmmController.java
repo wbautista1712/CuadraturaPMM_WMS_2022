@@ -131,7 +131,7 @@ public class TblPmmController {
 			tblPmmService.save(tblPmm);
 
 		}
-		return "ok";
+		return "Proceso Correcto";
 		// return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo
 		// PMM");
 	}
