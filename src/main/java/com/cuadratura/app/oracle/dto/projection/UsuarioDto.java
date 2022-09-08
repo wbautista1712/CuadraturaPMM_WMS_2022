@@ -9,6 +9,7 @@ public class UsuarioDto {
 	private String username; 
 	private Integer idRol;
 	private String nombreRol;
+	
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
@@ -57,7 +58,5 @@ public class UsuarioDto {
 	public void setNombreRol(String nombreRol) {
 		this.nombreRol = nombreRol;
 	}
-	
-
 	
 }

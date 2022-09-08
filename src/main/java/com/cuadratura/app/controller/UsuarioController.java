@@ -187,7 +187,7 @@ public class UsuarioController {
 	public ResponseEntity<?> listarUsuarioRol() 
 	{
 		 List<UsuarioDto>  list =	this.usuarioService.getUsuarioRol();
-			return new ResponseEntity<List<UsuarioDto> >(list, HttpStatus.OK);
+		 return new ResponseEntity<List<UsuarioDto> >(list, HttpStatus.OK);
 	
 	}
 }
