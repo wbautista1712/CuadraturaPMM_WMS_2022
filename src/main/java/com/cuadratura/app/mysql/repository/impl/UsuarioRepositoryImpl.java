@@ -1,20 +1,25 @@
 package com.cuadratura.app.mysql.repository.impl;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.Usuario;
+import com.cuadratura.app.mysql.entity.UsuarioRol;
 import com.cuadratura.app.mysql.repository.UsuarioCustom;
+import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
 
 @Repository
 @Transactional
@@ -71,5 +76,18 @@ private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.
 				   usuario.getNombres(),  usuario.getIdusuario());
 	}
 
+	public   List<UsuarioDto> getUsuarioRol(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(" SELECT U.idUsuario,U.apPaterno, U.apMaterno, U.nombres, U.email, U.username, R.idRol, R.nombreRol "
+				+ "FROM cuadratura.usuario U "
+				+ "INNER JOIN cuadratura.usuario_rol UR ON U.idUsuario=UR.idUsuario "
+				+ "INNER JOIN cuadratura.rol R ON UR.idRol=R.idRol ");
+		LOGGER.info(sb.toString());
 
+	        List<UsuarioDto> customers = jdbcTemplate.query(
+	        		sb.toString(),
+	                new BeanPropertyRowMapper(UsuarioDto.class));
+
+	        return customers;
+	}
 }

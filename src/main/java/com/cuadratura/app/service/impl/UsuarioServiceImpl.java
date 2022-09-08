@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.mysql.repository.UsuarioRepository;
+import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
 import com.cuadratura.app.service.UsuarioService;
 
 
@@ -98,5 +99,10 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService{
 	@Secured({"ROLE_ADMIN"})
 	public void updateUsuario(Usuario usuario) {
 		usuarioDao.updateUsuario(usuario);
+	}
+	
+	@Secured({"ROLE_ADMIN"})
+	public   List<UsuarioDto> getUsuarioRol(){
+		return usuarioDao.getUsuarioRol();
 	}
 }

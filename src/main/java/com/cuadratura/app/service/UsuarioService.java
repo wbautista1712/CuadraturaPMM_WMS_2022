@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.cuadratura.app.mysql.entity.Usuario;
+import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
 
 
 public interface UsuarioService {
@@ -23,4 +24,6 @@ public interface UsuarioService {
 	public Long saveUsuario(Usuario usuario);
 	
 	public void updateUsuario(Usuario usuario);
+	
+	public   List<UsuarioDto> getUsuarioRol();
 }

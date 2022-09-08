@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.mysql.entity.UsuarioRol;
+import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
 import com.cuadratura.app.service.UsuarioRolService;
 import com.cuadratura.app.service.UsuarioService;
 
@@ -182,24 +183,11 @@ public class UsuarioController {
 	}
 	
 	@Secured("ROLE_ADMIN")
-	@PostMapping("/usuariorol")
-	public ResponseEntity<?> crearUsuarioRol(@Valid @RequestBody Usuario usuario, @PathVariable Integer idRol) 
+	@GetMapping("/listUsuarioRol")
+	public ResponseEntity<?> listarUsuarioRol() 
 	{
-		/*
-		// Usuario
-		passwordEncoder = new BCryptPasswordEncoder();
-		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-		
-		Long idUsuario = this.usuarioService.save(usuario).intValue();
-		
-		
-		// Usuario - Rol
-		UsuarioRol oUsuarioRol=new UsuarioRol();
-		oUsuarioRol.setIdRol(1);
-		oUsuarioRol.setIdUsuario(oUsuario.getIdusuario());
-		usuarioRolService.save(null);
-		*/
-				
-		return new ResponseEntity<>("Insertado correctamente", HttpStatus.OK);
+		 List<UsuarioDto>  list =	this.usuarioService.getUsuarioRol();
+			return new ResponseEntity<List<UsuarioDto> >(list, HttpStatus.OK);
+	
 	}
 }
