@@ -8,5 +8,9 @@ import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
 public interface CargaWmsService extends GenericService<CargaWms, Integer> {
 	public Long saveCargaWms(CargaWms cargaWms);
 	
-	public List<FotoWmsDto> getAllFindFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta);
+	public List<FotoWmsDto> getAllFindFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end);
+	
+	public List<FotoWmsDto> getAllFindFotoWmsExcel(String idCentroDistribucion, String fechaDesde, String fechaHasta);
+	
+	public Integer countFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception ;
 }

@@ -6,4 +6,5 @@ public interface Constantes {
 	public static final String USUARIO_CARGA_AUTOMATICO = "AUTOMATICO";
 	public static final String VACIO = "";
 	public static final Boolean ESTADO_ACTIVO = true;
+	public static final Integer NUMBER_ROWS_BY_PAGE = 10;
 }

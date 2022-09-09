@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
+import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.service.CargaWmsService;
 import com.cuadratura.app.util.ExcelGeneratorFotoWms;
 
@@ -33,14 +34,22 @@ public class CargaWmsController {
 	private CargaWmsService cargaWmsService;
 
 	@GetMapping(value = "/getAllFotoWms")
-	public ResponseEntity<List<FotoWmsDto>> getAllFotoWms(@RequestParam String idCD,
-			@RequestParam String fechaDesde, @RequestParam String fechaHasta) {
+	public ResponseEntity<ListResponse> getAllFotoWms(@RequestParam String idCD,
+			@RequestParam String fechaDesde, @RequestParam String fechaHasta,
+			@RequestParam  Integer rows, @RequestParam Integer page) {
+		 ListResponse listResponse = new ListResponse();
+		 Integer records = 0;
+	     Integer start = listResponse.getStart(page, rows);
 		try {
 			LOGGER.info("getAllFotoPmmm  fechaDesde "+fechaDesde);
 
-			List<FotoWmsDto> result = cargaWmsService.getAllFindFotoWms(idCD, fechaDesde, fechaHasta);
+			List<FotoWmsDto> result = cargaWmsService.getAllFindFotoWms(idCD, fechaDesde, fechaHasta, start, rows);
 			LOGGER.info("result getAllFotoWms "+result.size());
-			return ResponseEntity.status(HttpStatus.OK).body(result);
+			
+			records =cargaWmsService.countFotoWms(idCD, fechaDesde, fechaHasta);
+			//return ResponseEntity.status(HttpStatus.OK).body(result);
+			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+		//	return new ResponseEntity<List<FotoWmsDto>>(listResponse.getPaginador(page, rows, records, result), HttpStatus.OK);
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
@@ -57,7 +66,7 @@ public class CargaWmsController {
 		String headerValue = "attachment; filename=FotoWms" + currentDateTime + ".xlsx";
 		response.setHeader(headerKey, headerValue);
 
-		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWms(idCD, fechaDesde, fechaHasta);
+		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWmsExcel(idCD, fechaDesde, fechaHasta);
 		ExcelGeneratorFotoWms generator = new ExcelGeneratorFotoWms(listOfStudents);
 		generator.generateExcelFile(response);
 	}
