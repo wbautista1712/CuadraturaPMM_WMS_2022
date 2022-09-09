@@ -20,7 +20,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.repository.CargaWmsRepositoryCustom;
-import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
 
 @Repository
 @Transactional
@@ -91,11 +90,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 				+ "WHERE CD.org_lvl_child=:idCentroDistribucion  "		
 				+ "AND date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%Y-%m-%d')  "		 
 				+ "BETWEEN :fechaDesde AND :fechaHasta ";		
-		/*
-		LOGGER.info(sql);
-        List<FotoWmsDto> customers = jdbcTemplate.query(sql, new BeanPropertyRowMapper(FotoWmsDto.class));
-	    return customers;	
-	    */
+	
 		Query query = this.em.createNativeQuery(sql);
 		query.setParameter("idCentroDistribucion", idCentroDistribucion);
 		query.setParameter("fechaDesde", fechaDesde);
