@@ -27,14 +27,6 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 
 	private static final Logger LOGGER = LogManager.getLogger(CargaWmsRepositoryImpl.class);
 
-//	@PersistenceContext(unitName = "jpa_mysql")
-//	private EntityManager entityManagerS;
-	/*
-	 * public EntityManager getEntityManagerS() { return entityManagerS; }
-	 * 
-	 * @PersistenceContext public void setEntityManagerS(EntityManager
-	 * entityManagerS) { this.entityManagerS = entityManagerS; }
-	 */
 
 	@Autowired
 	@Qualifier("jdbctemplateTwo")
