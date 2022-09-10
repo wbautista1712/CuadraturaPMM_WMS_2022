@@ -89,6 +89,7 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 		
 	}
 	
+	@Override
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception{
 		String sql ="SELECT COUNT(*) FROM (SELECT C.idCarga_PMM, date_format(C.fechaFoto, '%d/%m/%Y') AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
 				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
