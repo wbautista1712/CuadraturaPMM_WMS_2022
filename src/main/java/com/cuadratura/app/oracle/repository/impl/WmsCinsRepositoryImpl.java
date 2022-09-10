@@ -14,6 +14,7 @@ import com.cuadratura.app.oracle.repository.WmsCinsRepository;
 
 @Repository
 public class WmsCinsRepositoryImpl implements WmsCinsRepository {
+	
 	private static final Logger LOGGER = LogManager.getLogger(WmsCinsRepositoryImpl.class);
 
 	@PersistenceContext(unitName = "jpa_oracle")

@@ -18,6 +18,7 @@ import com.cuadratura.app.service.WmsCinsService;
 
 @Service
 public class WmsCinsServiceImpl implements WmsCinsService {
+	
 	private static final Logger LOGGER = LogManager.getLogger(WmsCinsServiceImpl.class);
 
 	@Autowired
@@ -28,10 +29,14 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 		// TODO Auto-generated method stub
 		WmsCinsDto wmsCinsDto = null;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
 		List<Object[]> list = wmsCinsRepository.findAllWMSWmsCins();
+		
 		List<WmsCinsDto> listConciliaPf = new ArrayList<WmsCinsDto>();
+		
 		String i = "";
 		Date date  = null;
+		
 		for (Object[] fila : list) {
 			wmsCinsDto = new WmsCinsDto();
 			LOGGER.info(" inicio list "+list.size());

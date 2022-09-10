@@ -3,6 +3,8 @@ package com.cuadratura.app.auth;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -14,8 +16,11 @@ import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.service.UsuarioService;
 
 
+
 @Component
 public class InfoAdicionalToken implements TokenEnhancer{
+	
+	private Logger logger = LoggerFactory.getLogger(InfoAdicionalToken.class);
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -24,6 +29,9 @@ public class InfoAdicionalToken implements TokenEnhancer{
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 		
 		Usuario usuario = usuarioService.findByUsername(authentication.getName());
+		
+		logger.error("GET NAME: " + authentication.getName());
+		
 		Map<String, Object> info = new HashMap<>();
 		info.put("info_adicional", "Hola que tal!: ".concat(authentication.getName()));
 		
