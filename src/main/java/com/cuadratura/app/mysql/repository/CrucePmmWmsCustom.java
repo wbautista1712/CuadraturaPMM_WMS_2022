@@ -10,5 +10,5 @@ public interface CrucePmmWmsCustom {
 	
 	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort);
 	
-	public  Map<String, Object>  listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort);
+	public  Map<String, Object>  listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end);
 }

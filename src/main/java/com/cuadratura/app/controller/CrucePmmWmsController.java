@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
+import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
 import com.cuadratura.app.service.CrucePmmWmsService;
 
@@ -40,12 +41,17 @@ public class CrucePmmWmsController {
 	}
 	
 	@GetMapping(value = "/getAnalisisAjustePmmWms")
-	public ResponseEntity<List<AjustePmmWmsDto>> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms) {
+	public ResponseEntity<ListResponse> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms,  @RequestParam  Integer rows, @RequestParam Integer page) {
+		ListResponse listResponse = new ListResponse();
+		 Integer records = 0;
+	     Integer start = listResponse.getStart(page, rows);
 		try {
 			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms "+idCrucePmmWms);
-			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms);
+			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms, start, rows);
+			records =result.size();
 			LOGGER.info("result "+result.size());
-			return ResponseEntity.status(HttpStatus.OK).body(result);
+		//	return ResponseEntity.status(HttpStatus.OK).body(result);
+			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}

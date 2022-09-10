@@ -78,7 +78,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 	}
 
 	@Override
-	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort) {
+	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end) {
 		LOGGER.info("idCrucePmmWms::: " + idCrucePmmWms);
 		LOGGER.info("idCDOrgNameShort::: " + idCDOrgNameShort);
 		
@@ -89,6 +89,9 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
 		inParamMap.put("idCD", idCDOrgNameShort);
+		
+		inParamMap.put("pageNumber", start);
+		inParamMap.put("pageSize", end);
 
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 

@@ -129,13 +129,13 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 	}
 
 	@Override
-	public List<AjustePmmWmsDto> listAnalisisAjustePmmWms(int idCrucePmmWms) {
+	public List<AjustePmmWmsDto> listAnalisisAjustePmmWms(int idCrucePmmWms, Integer start, Integer end) {
 		// TODO Auto-generated method stub
 		AjustePmmWmsDto ajustePmmWmsDto = null;
 
 		String cd = cargaWmsRepository.getCDCrucePmmWms(idCrucePmmWms);
 
-		Map<String, Object> mapList = this.crucePmmWmsRepository.listAnalisisAjustePmmWms(idCrucePmmWms, cd);
+		Map<String, Object> mapList = this.crucePmmWmsRepository.listAnalisisAjustePmmWms(idCrucePmmWms, cd,  start,  end);
 
 		List<AjustePmmWmsDto> list = new ArrayList<AjustePmmWmsDto>();
 
