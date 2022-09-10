@@ -70,6 +70,10 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end){
+		
+		LOGGER.info("id idCentroDistribucion==>>> "+idCentroDistribucion);
+		LOGGER.info("id fechaDesde ==>>> "+fechaDesde);
+		LOGGER.info("id fechaHasta==>> "+fechaHasta);
 		String sql =  "SELECT C.idCarga_PMM, date_format(C.fechaFoto, '%d/%m/%Y') AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
 				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
 				+ "FROM cuadratura.carga_pmm C "
