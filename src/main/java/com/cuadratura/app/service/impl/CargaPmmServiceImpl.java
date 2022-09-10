@@ -27,20 +27,24 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 		return cargaPmmRepository;
 	}
 	
+	@Override
 	public Long saveCargaPmm(CargaPmm cargaPmm) {
 		LOGGER.info("insert saveCargaPmm");
 		return cargaPmmRepository.saveCargaPmm(cargaPmm);
 	}
 	
+	@Override
 	public List<FotoPmmDto> getAllFindFotoPmmExcel(String idCentroDistribucion, String fechaDesde, String fechaHasta){
 		LOGGER.info("get getAllFindFotoPmm");
 		return cargaPmmRepository.getAllFindFotoPmmExcel(idCentroDistribucion, fechaDesde, fechaHasta);
 	}
 	
+	@Override
 	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end){
 		return cargaPmmRepository.getAllFindFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta, start, end);
 	}
 	
+	@Override
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception{
 		return cargaPmmRepository.countFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta);
 	}

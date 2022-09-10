@@ -60,6 +60,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 
 	}
 	
+	@Override
 	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception{
 		String sql =  "SELECT COUNT(*) FROM (SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
 				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"

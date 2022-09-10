@@ -37,6 +37,7 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 		this.tblPmmWmsRepository.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, idCrucePmmWms);
 	}
 
+	@Override
 	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception{
 		return tblPmmWmsRepository.countResultadoPmmWms(idCD_org_name_short);
 		
