@@ -76,7 +76,7 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
 				+ "FROM cuadratura.carga_pmm C "
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
-				+ "WHERE C.org_lvl_child=:idCentroDistribucion AND date_format(C.fechaFoto, '%d/%m/%Y') BETWEEN :fechaDesde AND :fechaHasta ";
+				+ "WHERE C.org_lvl_child=:idCentroDistribucion AND C.fechaFoto BETWEEN :fechaDesde AND :fechaHasta ";
 		
 		
 		Query query = this.em.createNativeQuery(sql);
