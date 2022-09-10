@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
+import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.service.CargaPmmService;
 import com.cuadratura.app.util.ExcelGeneratorFotoPmm;
 
@@ -33,14 +34,19 @@ public class CargaPmmController {
 	private CargaPmmService cargaPmmService;
 
 	@GetMapping(value = "/getAllFotoPmm")
-	public ResponseEntity<List<FotoPmmDto>> getAllFotoPmm(@RequestParam String idCD, @RequestParam String fechaDesde,
-			@RequestParam String fechaHasta) {
+	public ResponseEntity<ListResponse> getAllFotoPmm(@RequestParam String idCD, @RequestParam String fechaDesde,
+			@RequestParam String fechaHasta, @RequestParam  Integer rows, @RequestParam Integer page) {
+		ListResponse listResponse = new ListResponse();
+		 Integer records = 0;
+	     Integer start = listResponse.getStart(page, rows);
 		try {
 			LOGGER.info("getAllFotoPmmm  fechaDesde " + fechaDesde);
 
-			List<FotoPmmDto> result = cargaPmmService.getAllFindFotoPmm(idCD, fechaDesde, fechaHasta);
+			List<FotoPmmDto> result = cargaPmmService.getAllFindFotoPmm(idCD, fechaDesde, fechaHasta, start, rows);
 			LOGGER.info("result " + result.size());
-			return ResponseEntity.status(HttpStatus.OK).body(result);
+			records =cargaPmmService.countFotoPmm(idCD, fechaDesde, fechaHasta);
+			//return ResponseEntity.status(HttpStatus.OK).body(result);
+			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
@@ -57,7 +63,7 @@ public class CargaPmmController {
 		String headerValue = "attachment; filename=FotoPmm" + currentDateTime + ".xlsx";
 		response.setHeader(headerKey, headerValue);
 
-		List<FotoPmmDto> listOfStudents = this.cargaPmmService.getAllFindFotoPmm(idCD, fechaDesde, fechaHasta);
+		List<FotoPmmDto> listOfStudents = this.cargaPmmService.getAllFindFotoPmmExcel(idCD, fechaDesde, fechaHasta);
 		ExcelGeneratorFotoPmm generator = new ExcelGeneratorFotoPmm(listOfStudents);
 
 		generator.generateExcelFile(response);

@@ -32,8 +32,16 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 		return cargaPmmRepository.saveCargaPmm(cargaPmm);
 	}
 	
-	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta){
+	public List<FotoPmmDto> getAllFindFotoPmmExcel(String idCentroDistribucion, String fechaDesde, String fechaHasta){
 		LOGGER.info("get getAllFindFotoPmm");
-		return cargaPmmRepository.getAllFindFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta);
+		return cargaPmmRepository.getAllFindFotoPmmExcel(idCentroDistribucion, fechaDesde, fechaHasta);
+	}
+	
+	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end){
+		return cargaPmmRepository.getAllFindFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta, start, end);
+	}
+	
+	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception{
+		return cargaPmmRepository.countFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta);
 	}
 }

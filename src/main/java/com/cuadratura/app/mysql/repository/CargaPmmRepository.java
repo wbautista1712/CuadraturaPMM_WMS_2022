@@ -15,5 +15,5 @@ public interface CargaPmmRepository extends CrudRepository<CargaPmm, Integer>, C
 			+ "FROM cuadratura.carga_pmm C "
 			+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
 			+ "WHERE C.org_lvl_child=:idCentroDistribucion AND date_format(C.fechaFoto, '%d/%m/%Y') BETWEEN :fechaDesde AND :fechaHasta ", nativeQuery = true)
-	List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta);
+	List<FotoPmmDto> getAllFindFotoPmmExcel(String idCentroDistribucion, String fechaDesde, String fechaHasta);
 }

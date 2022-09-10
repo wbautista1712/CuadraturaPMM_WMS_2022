@@ -1,13 +1,19 @@
 package com.cuadratura.app.mysql.repository.impl;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.jpa.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -15,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.repository.CargaPmmRepositoryCustom;
+import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
 
 @Repository
 @Transactional
@@ -24,7 +31,10 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 	
 	@Autowired
 	@Qualifier("jdbctemplateTwo")
-	private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;	
+
+	@PersistenceContext(unitName = "jpa_mysql")
+	private EntityManager em;
 	
 	@Override
 	public Long saveCargaPmm(CargaPmm cargaPmm) {
@@ -57,4 +67,40 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 		return keyHolder.getKey().longValue();
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end){
+		String sql =  "SELECT C.idCarga_PMM, date_format(C.fechaFoto, '%d/%m/%Y') AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
+				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
+				+ "FROM cuadratura.carga_pmm C "
+				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
+				+ "WHERE C.org_lvl_child=:idCentroDistribucion AND date_format(C.fechaFoto, '%d/%m/%Y') BETWEEN :fechaDesde AND :fechaHasta ";
+		
+		
+		Query query = this.em.createNativeQuery(sql);
+		query.setParameter("idCentroDistribucion", idCentroDistribucion);
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta",fechaHasta);
+	
+		query.setFirstResult(start);
+		query.setMaxResults(end);
+		query.setHint(QueryHints.HINT_CACHEABLE, true);
+		return query.getResultList();
+		
+	}
+	
+	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception{
+		String sql ="SELECT COUNT(*) FROM (SELECT C.idCarga_PMM, date_format(C.fechaFoto, '%d/%m/%Y') AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
+				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
+				+ "FROM cuadratura.carga_pmm C "
+				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
+				+ "WHERE C.org_lvl_child=:idCentroDistribucion AND date_format(C.fechaFoto, '%d/%m/%Y') BETWEEN :fechaDesde AND :fechaHasta  ) tt ";
+		
+		Query query = em.createNativeQuery(sql.toString());
+		query.setParameter("idCentroDistribucion", idCentroDistribucion);
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta",fechaHasta);
+		
+		return Integer.valueOf(query.getSingleResult().toString());
+	}
 }
