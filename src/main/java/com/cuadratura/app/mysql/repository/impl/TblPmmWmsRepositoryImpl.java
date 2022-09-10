@@ -11,11 +11,9 @@ import javax.persistence.StoredProcedureQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.jpa.QueryHints;
-
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.repository.TblPmmWmsRepositoryCustom;
-import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 
 @Repository
 public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
@@ -40,8 +38,11 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short, Integer start, Integer end) {
-
+	public List<Object[]> getAllResultadoPmmWms(String idCD_org_name_short, Integer start, Integer end) {
+		LOGGER.info("idCD_org_name_short ===>> " + idCD_org_name_short);
+		LOGGER.info("start  ===>> " + start);
+		LOGGER.info("end  ===>> " + end);
+		
 		String sql = "SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
 				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado " + "FROM cuadratura.cruce_pmm_wms C "

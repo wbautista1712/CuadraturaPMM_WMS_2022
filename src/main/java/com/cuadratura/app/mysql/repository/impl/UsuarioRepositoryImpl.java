@@ -3,7 +3,6 @@ package com.cuadratura.app.mysql.repository.impl;
 import java.sql.PreparedStatement;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +16,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.Usuario;
-import com.cuadratura.app.mysql.entity.UsuarioRol;
 import com.cuadratura.app.mysql.repository.UsuarioCustom;
 import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
 
