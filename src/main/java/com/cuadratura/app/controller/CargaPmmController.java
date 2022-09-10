@@ -41,7 +41,6 @@ public class CargaPmmController {
 	     Integer start = listResponse.getStart(page, rows);
 		try {
 			LOGGER.info("getAllFotoPmmm  fechaDesde " + fechaDesde);
-
 			List<FotoPmmDto> result = cargaPmmService.getAllFindFotoPmm(idCD, fechaDesde, fechaHasta, start, rows);
 			LOGGER.info("result " + result.size());
 			records =cargaPmmService.countFotoPmm(idCD, fechaDesde, fechaHasta);

@@ -32,7 +32,6 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short, Integer start, Integer end) {
 
 		List<ResultadoPmmWmsDto> listaClasificadores = new ArrayList<ResultadoPmmWmsDto>();
-
 		List<Object[]> lista = tblPmmWmsRepository.getAllResultadoPmmWms(idCD_org_name_short, start, end);
 		LOGGER.info("get lista " + lista.size());
 		ResultadoPmmWmsDto fotoWms;

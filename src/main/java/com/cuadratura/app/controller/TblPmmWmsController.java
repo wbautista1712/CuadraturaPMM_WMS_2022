@@ -65,7 +65,6 @@ public class TblPmmWmsController {
 		try {
 
 			LOGGER.info("getAllResultadoPmmWms  idCD_org_name_short " + idCD_org_name_short);
-
 			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCD_org_name_short ,  start,  rows);
 			records =tblPmmWmsService.countResultadoPmmWms(idCD_org_name_short);
 			LOGGER.info("result getAllResultadoPmmWms " + result.size());
