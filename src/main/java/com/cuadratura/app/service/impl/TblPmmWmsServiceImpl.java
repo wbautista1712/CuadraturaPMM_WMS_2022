@@ -28,8 +28,8 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 	}
 
 	@Override
-	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short) {
-		return tblPmmWmsRepository.getAllResultadoPmmWms(idCD_org_name_short);
+	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short, Integer start, Integer end) {
+		return tblPmmWmsRepository.getAllResultadoPmmWms(idCD_org_name_short,  start,  end);
 	}
 
 	@Override
@@ -37,4 +37,8 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 		this.tblPmmWmsRepository.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, idCrucePmmWms);
 	}
 
+	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception{
+		return tblPmmWmsRepository.countResultadoPmmWms(idCD_org_name_short);
+		
+	}
 }

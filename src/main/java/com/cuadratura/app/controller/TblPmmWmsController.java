@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
 import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
+import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;
 import com.cuadratura.app.util.Constantes;
@@ -56,15 +57,20 @@ public class TblPmmWmsController {
 	}
 
 	@GetMapping(value = "/getAllResultadoPmmWms")
-	public ResponseEntity<List<ResultadoPmmWmsDto>> getAllResultadoPmmWms(@RequestParam String idCD_org_name_short) {
+	public ResponseEntity<ListResponse> getAllResultadoPmmWms(@RequestParam String idCD_org_name_short,
+			@RequestParam  Integer rows, @RequestParam Integer page) {
+		 ListResponse listResponse = new ListResponse();
+		 Integer records = 0;
+	     Integer start = listResponse.getStart(page, rows);
 		try {
 
 			LOGGER.info("getAllResultadoPmmWms  idCD_org_name_short " + idCD_org_name_short);
 
-			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCD_org_name_short);
+			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCD_org_name_short ,  start,  rows);
+			records =tblPmmWmsService.countResultadoPmmWms(idCD_org_name_short);
 			LOGGER.info("result getAllResultadoPmmWms " + result.size());
-			return ResponseEntity.status(HttpStatus.OK).body(result);
-
+			//return ResponseEntity.status(HttpStatus.OK).body(result);
+			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
