@@ -8,7 +8,7 @@ import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
 public interface CargaPmmRepositoryCustom {
 	public Long saveCargaPmm(CargaPmm cargaPmm);
 
-	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end);
+	public List<Object[]> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end);
 	
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception;
 }
