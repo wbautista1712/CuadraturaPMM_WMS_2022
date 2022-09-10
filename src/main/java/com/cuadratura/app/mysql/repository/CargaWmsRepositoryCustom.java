@@ -3,7 +3,6 @@ package com.cuadratura.app.mysql.repository;
 import java.util.List;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
-import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
 
 public interface CargaWmsRepositoryCustom {
 

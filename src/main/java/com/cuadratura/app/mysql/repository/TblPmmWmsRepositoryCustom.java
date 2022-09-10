@@ -2,8 +2,6 @@ package com.cuadratura.app.mysql.repository;
 
 import java.util.List;
 
-import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
-
 public interface TblPmmWmsRepositoryCustom {
 	public void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario, int idCrucePmmWms);
 	

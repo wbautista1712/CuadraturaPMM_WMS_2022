@@ -11,11 +11,9 @@ import javax.persistence.StoredProcedureQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.jpa.QueryHints;
-
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.repository.TblPmmWmsRepositoryCustom;
-import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 
 @Repository
 public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
