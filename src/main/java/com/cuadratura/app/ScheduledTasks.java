@@ -35,6 +35,9 @@ public class ScheduledTasks {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     
+    // Agregado por wilber
+    private static final String TIME_ZONE ="America/Lima";   
+    
     @Autowired
     private FapinvbaleeService fapinvbaleeService;
 
@@ -54,7 +57,7 @@ public class ScheduledTasks {
     private CargaWmsService cargaWmsService;
     
 
-    @Scheduled(cron = "0 46 18 ? * 7 ") 
+    @Scheduled(cron = "0 46 18 ? * 7 ", zone = TIME_ZONE) 
     public void scheduleTaskWithFixedRate() {
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
  
@@ -68,7 +71,7 @@ public class ScheduledTasks {
     	cargaPmm.setFechaFoto(new Date());
     	cargaPmm.setHoraFoto(dateTimeFormatter.format(LocalDateTime.now()));    
     	cargaPmm.setNumRegistros(listaTblPmmForm.size());    
-    	cargaPmm.setUsuarioCarga("Wilber"); 
+    	cargaPmm.setUsuarioCarga("AUTOMÁTICO"); 
     	
     	cargaPmm.setEstado(true);     
     	
@@ -128,22 +131,34 @@ public class ScheduledTasks {
     }*/
 
     
+    // A B C D E F
+    /*
+      	A: Segundos (0 - 59).
+	   	B: Minutos (0 - 59).
+		C: Horas (0 - 23).
+		D: Día (1 - 31).
+		E: Mes (1 - 12).
+		F: Día de la semana (0 - 6).
+    */
     
-    @Scheduled(cron = "0 46 18 ? * 7 ") //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
+    
+    @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
     //todos los meses, los días 5 (visernes).
     public void scheduleTaskWithCronExpression() throws Exception {
-        logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
-        List<WmsCinsDto>  listaWmsCinsDto =       wmsCinsService.findAllWMSWmsCins();
-        CargaWms cargaWms = new CargaWms();
         
+    	logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
+        
+        List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins();
+        
+        CargaWms cargaWms = new CargaWms();
         cargaWms.setFechaCarga(new Date());
         cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
         cargaWms.setEstado(true);
         cargaWms.setNumRegistros(listaWmsCinsDto.size());
         cargaWms.setIdmTipoImportacion(1);
         cargaWms.setIdmestadoCuadratura(1);
-        cargaWms.setUsuarioCarga("wilber");
-		cargaWms.setOrgNameShort("CD04");		
+        cargaWms.setUsuarioCarga("AUTOMÁTICA");
+		cargaWms.setOrgNameShort("CD04");		// traer toda la datos de los CDS
         Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
         logger.info("id ==> " +id);
         
