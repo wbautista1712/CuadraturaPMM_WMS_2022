@@ -1,5 +1,6 @@
 package com.cuadratura.app.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -301,7 +302,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 	}
 	
 	@Override
-	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado ) {
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado ) throws SQLException {
 		crucePmmWmsRepository.spActualizarEstadoWMSPMMTotal(pidCrucePmmWms, idEstado);
 	}
 

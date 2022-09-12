@@ -1,9 +1,13 @@
 package com.cuadratura.app.mysql.repository.impl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
@@ -105,9 +109,43 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 	}
 	
-	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado ) {
-		String sqlQuery=" call cuadratura.sp_actualizarEstado_WMS_PMM_Total pidCruce_pmm_wms=?, idEstado=? ";    
-		this.jdbcTemplate.queryForRowSet(sqlQuery, pidCrucePmmWms, idEstado );    
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado )  throws SQLException{
+		//String sqlQuery=" call cuadratura.sp_actualizarEstado_WMS_PMM_Total pidCruce_pmm_wms=?, idEstado=? ";    
+		DataSource ds = jdbcTemplate.getDataSource();
+		
+		 Connection conn = null; 
+	        CallableStatement csmt = null;
+
+
+
+	        try{ 
+	             conn =ds.getConnection();
+	             csmt = conn.prepareCall("{callcuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
+	             
+	             csmt.setInt(1 ,pidCrucePmmWms);             
+	             csmt.setInt(2 , idEstado);
+	          
+	  
+	   
+
+	             csmt.execute();
+ 
+				 
+				 
+				 
+	         }catch(Exception ex){
+	        	 LOGGER.error("Error en spActualizarEstadoWMSPMMTotal()",ex);                 
+	         }finally {       
+	        	 if (csmt != null) {
+	        		 csmt.close();
+					}
+	        	 if (conn != null) {
+	        		 conn.close();
+					}
+	          }
+	        
+	      
+		
 	}
 
 }
