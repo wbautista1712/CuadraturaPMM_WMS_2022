@@ -49,7 +49,6 @@ public class CrucePmmWmsController {
 			Integer records = 0;
 		    Integer start = listResponse.getStart(page, rows);
 		    */
-
 			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
 			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
 			//records =result.size();
