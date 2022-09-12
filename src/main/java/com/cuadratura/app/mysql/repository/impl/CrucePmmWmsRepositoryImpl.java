@@ -120,7 +120,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 	        try{ 
 	             conn =ds.getConnection();
-	             csmt = conn.prepareCall("{callcuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
+	             csmt = conn.prepareCall("{call cuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
 	             
 	             csmt.setInt(1 ,pidCrucePmmWms);             
 	             csmt.setInt(2 , idEstado);
