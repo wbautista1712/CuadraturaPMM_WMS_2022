@@ -62,7 +62,7 @@ public class ScheduledTasks {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
 		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee();
-		TblPmm tblPmm = null;
+	//	TblPmm tblPmm = null;
 		logger.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
 
 		
