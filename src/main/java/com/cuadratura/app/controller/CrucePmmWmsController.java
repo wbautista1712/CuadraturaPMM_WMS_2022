@@ -49,7 +49,7 @@ public class CrucePmmWmsController {
 			Integer records = 0;
 		    Integer start = listResponse.getStart(page, rows);
 
-			List<CrucePmmWmsDto> result = crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
 			records =result.size();
 			
 			//return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -72,8 +72,7 @@ public class CrucePmmWmsController {
 			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms, start, rows);
 			records =result.size();
 			
-			LOGGER.info("result "+result.size());
-			
+			LOGGER.info("result "+result.size());			
 			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms, Constantes.ESTADO_CUADRATURA_VALIDACION);
 			
 			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
@@ -99,7 +98,7 @@ public class CrucePmmWmsController {
 
 			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
 		
-			tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
+			this.tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
 			
 			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(id, Constantes.ESTADO_CUADRATURA_PROCESO);
 			return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
