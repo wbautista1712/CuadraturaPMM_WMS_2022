@@ -57,7 +57,7 @@ public class ScheduledTasks {
     private CargaWmsService cargaWmsService;
     
 
-    @Scheduled(cron = "0 46 18 ? * 7 ", zone = TIME_ZONE) 
+    @Scheduled(cron = "0 5 16 ? * 6 ", zone = TIME_ZONE) 
     public void scheduleTaskWithFixedRate() {
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
  
@@ -142,7 +142,7 @@ public class ScheduledTasks {
     */
     
     
-    @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
+    @Scheduled(cron = "0 5 16 ? * 6 ", zone = TIME_ZONE) //a tarea anterior se ejecutará a las 23 horas con 9 minutos y 0 segundos, 
     //todos los meses, los días 5 (visernes).
     public void scheduleTaskWithCronExpression() throws Exception {
         
