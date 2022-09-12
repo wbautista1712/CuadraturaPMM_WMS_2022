@@ -62,7 +62,8 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 	}
 
 	@Override
-	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end) {
+	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort,
+			Integer start, Integer end) {
 		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::...");
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
 				.withProcedureName("sp_listar_ajuste_bolsaDiscrepancia");
@@ -71,7 +72,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
 		inParamMap.put("p_idCD_org_name_short", idCDOrgNameShort);
-		
+
 		inParamMap.put("pageNumber", start);
 		inParamMap.put("pageSize", end);
 
@@ -85,10 +86,11 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 	}
 
 	@Override
-	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end) {
+	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort, Integer start,
+			Integer end) {
 		LOGGER.info("idCrucePmmWms::: " + idCrucePmmWms);
 		LOGGER.info("idCDOrgNameShort::: " + idCDOrgNameShort);
-		
+
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
 				.withProcedureName("sp_listar_ajuste_param");
 
@@ -96,7 +98,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
 		inParamMap.put("idCD", idCDOrgNameShort);
-		
+
 		inParamMap.put("pageNumber", start);
 		inParamMap.put("pageSize", end);
 
@@ -108,44 +110,34 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 		return simpleJdbcCallResult;
 
 	}
-	
-	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado )  throws SQLException{
-		//String sqlQuery=" call cuadratura.sp_actualizarEstado_WMS_PMM_Total pidCruce_pmm_wms=?, idEstado=? ";    
+
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms, int idEstado) throws SQLException {
+		// String sqlQuery=" call cuadratura.sp_actualizarEstado_WMS_PMM_Total
+		// pidCruce_pmm_wms=?, idEstado=? ";
 		DataSource ds = jdbcTemplate.getDataSource();
-		
-		 Connection conn = null; 
-	        CallableStatement csmt = null;
+		Connection conn = null;
+		CallableStatement csmt = null;
 
+		try {
+			conn = ds.getConnection();
+			csmt = conn.prepareCall("{call cuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
 
+			csmt.setInt(1, pidCrucePmmWms);
+			csmt.setInt(2, idEstado);
 
-	        try{ 
-	             conn =ds.getConnection();
-	             csmt = conn.prepareCall("{call cuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
-	             
-	             csmt.setInt(1 ,pidCrucePmmWms);             
-	             csmt.setInt(2 , idEstado);
-	          
-	  
-	   
+			csmt.execute();
 
-	             csmt.execute();
- 
-				 
-				 
-				 
-	         }catch(Exception ex){
-	        	 LOGGER.error("Error en spActualizarEstadoWMSPMMTotal()",ex);                 
-	         }finally {       
-	        	 if (csmt != null) {
-	        		 csmt.close();
-					}
-	        	 if (conn != null) {
-	        		 conn.close();
-					}
-	          }
-	        
-	      
-		
+		} catch (Exception ex) {
+			LOGGER.error("Error en spActualizarEstadoWMSPMMTotal()", ex);
+		} finally {
+			if (csmt != null) {
+				csmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+
 	}
 
 }
