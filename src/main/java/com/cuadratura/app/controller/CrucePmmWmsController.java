@@ -41,13 +41,20 @@ public class CrucePmmWmsController {
 	private TblPmmWmsService tblPmmWmsService;
 
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
-	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam int idCrucePmmWms) {
+	public ResponseEntity<ListResponse> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms,  @RequestParam  Integer rows, @RequestParam Integer page) {
 		try {
 
 			LOGGER.info("getAjusteBolsaDiscrepancia");
+			ListResponse listResponse = new ListResponse();
+			Integer records = 0;
+		    Integer start = listResponse.getStart(page, rows);
 
-			List<CrucePmmWmsDto> result = crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
-			return ResponseEntity.status(HttpStatus.OK).body(result);
+			List<CrucePmmWmsDto> result = crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+			records =result.size();
+			
+			//return ResponseEntity.status(HttpStatus.OK).body(result);
+			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+			
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
@@ -56,12 +63,15 @@ public class CrucePmmWmsController {
 	@GetMapping(value = "/getAnalisisAjustePmmWms")
 	public ResponseEntity<ListResponse> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms,  @RequestParam  Integer rows, @RequestParam Integer page) {
 		ListResponse listResponse = new ListResponse();
-		 Integer records = 0;
-	     Integer start = listResponse.getStart(page, rows);
-		try {
+		Integer records = 0;
+	    Integer start = listResponse.getStart(page, rows);
+		try 
+		{
 			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms "+idCrucePmmWms);
+			
 			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms, start, rows);
 			records =result.size();
+			
 			LOGGER.info("result "+result.size());
 			
 			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms, Constantes.ESTADO_CUADRATURA_VALIDACION);

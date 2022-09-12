@@ -58,7 +58,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 	}
 
 	@Override
-	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort) {
+	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end) {
 		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::...");
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
 				.withProcedureName("sp_listar_ajuste_bolsaDiscrepancia");
@@ -67,6 +67,9 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
 		inParamMap.put("p_idCD_org_name_short", idCDOrgNameShort);
+		
+		inParamMap.put("pageNumber", start);
+		inParamMap.put("pageSize", end);
 
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 

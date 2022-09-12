@@ -9,7 +9,7 @@ import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
 
 public interface CrucePmmWmsService {
 	public Long saveCrucePmmWms(CrucePmmWms crucePmmWms);
-	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms );
+	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, Integer start, Integer end);
 	
 	public List<AjustePmmWmsDto> listAnalisisAjustePmmWms(int idCrucePmmWms, Integer start, Integer end);
 	
