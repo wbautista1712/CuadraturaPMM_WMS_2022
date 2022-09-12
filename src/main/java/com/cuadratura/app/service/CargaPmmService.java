@@ -13,4 +13,7 @@ public interface CargaPmmService  extends GenericService<CargaPmm, Integer> {
 	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end);
 	
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception;
+	
+	public List<Object[]> getLoteFotoPmm();	
+
 }

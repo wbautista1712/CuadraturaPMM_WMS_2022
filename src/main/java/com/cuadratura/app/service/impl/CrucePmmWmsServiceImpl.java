@@ -300,5 +300,10 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 		LOGGER.info(" fin listAnalisisAjustePmmWms " + list.size());
 		return list;
 	}
+	
+	@Override
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado ) {
+		crucePmmWmsRepository.spActualizarEstadoWMSPMMTotal(pidCrucePmmWms, idEstado);
+	}
 
 }
