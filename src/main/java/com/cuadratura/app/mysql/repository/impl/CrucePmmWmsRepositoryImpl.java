@@ -104,5 +104,10 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 		return simpleJdbcCallResult;
 
 	}
+	
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado ) {
+		String sqlQuery=" EXECUTE cuadratura.sp_actualizarEstado_WMS_PMM_Total pidCruce_pmm_wms=?, idEstado=? ";    
+		this.jdbcTemplate.queryForRowSet(sqlQuery, pidCrucePmmWms, idEstado );    
+	}
 
 }

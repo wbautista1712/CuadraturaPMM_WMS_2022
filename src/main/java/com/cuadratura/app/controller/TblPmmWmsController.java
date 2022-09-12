@@ -75,25 +75,5 @@ public class TblPmmWmsController {
 		}
 	}
 
-	@PostMapping(value = "/crearCrucePmmWms")
-	public ResponseEntity<?> crearCrucePmmWms(@RequestParam Integer idCargaPMM, @RequestParam Integer idCargaWMS,
-			@RequestParam String idCD, @RequestParam Integer idUsuario) throws Exception {
-		if (idCargaPMM == null) {
-			return ResponseEntity.badRequest().body("Error Procesamiento");
-		} else {
-			CrucePmmWms crucePmmWms = new CrucePmmWms();
 
-			crucePmmWms.setFechaMatch(new Date());
-			crucePmmWms.setHoraMatch(dateTimeFormatter.format(LocalDateTime.now()));
-			crucePmmWms.setIdCargaPMM(idCargaPMM);
-			crucePmmWms.setIdCargaWMS(idCargaWMS);
-
-			crucePmmWms.setIdEstadoCuadratura(Constantes.ESTADO_CUADRATURA);
-
-			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
-
-			tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
-			return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
-		}
-	}
 }

@@ -11,4 +11,7 @@ public interface CrucePmmWmsCustom {
 	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end);
 	
 	public  Map<String, Object>  listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort, Integer start, Integer end);
+	
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado );
+
 }

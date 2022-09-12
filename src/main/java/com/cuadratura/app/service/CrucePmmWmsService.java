@@ -12,4 +12,6 @@ public interface CrucePmmWmsService {
 	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, Integer start, Integer end);
 	
 	public List<AjustePmmWmsDto> listAnalisisAjustePmmWms(int idCrucePmmWms, Integer start, Integer end);
+	
+	public void spActualizarEstadoWMSPMMTotal(int pidCrucePmmWms , int idEstado ) ;
 }

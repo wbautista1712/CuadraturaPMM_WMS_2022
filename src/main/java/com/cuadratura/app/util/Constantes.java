@@ -7,4 +7,7 @@ public interface Constantes {
 	public static final String VACIO = "";
 	public static final Boolean ESTADO_ACTIVO = true;
 	public static final Integer NUMBER_ROWS_BY_PAGE = 10;
+	
+	public static final Integer ESTADO_CUADRATURA_PROCESO = 2;
+	public static final Integer ESTADO_CUADRATURA_VALIDACION = 3;
 }

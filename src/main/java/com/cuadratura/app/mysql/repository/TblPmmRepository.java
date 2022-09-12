@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cuadratura.app.mysql.entity.TblPmm;
 
 @Repository
-public interface TblPmmRepository extends CrudRepository<TblPmm, Integer> {
+public interface TblPmmRepository extends CrudRepository<TblPmm, Integer>, TblPmmRepositoryCustom {
 
 }

@@ -70,4 +70,10 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception {
 		return cargaPmmRepository.countFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta);
 	}
+	
+	@Override
+	public List<Object[]> getLoteFotoPmm(){
+		return cargaPmmRepository.getLoteFotoPmm();
+	}
+	
 }

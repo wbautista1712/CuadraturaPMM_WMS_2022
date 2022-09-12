@@ -106,4 +106,17 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 		
 		return Integer.valueOf(query.getSingleResult().toString());
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Object[]> getLoteFotoPmm(){
+		String sql =  "SELECT org_lvl_child, COUNT (*) num_registros "
+				+ "  FROM pmm.fapinvbalee "
+				+ " GROUP BY org_lvl_child ";
+		
+		Query query = this.em.createNativeQuery(sql);		
+		query.setHint(QueryHints.HINT_CACHEABLE, true);
+		return query.getResultList();
+	}	
+	
 }
