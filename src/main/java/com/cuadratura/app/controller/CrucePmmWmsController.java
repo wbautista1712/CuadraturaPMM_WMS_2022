@@ -41,19 +41,22 @@ public class CrucePmmWmsController {
 	private TblPmmWmsService tblPmmWmsService;
 
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
-	public ResponseEntity<ListResponse> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms,  @RequestParam  Integer rows, @RequestParam Integer page) {
+	public ResponseEntity<ListResponse> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
 		try {
 
 			LOGGER.info("getAjusteBolsaDiscrepancia");
+			/*
 			ListResponse listResponse = new ListResponse();
 			Integer records = 0;
 		    Integer start = listResponse.getStart(page, rows);
+		    */
 
-			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
-			records =result.size();
+			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
+			//records =result.size();
 			
-			//return ResponseEntity.status(HttpStatus.OK).body(result);
-			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
 			
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);

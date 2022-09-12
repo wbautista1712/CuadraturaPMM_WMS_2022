@@ -45,12 +45,12 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 	}
 
 	@Override
-	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, Integer start, Integer end) {
+	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms) {
 		// TODO Auto-generated method stub
 		LOGGER.info("idCrucePmmWms: " + idCrucePmmWms);
 	    String idCDOrgNameShort = cargaWmsRepository.getCDCrucePmmWms(idCrucePmmWms);
 		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::..."+idCDOrgNameShort);
-		Map<String, Object> mapList = crucePmmWmsRepository.listarAjusteBolsaDiscrepancia(idCrucePmmWms,idCDOrgNameShort, start, end);
+		Map<String, Object> mapList = crucePmmWmsRepository.listarAjusteBolsaDiscrepancia(idCrucePmmWms,idCDOrgNameShort);
 
 		List<CrucePmmWmsDto> list = new ArrayList<CrucePmmWmsDto>();
 		CrucePmmWmsDto libro = null;
@@ -129,7 +129,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 	}
 
 	@Override
-	public List<AjustePmmWmsDto> listAnalisisAjustePmmWms(int idCrucePmmWms, Integer start, Integer end) {
+	public List<AjustePmmWmsDto> listAnalisisAjustePmmWms(int idCrucePmmWms) {
 		// TODO Auto-generated method stub
 		AjustePmmWmsDto ajustePmmWmsDto = null;
 
