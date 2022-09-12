@@ -62,12 +62,9 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort) {
-=======
-	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort,
-			Integer start, Integer end) {
->>>>>>> c14bb7277257e15469139456e319f97d1d6c1866
+
 		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::...");
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
 				.withProcedureName("sp_listar_ajuste_bolsaDiscrepancia");
@@ -76,12 +73,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
 		inParamMap.put("p_idCD_org_name_short", idCDOrgNameShort);
-<<<<<<< HEAD
-=======
 
-		inParamMap.put("pageNumber", start);
-		inParamMap.put("pageSize", end);
->>>>>>> c14bb7277257e15469139456e319f97d1d6c1866
 
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 
@@ -93,12 +85,8 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort) {
-=======
-	public Map<String, Object> listAnalisisAjustePmmWms(int idCrucePmmWms, String idCDOrgNameShort, Integer start,
-			Integer end) {
->>>>>>> c14bb7277257e15469139456e319f97d1d6c1866
+
 		LOGGER.info("idCrucePmmWms::: " + idCrucePmmWms);
 		LOGGER.info("idCDOrgNameShort::: " + idCDOrgNameShort);
 
@@ -109,12 +97,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 
 		inParamMap.put("idCruce_pmm_wms", idCrucePmmWms);
 		inParamMap.put("idCD", idCDOrgNameShort);
-<<<<<<< HEAD
-=======
 
-		inParamMap.put("pageNumber", start);
-		inParamMap.put("pageSize", end);
->>>>>>> c14bb7277257e15469139456e319f97d1d6c1866
 
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 
@@ -132,29 +115,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 		Connection conn = null;
 		CallableStatement csmt = null;
 
-<<<<<<< HEAD
-	        try{ 
-	             conn =ds.getConnection();
-	             csmt = conn.prepareCall("{call cuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
-	             
-	             csmt.setInt(1 ,pidCrucePmmWms);             
-	             csmt.setInt(2 , idEstado);
-	             csmt.execute();
-				 
-	         }catch(Exception ex){
-	        	 LOGGER.error("Error en spActualizarEstadoWMSPMMTotal()",ex);                 
-	         }finally {       
-	        	 if (csmt != null) {
-	        		 csmt.close();
-					}
-	        	 if (conn != null) {
-	        		 conn.close();
-					}
-	          }
-	        
-	      
-		
-=======
+	
 		try {
 			conn = ds.getConnection();
 			csmt = conn.prepareCall("{call cuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
@@ -175,7 +136,6 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
 			}
 		}
 
->>>>>>> c14bb7277257e15469139456e319f97d1d6c1866
 	}
 
 }

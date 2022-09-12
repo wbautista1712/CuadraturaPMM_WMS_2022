@@ -135,7 +135,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 		String cd = cargaWmsRepository.getCDCrucePmmWms(idCrucePmmWms);
 
-		Map<String, Object> mapList = this.crucePmmWmsRepository.listAnalisisAjustePmmWms(idCrucePmmWms, cd,  start,  end);
+		Map<String, Object> mapList = this.crucePmmWmsRepository.listAnalisisAjustePmmWms(idCrucePmmWms, cd);
 
 		List<AjustePmmWmsDto> list = new ArrayList<AjustePmmWmsDto>();
 

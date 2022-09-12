@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
-import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
+import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;
 import com.cuadratura.app.util.Constantes;
@@ -41,7 +40,7 @@ public class CrucePmmWmsController {
 	private TblPmmWmsService tblPmmWmsService;
 
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
-	public ResponseEntity<ListResponse> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
+	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
 		try {
 
 			LOGGER.info("getAjusteBolsaDiscrepancia");
@@ -64,21 +63,20 @@ public class CrucePmmWmsController {
 	}
 	
 	@GetMapping(value = "/getAnalisisAjustePmmWms")
-	public ResponseEntity<ListResponse> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms,  @RequestParam  Integer rows, @RequestParam Integer page) {
-		ListResponse listResponse = new ListResponse();
-		Integer records = 0;
-	    Integer start = listResponse.getStart(page, rows);
+	public ResponseEntity<List<AjustePmmWmsDto>> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms) {
+	
 		try 
 		{
 			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms "+idCrucePmmWms);
 			
-			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms, start, rows);
-			records =result.size();
+			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms);			
 			
 			LOGGER.info("result "+result.size());			
 			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms, Constantes.ESTADO_CUADRATURA_VALIDACION);
 			
-			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+		//	return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+			
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
