@@ -154,7 +154,7 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 	
 	@Override
 	public List<WmsCinsCDDto> getFechaHoraFotoWms(String idCD){
-		List<Object[]> listObject = wmsCinsRepository.getCDFotoWms();
+		List<Object[]> listObject = wmsCinsRepository.getFechaHoraFotoWms(idCD);
 		WmsCinsCDDto comboDTO;
 		List<WmsCinsCDDto> listReturn = new ArrayList<WmsCinsCDDto>();
 		for (Object[] row : listObject) {

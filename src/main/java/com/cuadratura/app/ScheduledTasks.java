@@ -161,6 +161,9 @@ public class ScheduledTasks {
 			
 			for (int j = 0; j < listaFH.size(); j++) {
 				
+				logger.info(".:::oracle  listaCD.get(i).getIdCD() :::. " + listaCD.get(i).getIdCD());
+				logger.info(".:::oracle  listaFH.get(j).getFechaHora() :::. " + listaFH.get(j).getFechaHora());
+				
 				List<WmsCinsDto> listaTblWmsForm = this.wmsCinsService.findAllWMSWmsCins(listaCD.get(i).getIdCD(), listaFH.get(j).getFechaHora());
 				// TblPmm tblPmm = null;
 				logger.info(".::: oracle tamaño WMS de importacion :::. " + listaTblWmsForm.size());

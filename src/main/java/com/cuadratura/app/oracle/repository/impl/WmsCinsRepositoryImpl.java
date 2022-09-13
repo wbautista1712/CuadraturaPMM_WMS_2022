@@ -34,7 +34,8 @@ public class WmsCinsRepositoryImpl implements WmsCinsRepository {
 	@SuppressWarnings("unchecked")
 	public List<Object[]> findAllWMSWmsCins(String idCD, String fechaHora) throws Exception{
 		// TODO Auto-generated method stub
-		LOGGER.info("incio");
+		LOGGER.info("idCD "+idCD);
+		LOGGER.info("fechaHora "+fechaHora);
 		String sql = "SELECT NRO_CARGA,CREATE_DATE,FACILITY_CODE,COMPANY_CODE,ITEM_ALTERNATE,ITEM_PART_A,ITEM_PART_B,ITEM_PART_C,ITEM_PART_D,ITEM_PART_E, "
 				+ "ITEM_PART_F,HIERARCHY1_CODE,HIERARCHY2_CODE,HIERARCHY3_CODE,HIERARCHY4_CODE,HIERARCHY5_CODE,BATCH_NBR,PRE_PACK_CODE, "
 				+ "PRE_PACK_RATIO,PRE_PACK_UNITS,OBLPN_TOTAL,ACTIVE_TOTAL,ACTIVE_ALLOCATED,ACTIVE_ALLOCATED_LOCKCODE,ACTIVE_AVAILABLE,ACTIVE_LOCKCODE, "
