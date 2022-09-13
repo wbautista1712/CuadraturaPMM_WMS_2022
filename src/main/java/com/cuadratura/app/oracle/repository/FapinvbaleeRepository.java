@@ -10,7 +10,7 @@ import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
 
 @Repository
-public interface FapinvbaleeRepository extends CrudRepository<Fapinvbalee, FapinvbaleePK> {
+public interface FapinvbaleeRepository extends CrudRepository<Fapinvbalee, FapinvbaleePK> , FapinvbaleeRepositoryCustom{
 
 	@Query(value = "SELECT "
 			+ "ORG_LVL_CHILD,PRD_LVL_CHILD,INV_TYPE_CODE,TRANS_LOTE,ON_HAND_QTY,ON_HAND_RETL,ON_HAND_COST,PO_ORD_QTY,PO_ORD_RETL,PO_ORD_COST, "

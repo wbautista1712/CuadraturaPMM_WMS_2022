@@ -83,17 +83,34 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 					statement.setBigDecimal(17, obj.getToIntrnQty());
 					statement.setBigDecimal(18, obj.getToIntrnRetl());
 					statement.setBigDecimal(19, obj.getToIntrnCost());
-					Date firstPisDate = new java.sql.Date(obj.getFirstPisDate().getTime());
-					statement.setDate(20, (java.sql.Date) firstPisDate);
+
+					if (obj.getFirstPisDate() != null) {
+						Date firstPisDate = new java.sql.Date(obj.getFirstPisDate().getTime());
+						statement.setDate(20, (java.sql.Date) firstPisDate);
+					} else {
+						statement.setDate(20, null);
+					}
 
 					// last_pis_date, ltd_qty, ltd_retl, ltd_cost, last_chg_date, on_hand_weight,
-					Date lastPisDate = new java.sql.Date(obj.getLastPisDate().getTime());
-					statement.setDate(21, (java.sql.Date) lastPisDate);
+
+					if (obj.getLastPisDate() != null) {
+						Date lastPisDate = new java.sql.Date(obj.getLastPisDate().getTime());
+						statement.setDate(21, (java.sql.Date) lastPisDate);
+					} else {
+						statement.setDate(21, null);
+					}
+
 					statement.setBigDecimal(22, obj.getLtdQty());
 					statement.setBigDecimal(23, obj.getLtdRetl());
 					statement.setBigDecimal(24, obj.getLtdCost());
-					Date lastChgDate = new java.sql.Date(obj.getLastChgDate().getTime());
-					statement.setDate(25, (java.sql.Date) lastChgDate);
+
+					if (obj.getLastChgDate() != null) {
+						Date lastChgDate = new java.sql.Date(obj.getLastChgDate().getTime());
+						statement.setDate(25, (java.sql.Date) lastChgDate);
+					} else {
+						statement.setDate(25, null);
+					}
+
 					statement.setBigDecimal(26, obj.getOnHandWeight());
 
 					// weight_uom, po_ord_weight, po_intrn_weight, to_ord_weight, to_intrn_weight,
@@ -109,20 +126,34 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 					statement.setString(33, obj.getPrdSllUom());
 					statement.setString(34, obj.getCurrCode());
 					statement.setBigDecimal(35, obj.getOnHandEaches());
-					Date firstShippedDate = new java.sql.Date(obj.getFirstShippedDate().getTime());
-					statement.setDate(36, (java.sql.Date) firstShippedDate);
 
-					Date firstSalesDate = new java.sql.Date(obj.getFirstSalesDate().getTime());
-					statement.setDate(37, (java.sql.Date) firstSalesDate);
+					if (obj.getFirstShippedDate() != null) {
+						Date firstShippedDate = new java.sql.Date(obj.getFirstShippedDate().getTime());
+						statement.setDate(36, (java.sql.Date) firstShippedDate);
+					} else {
+						statement.setDate(36, null);
+					}
 
+					if (obj.getFirstSalesDate() != null) {
+						Date firstSalesDate = new java.sql.Date(obj.getFirstSalesDate().getTime());
+						statement.setDate(37, (java.sql.Date) firstSalesDate);
+					} else {
+						statement.setDate(37, null);
+					}
 					// on_hand_cost_hm, on_hand_retl_hm, to_intrn_cost_hm, to_intrn_retl_hm,
 					// trans_vcto_lote, idCarga_PMM
 					statement.setBigDecimal(38, obj.getOnHandCostHm());
 					statement.setBigDecimal(39, obj.getOnHandRetlHm());
 					statement.setBigDecimal(40, obj.getToIntrnCostHm());
 					statement.setBigDecimal(41, obj.getToIntrnRetlHm());
-					Date transVctoLote = new java.sql.Date(obj.getTransVctoLote().getTime());
-					statement.setDate(42, (java.sql.Date) transVctoLote);
+
+					if (obj.getTransVctoLote() != null) {
+						Date transVctoLote = new java.sql.Date(obj.getTransVctoLote().getTime());
+						statement.setDate(42, (java.sql.Date) transVctoLote);
+					} else {
+						statement.setDate(42, null);
+					}
+
 					statement.setInt(43, idCargaPMM);
 
 					LOGGER.info("> Registro ( %s | %s ) agregado al lote #%s\n", obj.getCurrCode(), obj.getWeightUom(),
@@ -146,7 +177,7 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 
 				// confirma transacción
 				connection.commit();
-				LOGGER.info("> TOTAL: [ %s ] alumnos registrados\n", listaTblPmmForm.size());
+				LOGGER.info("> TOTAL: [ %s ] foto registrados\n", listaTblPmmForm.size());
 				LOGGER.info("> Programa terminado");
 			} catch (SQLException ex) {// si se produce algun error
 				LOGGER.error(ex.getMessage());

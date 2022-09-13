@@ -1,5 +1,7 @@
 package com.cuadratura.app.service.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import com.cuadratura.app.mysql.entity.MTipoInventario;
+import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
 import com.cuadratura.app.oracle.repository.FapinvbaleeRepository;
@@ -32,4 +36,24 @@ public class FapinvbaleeServiceImpl extends GenericServiceImpl<Fapinvbalee, Fapi
 		LOGGER.info("findAllFapinvbalee");
 		return (List<Fapinvbalee>) fapinvbaleeRepository.findAllPMMFapinvbalee();
 	}
+	
+	
+	@Override
+	public List<FapinvbaleeDto> getLoteFotoPmm(){
+		List<Object[]> listObject = fapinvbaleeRepository.getLoteFotoPmm();
+
+		FapinvbaleeDto comboDTO;
+		List<FapinvbaleeDto> listReturn = new ArrayList<FapinvbaleeDto>();
+		for (Object[] row : listObject) {
+			LOGGER.info("oooooo");
+			comboDTO = new FapinvbaleeDto();
+			comboDTO.setOrgLvlChild( (row[0]== null ? BigDecimal.ZERO: (BigDecimal)row[0]).intValue()  );
+			comboDTO.setNumRegistros((row[1]== null ? BigDecimal.ZERO: (BigDecimal)row[1]).intValue());
+			listReturn.add(comboDTO);
+		}
+		return listReturn;
+		
+
+	}
+	
 }

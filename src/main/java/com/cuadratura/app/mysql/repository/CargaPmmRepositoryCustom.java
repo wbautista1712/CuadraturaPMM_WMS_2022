@@ -11,6 +11,4 @@ public interface CargaPmmRepositoryCustom {
 	
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception;
 	
-	public List<Object[]> getLoteFotoPmm();
-	
 }

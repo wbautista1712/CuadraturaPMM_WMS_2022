@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.entity.CargaWms;
-import com.cuadratura.app.mysql.entity.TblPmm;
 import com.cuadratura.app.mysql.entity.TblWms;
+import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.service.CargaPmmService;
@@ -59,8 +59,10 @@ public class ScheduledTasks {
 
 	@Autowired
 	private CargaWmsService cargaWmsService;
+	
+	
 
-	@Scheduled(cron = "23 15 18 ? * 7 ", zone = TIME_ZONE)
+	@Scheduled(fixedDelay = 2000)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -70,10 +72,11 @@ public class ScheduledTasks {
 
 		
 
-		List<Object[]> lista = cargaPmmService.getLoteFotoPmm();
+		List<FapinvbaleeDto> lista = fapinvbaleeService.getLoteFotoPmm();
+		logger.info(".:::oracle  obj.lista() :::. " + lista.size());
 		
 		for (int i = 0; i < lista.size(); i++) {
-			
+			logger.info(".::: obj.dddd() :::. " + lista.size());
 			// codigo de carga carga_pmm
 			CargaPmm cargaPmm = new CargaPmm();
 
@@ -87,8 +90,8 @@ public class ScheduledTasks {
 			cargaPmm.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
 			cargaPmm.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
 			
-			logger.info(".::: insert sobj.getDisponiblesWms():::. " + lista.get(0).toString());
-			cargaPmm.setOrgLvlChild(Integer.valueOf(lista.get(0).toString())); // distinct aqui automatico lots
+			logger.info(".::: insert sobj.getDisponiblesWms():::. " + lista.get(0).getOrgLvlChild());
+			cargaPmm.setOrgLvlChild( lista.get(0).getOrgLvlChild()); // distinct aqui automatico lots
 			
 			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 			
