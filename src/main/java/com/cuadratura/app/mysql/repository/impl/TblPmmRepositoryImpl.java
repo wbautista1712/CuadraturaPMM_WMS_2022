@@ -1,5 +1,6 @@
 package com.cuadratura.app.mysql.repository.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -62,7 +63,8 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 					statement.setInt(2, (int) (long) (obj.getFapinvbaleePK().getPrdLvlChild()));
 					statement.setString(3, obj.getFapinvbaleePK().getInvTypeCode());
 					statement.setString(4, obj.getFapinvbaleePK().getTransLote());
-					statement.setBigDecimal(5, obj.getOnHandQty());
+					
+					statement.setBigDecimal(5, obj.getOnHandQty() == null ? BigDecimal.ZERO :obj.getOnHandQty());
 
 					// on_hand_retl, on_hand_cost, po_ord_qty, po_ord_retl, po_ord_cost,
 					statement.setBigDecimal(6, obj.getOnHandRetl());

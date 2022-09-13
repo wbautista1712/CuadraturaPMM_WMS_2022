@@ -26,8 +26,8 @@ public class FapinvbaleeRepositoryImpl implements FapinvbaleeRepositoryCustom{
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getLoteFotoPmm(){
-		String sql =  "SELECT org_lvl_child, COUNT (*) num_registros "
-				+ "  FROM pmm.fapinvbalee "
+		String sql =  "SELECT org_lvl_child idCD, COUNT (*) num_registros "
+				+ "  FROM pmm.fapinvbalee  "
 				+ " GROUP BY org_lvl_child ";
 		
 		Query query = this.entityManager.createNativeQuery(sql);		

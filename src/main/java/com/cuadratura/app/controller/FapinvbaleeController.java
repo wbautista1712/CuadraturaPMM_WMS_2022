@@ -24,7 +24,7 @@ public class FapinvbaleeController {
 
 	@GetMapping(value = "/obtenerListFapinvbalee")
 	public ResponseEntity<List<Fapinvbalee>> obtenerTodos() {
-		LOGGER.info("oracle Fapinvbalee  size "+fapinvbaleeService.findAllPMMFapinvbalee().size());
+		LOGGER.info("oracle Fapinvbalee  size "+fapinvbaleeService.findAllPMMFapinvbalee(5342).size());
 		return null;
 		//return ResponseEntity.ok().body(fapinvbaleeService.findAllFapinvbalee());
 	}

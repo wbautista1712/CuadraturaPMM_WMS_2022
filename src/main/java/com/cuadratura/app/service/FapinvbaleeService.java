@@ -7,7 +7,7 @@ import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
 
 public interface FapinvbaleeService extends GenericService<Fapinvbalee, FapinvbaleePK> {
-	List<Fapinvbalee> findAllPMMFapinvbalee();	
+	List<Fapinvbalee> findAllPMMFapinvbalee(Integer idCD);	
 
 	public List<FapinvbaleeDto> getLoteFotoPmm();	
 }

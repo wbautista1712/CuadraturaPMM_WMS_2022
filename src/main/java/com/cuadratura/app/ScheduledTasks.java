@@ -39,11 +39,8 @@ public class ScheduledTasks {
 	// Agregado por wilber
 	private static final String TIME_ZONE = "America/Lima";
 
-
-
 	@Autowired
 	private FapinvbaleeService fapinvbaleeService;
-
 
 	@Autowired
 	private TblPmmService tblPmmService;
@@ -59,24 +56,23 @@ public class ScheduledTasks {
 
 	@Autowired
 	private CargaWmsService cargaWmsService;
-	
-	
 
 	@Scheduled(fixedDelay = 2000)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
-		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee();
-	//	TblPmm tblPmm = null;
-		logger.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
-
-		
-
 		List<FapinvbaleeDto> lista = fapinvbaleeService.getLoteFotoPmm();
-		logger.info(".:::oracle  obj.lista() :::. " + lista.size());
-		
+		logger.info(".:::oracle  tamaño lote :::. " + lista.size());
+
 		for (int i = 0; i < lista.size(); i++) {
-			logger.info(".::: obj.dddd() :::. " + lista.size());
+			logger.info(".::: obj.getLoteFotoPmm() :::. " + lista.size());
+
+			logger.info(".::: insert idCD:::. " + lista.get(i).getIdCD());
+
+			List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee(lista.get(i).getIdCD());
+			// TblPmm tblPmm = null;
+			logger.info(".::: oracle tamaño de importacion :::. " + listaTblPmmForm.size());
+
 			// codigo de carga carga_pmm
 			CargaPmm cargaPmm = new CargaPmm();
 
@@ -89,40 +85,30 @@ public class ScheduledTasks {
 
 			cargaPmm.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
 			cargaPmm.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
-			
-			logger.info(".::: insert sobj.getDisponiblesWms():::. " + lista.get(0).getOrgLvlChild());
-			cargaPmm.setOrgLvlChild( lista.get(0).getOrgLvlChild()); // distinct aqui automatico lots
-			
+
+			cargaPmm.setOrgLvlChild(lista.get(i).getIdCD()); // distinct aqui automatico lots
+
 			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
-			
-			tblPmmService.saveTblPmm(listaTblPmmForm,  i+1, id);
+
+			tblPmmService.saveTblPmm(listaTblPmmForm, i + 1, id);
 		}
 	}
-			
-/*
-			for (Fapinvbalee obj : listaTblPmmForm) {
-		
-				tblPmm = new TblPmm();
 
-				tblPmm.setCurrCode(obj.getCurrCode());
-				tblPmm.setFirstPisDate(obj.getFirstPisDate());
-				tblPmm.setFirstSalesDate(obj.getFirstSalesDate());
-				tblPmm.setFirstShippedDate(obj.getFirstShippedDate());
-
-<<<<<<< HEAD
-    
-    // A B C D E F
-    /*
-      	A: Segundos (0 - 59).
-	   	B: Minutos (0 - 59).
-		C: Horas (0 - 23).
-		D: Día (1 - 31).
-		E: Mes (1 - 12).
-		F: Día de la semana (0 - 6).
-    */
-    
-    
-  
+	/*
+	 * for (Fapinvbalee obj : listaTblPmmForm) {
+	 * 
+	 * tblPmm = new TblPmm();
+	 * 
+	 * tblPmm.setCurrCode(obj.getCurrCode());
+	 * tblPmm.setFirstPisDate(obj.getFirstPisDate());
+	 * tblPmm.setFirstSalesDate(obj.getFirstSalesDate());
+	 * tblPmm.setFirstShippedDate(obj.getFirstShippedDate());
+	 * 
+	 * <<<<<<< HEAD
+	 * 
+	 * // A B C D E F /* A: Segundos (0 - 59). B: Minutos (0 - 59). C: Horas (0 -
+	 * 23). D: Día (1 - 31). E: Mes (1 - 12). F: Día de la semana (0 - 6).
+	 */
 
 	/*
 	 * @Scheduled(fixedDelay = 2000) public void scheduleTaskWithFixedDelay() {

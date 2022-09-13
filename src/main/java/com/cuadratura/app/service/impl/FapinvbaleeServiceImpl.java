@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import com.cuadratura.app.mysql.entity.MTipoInventario;
 import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
@@ -31,10 +30,10 @@ public class FapinvbaleeServiceImpl extends GenericServiceImpl<Fapinvbalee, Fapi
 	}
 
 	@Override
-	public List<Fapinvbalee> findAllPMMFapinvbalee() {
+	public List<Fapinvbalee> findAllPMMFapinvbalee(Integer idCD) {
 		// TODO Auto-generated method stub
-		LOGGER.info("findAllFapinvbalee");
-		return (List<Fapinvbalee>) fapinvbaleeRepository.findAllPMMFapinvbalee();
+		LOGGER.info("findAllFapinvbalee idCD "+idCD);
+		return (List<Fapinvbalee>) fapinvbaleeRepository.findAllPMMFapinvbalee(idCD);
 	}
 	
 	
@@ -45,9 +44,9 @@ public class FapinvbaleeServiceImpl extends GenericServiceImpl<Fapinvbalee, Fapi
 		FapinvbaleeDto comboDTO;
 		List<FapinvbaleeDto> listReturn = new ArrayList<FapinvbaleeDto>();
 		for (Object[] row : listObject) {
-			LOGGER.info("oooooo");
+			LOGGER.info("cast tamaño ");
 			comboDTO = new FapinvbaleeDto();
-			comboDTO.setOrgLvlChild( (row[0]== null ? BigDecimal.ZERO: (BigDecimal)row[0]).intValue()  );
+			comboDTO.setIdCD( (row[0]== null ? BigDecimal.ZERO: (BigDecimal)row[0]).intValue()  );
 			comboDTO.setNumRegistros((row[1]== null ? BigDecimal.ZERO: (BigDecimal)row[1]).intValue());
 			listReturn.add(comboDTO);
 		}

@@ -1,16 +1,16 @@
 package com.cuadratura.app.oracle.dto.projection;
 
 public class FapinvbaleeDto {
-	private int orgLvlChild; 
+	private int idCD; 
 
 	private int numRegistros ;
 
-	public int getOrgLvlChild() {
-		return orgLvlChild;
+	public int getIdCD() {
+		return idCD;
 	}
 
-	public void setOrgLvlChild(int orgLvlChild) {
-		this.orgLvlChild = orgLvlChild;
+	public void setIdCD(int idCD) {
+		this.idCD = idCD;
 	}
 
 	public int getNumRegistros() {
@@ -20,4 +20,5 @@ public class FapinvbaleeDto {
 	public void setNumRegistros(int numRegistros) {
 		this.numRegistros = numRegistros;
 	}
+
 }

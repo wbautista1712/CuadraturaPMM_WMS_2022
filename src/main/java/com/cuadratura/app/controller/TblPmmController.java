@@ -44,7 +44,7 @@ public class TblPmmController {
 	@PostMapping(value = "/crearCuadraturaPMM")
 	public String crearCuadraturaPMM(@RequestParam @Valid String fechaProceso, @RequestParam @Valid Integer idCD)
 			throws Exception {
-		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee();
+		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee(idCD);
 		TblPmm tblPmm = null;
 		LOGGER.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
 		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
