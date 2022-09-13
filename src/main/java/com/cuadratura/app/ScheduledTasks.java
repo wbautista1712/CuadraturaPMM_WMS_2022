@@ -35,9 +35,11 @@ public class ScheduledTasks {
 	private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
+	
 	// Agregado por wilber
-	private static final String TIME_ZONE = "America/Lima";
+		 
+	 private static final String cronExpression = "0 35 11 ? * 2 ";
+	 private static final String TIME_ZONE = "America/Lima";
 
 	@Autowired
 	private FapinvbaleeService fapinvbaleeService;
@@ -138,7 +140,7 @@ public class ScheduledTasks {
 
 	// @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se
 	// ejecutará a las 23 horas con 9 minutos
-	@Scheduled(fixedDelay = 2000) // y 0 segundos,
+	@Scheduled(cron = cronExpression, zone = TIME_ZONE) // y 0 segundos,
 	// todos los meses, los días 5 (visernes).
 	public void scheduleTaskWithCronExpression() throws Exception {
 
