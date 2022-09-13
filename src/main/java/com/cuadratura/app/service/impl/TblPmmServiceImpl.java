@@ -30,7 +30,7 @@ public class TblPmmServiceImpl extends GenericServiceImpl<TblPmm, Integer> imple
 	@Override
 	public void saveTblPmm(List<Fapinvbalee> listaTblPmmForm, int numeroLotes, int idCargaPMM)throws SQLException  {
 		LOGGER.info("> listaTblPmmForm", listaTblPmmForm.size());
-		tblPmmRepository.saveTblPmm(listaTblPmmForm, numeroLotes, idCargaPMM);
+		this.tblPmmRepository.saveTblPmm(listaTblPmmForm, numeroLotes, idCargaPMM);
 	}
 	
 }

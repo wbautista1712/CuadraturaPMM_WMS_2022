@@ -88,9 +88,9 @@ public class ScheduledTasks {
 
 			cargaPmm.setOrgLvlChild(lista.get(i).getIdCD()); // distinct aqui automatico lots
 
-			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
+			Integer id = this.cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 
-			tblPmmService.saveTblPmm(listaTblPmmForm, i + 1, id);
+			this.tblPmmService.saveTblPmm(listaTblPmmForm, i + 1, id);
 		}
 	}
 
@@ -163,7 +163,6 @@ public class ScheduledTasks {
 			tblWms = new TblWms();
 			tblWms.setIdCargaWMS(id);// reecupera id
 
-			// tblWms.setNroCarga(obj.getNroCarga().intValue());
 
 			tblWms.setNroCarga(obj.getNroCarga().intValue());
 			tblWms.setCreateDate(obj.getCreateDate());
