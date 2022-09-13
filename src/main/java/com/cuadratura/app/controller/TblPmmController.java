@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +44,7 @@ public class TblPmmController {
 	private TblPmmService tblPmmService;
 
 	@PostMapping(value = "/crearCuadraturaPMM")
-	public String crearCuadraturaPMM(@RequestParam @Valid String fechaProceso, @RequestParam @Valid Integer idCD)
+	public  ResponseEntity<String> crearCuadraturaPMM(@RequestParam @Valid String fechaProceso, @RequestParam @Valid Integer idCD)
 			throws Exception {
 		List<Fapinvbalee> listaTblPmmForm = this.fapinvbaleeService.findAllPMMFapinvbalee(idCD);
 		TblPmm tblPmm = null;
@@ -131,9 +133,8 @@ public class TblPmmController {
 			tblPmmService.save(tblPmm);
 
 		}
-		return "Proceso Correcto";
-		// return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo
-		// PMM");
+	
+		return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo");
 	}
 
 }

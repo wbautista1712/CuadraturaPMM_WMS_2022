@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.entity.TblWms;
+import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 import com.cuadratura.app.service.CargaWmsService;
 import com.cuadratura.app.service.TblWmsService;
@@ -42,120 +45,121 @@ public class TblWmsController {
 	private CargaWmsService cargaWmsService;
 
 	@PostMapping(value = "/crearCuadraturaWMS")
-	public String crearCuadraturaWMS(@RequestParam String fechaProceso, @RequestParam String idCD) throws Exception {
+	public ResponseEntity<String> crearCuadraturaWMS(@RequestParam String fechaProceso, @RequestParam String idCD) throws Exception {
 		LOGGER.info("inicio");
-		List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins();
-		CargaWms cargaWms = new CargaWms();
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022
-																									// 14:06:33
-		DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
+		List<WmsCinsCDDto> listaFH = wmsCinsService.getFechaHoraFotoWms(idCD);
 
-		cargaWms.setFechaCarga(dateTimeProceso.toDate());
-		cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
-		cargaWms.setEstado(true);
-		cargaWms.setNumRegistros(listaWmsCinsDto.size());
-		cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
-		cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
-		cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
-		cargaWms.setOrgNameShort(idCD);
-		// cargaWms.setNombreArchivo(nombreArchivo);
-		Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
-		LOGGER.info("id ==> " + id);
+		for (int j = 0; j < listaFH.size(); j++) {
+			List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins(idCD, listaFH.get(j).getFechaHora());
+			CargaWms cargaWms = new CargaWms();
+			org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022
+																										// 14:06:33
+			DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
 
-		TblWms tblWms = null;
-		for (WmsCinsDto obj : listaWmsCinsDto) {
+			cargaWms.setFechaCarga(dateTimeProceso.toDate());
+			cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
+			cargaWms.setEstado(true);
+			cargaWms.setNumRegistros(listaWmsCinsDto.size());
+			cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
+			cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
+			cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+			cargaWms.setOrgNameShort(idCD);
+			// cargaWms.setNombreArchivo(nombreArchivo);
+			Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
+			LOGGER.info("id ==> " + id);
 
-			tblWms = new TblWms();
-			tblWms.setIdCargaWMS(id);// reecupera id
+			TblWms tblWms = null;
+			for (WmsCinsDto obj : listaWmsCinsDto) {
 
-			// tblWms.setNroCarga(obj.getNroCarga().intValue());
+				tblWms = new TblWms();
+				tblWms.setIdCargaWMS(id);// reecupera id
 
-			tblWms.setNroCarga(obj.getNroCarga().intValue());
-			tblWms.setCreateDate(obj.getCreateDate());
-			tblWms.setFacilityCode(obj.getFacilityCode());
-			tblWms.setCompanyCode(obj.getCompanyCode());
 
-			tblWms.setItemPartA(obj.getItemPartA());
-			tblWms.setItemPartB(obj.getItemPartB());
-			tblWms.setItemPartC(obj.getItemPartC());
-			tblWms.setItemPartD(obj.getItemPartD());
-			tblWms.setItemPartE(obj.getItemPartE());
-			tblWms.setItemPartF(obj.getItemPartF());
+				tblWms.setNroCarga(obj.getNroCarga().intValue());
+				tblWms.setCreateDate(obj.getCreateDate());
+				tblWms.setFacilityCode(obj.getFacilityCode());
+				tblWms.setCompanyCode(obj.getCompanyCode());
 
-			tblWms.setHierarchy1Code(obj.getHierarchy1Code());
-			tblWms.setHierarchy2Code(obj.getHierarchy2Code());
-			tblWms.setHierarchy3Code(obj.getHierarchy3Code());
-			tblWms.setHierarchy4Code(obj.getHierarchy4Code());
-			tblWms.setHierarchy5Code(obj.getHierarchy5Code());
+				tblWms.setItemPartA(obj.getItemPartA());
+				tblWms.setItemPartB(obj.getItemPartB());
+				tblWms.setItemPartC(obj.getItemPartC());
+				tblWms.setItemPartD(obj.getItemPartD());
+				tblWms.setItemPartE(obj.getItemPartE());
+				tblWms.setItemPartF(obj.getItemPartF());
 
-			tblWms.setBatchNbr(obj.getBatchNbr());
-			tblWms.setPrePackCode(obj.getPrePackCode());
-			tblWms.setPrePackRatio(obj.getPrePackRatio());
-			tblWms.setPrePackUnits(obj.getPrePackUnits());
+				tblWms.setHierarchy1Code(obj.getHierarchy1Code());
+				tblWms.setHierarchy2Code(obj.getHierarchy2Code());
+				tblWms.setHierarchy3Code(obj.getHierarchy3Code());
+				tblWms.setHierarchy4Code(obj.getHierarchy4Code());
+				tblWms.setHierarchy5Code(obj.getHierarchy5Code());
 
-			tblWms.setOblpnTotal(obj.getOblpnTotal());
-			tblWms.setActiveTotal(obj.getActiveTotal());
-			tblWms.setActiveAllocated(obj.getActiveAllocated());
-			tblWms.setActiveAllocatedLockcode(obj.getActiveAllocatedLockcode());
-			tblWms.setActiveAvailable(obj.getActiveAvailable());
-			tblWms.setActiveLockcode(obj.getActiveLockcode());
+				tblWms.setBatchNbr(obj.getBatchNbr());
+				tblWms.setPrePackCode(obj.getPrePackCode());
+				tblWms.setPrePackRatio(obj.getPrePackRatio());
+				tblWms.setPrePackUnits(obj.getPrePackUnits());
 
-			tblWms.setIblpnTotal(obj.getIblpnTotal());
-			tblWms.setIblpnAllocated(obj.getIblpnAllocated());
-			tblWms.setIblpnAllocatedLockcode(obj.getIblpnAllocatedLockcode());
-			tblWms.setIblpnAvailable(obj.getIblpnAvailable());
-			tblWms.setIblpnNotverified(obj.getIblpnNotverified());
-			tblWms.setIblpnLockcode(obj.getIblpnLockcode());
-			tblWms.setIblpnLost(obj.getIblpnLost());
+				tblWms.setOblpnTotal(obj.getOblpnTotal());
+				tblWms.setActiveTotal(obj.getActiveTotal());
+				tblWms.setActiveAllocated(obj.getActiveAllocated());
+				tblWms.setActiveAllocatedLockcode(obj.getActiveAllocatedLockcode());
+				tblWms.setActiveAvailable(obj.getActiveAvailable());
+				tblWms.setActiveLockcode(obj.getActiveLockcode());
 
-			tblWms.setTotalAllocated(obj.getTotalAllocated());
+				tblWms.setIblpnTotal(obj.getIblpnTotal());
+				tblWms.setIblpnAllocated(obj.getIblpnAllocated());
+				tblWms.setIblpnAllocatedLockcode(obj.getIblpnAllocatedLockcode());
+				tblWms.setIblpnAvailable(obj.getIblpnAvailable());
+				tblWms.setIblpnNotverified(obj.getIblpnNotverified());
+				tblWms.setIblpnLockcode(obj.getIblpnLockcode());
+				tblWms.setIblpnLost(obj.getIblpnLost());
 
-			tblWms.setTotalAvailable(obj.getTotalAvailable());
-			tblWms.setTotalInventory(obj.getTotalInventory());
+				tblWms.setTotalAllocated(obj.getTotalAllocated());
 
-			tblWms.setFourWallInventory(obj.getFourWallInventory());
-			tblWms.setOpenOrderQty(obj.getOpenOrderQty());
+				tblWms.setTotalAvailable(obj.getTotalAvailable());
+				tblWms.setTotalInventory(obj.getTotalInventory());
 
-			tblWms.setLockCode1(obj.getLockCode1());
-			tblWms.setLockCodeQty1(obj.getLockCodeQty1());
+				tblWms.setFourWallInventory(obj.getFourWallInventory());
+				tblWms.setOpenOrderQty(obj.getOpenOrderQty());
 
-			tblWms.setLockCode2(obj.getLockCode2());
-			tblWms.setLockCodeQty2(obj.getLockCodeQty2());
+				tblWms.setLockCode1(obj.getLockCode1());
+				tblWms.setLockCodeQty1(obj.getLockCodeQty1());
 
-			tblWms.setLockCode3(obj.getLockCode3());
-			tblWms.setLockCodeQty3(obj.getLockCodeQty3());
+				tblWms.setLockCode2(obj.getLockCode2());
+				tblWms.setLockCodeQty2(obj.getLockCodeQty2());
 
-			tblWms.setLockCode4(obj.getLockCode4());
-			tblWms.setLockCodeQty4(obj.getLockCodeQty4());
+				tblWms.setLockCode3(obj.getLockCode3());
+				tblWms.setLockCodeQty3(obj.getLockCodeQty3());
 
-			tblWms.setLockCode5(obj.getLockCode5());
-			tblWms.setLockCodeQty5(obj.getLockCodeQty5());
+				tblWms.setLockCode4(obj.getLockCode4());
+				tblWms.setLockCodeQty4(obj.getLockCodeQty4());
 
-			tblWms.setLockCode6(obj.getLockCode6());
-			tblWms.setLockCodeQty6(obj.getLockCodeQty6());
+				tblWms.setLockCode5(obj.getLockCode5());
+				tblWms.setLockCodeQty5(obj.getLockCodeQty5());
 
-			tblWms.setLockCode7(obj.getLockCode7());
-			tblWms.setLockCodeQty7(obj.getLockCodeQty7());
+				tblWms.setLockCode6(obj.getLockCode6());
+				tblWms.setLockCodeQty6(obj.getLockCodeQty6());
 
-			tblWms.setLockCode8(obj.getLockCode8());
-			tblWms.setLockCodeQty8(obj.getLockCodeQty8());
+				tblWms.setLockCode7(obj.getLockCode7());
+				tblWms.setLockCodeQty7(obj.getLockCodeQty7());
 
-			tblWms.setLockCode9(obj.getLockCode9());
-			tblWms.setLockCodeQty9(obj.getLockCodeQty9());
+				tblWms.setLockCode8(obj.getLockCode8());
+				tblWms.setLockCodeQty8(obj.getLockCodeQty8());
 
-			tblWms.setLockCode10(obj.getLockCode10());
-			tblWms.setLockCodeQty10(obj.getLockCodeQty10());
+				tblWms.setLockCode9(obj.getLockCode9());
+				tblWms.setLockCodeQty9(obj.getLockCodeQty9());
 
-			tblWms.setDownloadDate1(obj.getDownloadDate1());
-			tblWms.setErrorCode(obj.getErrorCode());
-			tblWms.setObservacionError(obj.getObservacionError());
-			tblWms.setFlgTipo(obj.getFlgTipo().intValue());
+				tblWms.setLockCode10(obj.getLockCode10());
+				tblWms.setLockCodeQty10(obj.getLockCodeQty10());
 
-			tblWmsService.save(tblWms);
-			LOGGER.info("fin insercion postman  ==> ");
-		}
-		return "Proceso Correcto";
-		// return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo
-		// WMS");
+				tblWms.setDownloadDate1(obj.getDownloadDate1());
+				tblWms.setErrorCode(obj.getErrorCode());
+				tblWms.setObservacionError(obj.getObservacionError());
+				tblWms.setFlgTipo(obj.getFlgTipo().intValue());
+
+				tblWmsService.save(tblWms);
+				LOGGER.info("fin insercion postman  ==> ");
+			}
+		}	
+		return ResponseEntity.status(HttpStatus.OK).body( "Proceso Correcto");
 	}
 }

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 import com.cuadratura.app.oracle.repository.WmsCinsRepository;
 import com.cuadratura.app.service.WmsCinsService;
@@ -25,12 +26,13 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 	private WmsCinsRepository wmsCinsRepository;
 
 	@Override
-	public List<WmsCinsDto> findAllWMSWmsCins() throws Exception {
+	public List<WmsCinsDto> findAllWMSWmsCins(String idCD, String fechaHora) throws Exception {
 		// TODO Auto-generated method stub
 		WmsCinsDto wmsCinsDto = null;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		
-		List<Object[]> list = wmsCinsRepository.findAllWMSWmsCins();
+		LOGGER.info(" inicio idCD "+idCD);
+		LOGGER.info(" inicio fechaHora "+fechaHora);
+		List<Object[]> list = wmsCinsRepository.findAllWMSWmsCins(idCD, fechaHora);
 		
 		List<WmsCinsDto> listConciliaPf = new ArrayList<WmsCinsDto>();
 		
@@ -133,6 +135,36 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 		}
 		LOGGER.info(" fin wmsCinsRepository "+listConciliaPf.size());
 		return listConciliaPf;
+	}
+	
+	@Override
+	public List<WmsCinsCDDto> getCDFotoWms(){
+		List<Object[]> listObject = wmsCinsRepository.getCDFotoWms();
+		WmsCinsCDDto comboDTO;
+		List<WmsCinsCDDto> listReturn = new ArrayList<WmsCinsCDDto>();
+		for (Object[] row : listObject) {
+			LOGGER.info("cast tamaño ");
+			comboDTO = new WmsCinsCDDto();
+			comboDTO.setIdCD( row[0]== null ? "": row[0].toString()  );
+			comboDTO.setNumRegistros((row[1]== null ? BigDecimal.ZERO: (BigDecimal)row[1]).intValue());
+			listReturn.add(comboDTO);
+		}
+		return listReturn;
+	}
+	
+	@Override
+	public List<WmsCinsCDDto> getFechaHoraFotoWms(String idCD){
+		List<Object[]> listObject = wmsCinsRepository.getCDFotoWms();
+		WmsCinsCDDto comboDTO;
+		List<WmsCinsCDDto> listReturn = new ArrayList<WmsCinsCDDto>();
+		for (Object[] row : listObject) {
+			LOGGER.info("cast tamaño fecha hora ");
+			comboDTO = new WmsCinsCDDto();
+			comboDTO.setFechaHora( row[0]== null ? "" :row[0].toString()  );
+		
+			listReturn.add(comboDTO);
+		}
+		return listReturn;
 	}
 
 }

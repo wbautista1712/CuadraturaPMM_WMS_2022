@@ -1,8 +1,6 @@
 package com.cuadratura.app.controller;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,18 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
 import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
 import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;
-import com.cuadratura.app.util.Constantes;
 
 @RestController
 @CrossOrigin(origins = "*")

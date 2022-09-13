@@ -128,12 +128,11 @@ public class WmsCinsDto {
 	private String observacionError;
 
 	private BigInteger flgTipo;
+	
+	private String  tblWmscol;
 
 	public WmsCinsDto() {
 	}
-	/*
-	 * public WmsCins(Long nroCarga) { this.nroCarga = nroCarga; }
-	 */
 
 	public Long getNroCarga() {
 		return nroCarga;
@@ -631,4 +630,14 @@ public class WmsCinsDto {
 		this.flgTipo = flgTipo;
 	}
 
+	public String getTblWmscol() {
+		return tblWmscol;
+	}
+
+	public void setTblWmscol(String tblWmscol) {
+		this.tblWmscol = tblWmscol;
+	}
+	
+	
+	
 }

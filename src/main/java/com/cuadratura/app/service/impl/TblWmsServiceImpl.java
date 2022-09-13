@@ -1,5 +1,8 @@
 package com.cuadratura.app.service.impl;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.mysql.repository.TblWmsRepository;
+import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 import com.cuadratura.app.service.TblWmsService;
 
 @Service
@@ -15,11 +19,17 @@ public class TblWmsServiceImpl extends GenericServiceImpl<TblWms, Integer> imple
 	private static final Logger LOGGER = LogManager.getLogger(TblWmsServiceImpl.class);
 	
 	@Autowired
-	private TblWmsRepository usuarioRepository;
+	private TblWmsRepository tblWmsRepository;
 
 	@Override
 	public CrudRepository<TblWms, Integer> getDao() {
 		// TODO Auto-generated method stub
-		return usuarioRepository;
+		return tblWmsRepository;
+	}
+	
+	public void saveTblWms(List<WmsCinsDto> listaTblPmmForm, int numeroLotes, int idCargaWMS) throws SQLException  {
+		LOGGER.info("numeroLotes "+numeroLotes);
+		LOGGER.info("idCargaWMS "+idCargaWMS);
+		this.tblWmsRepository.saveTblWms(listaTblPmmForm, numeroLotes, idCargaWMS);
 	}
 }

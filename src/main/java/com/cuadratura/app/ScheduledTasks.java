@@ -16,6 +16,7 @@ import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
+import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.service.CargaPmmService;
@@ -57,7 +58,7 @@ public class ScheduledTasks {
 	@Autowired
 	private CargaWmsService cargaWmsService;
 
-	@Scheduled(fixedDelay = 2000)
+	@Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
@@ -136,119 +137,57 @@ public class ScheduledTasks {
 	 * 31). E: Mes (1 - 12). F: Día de la semana (0 - 6).
 	 */
 
-	@Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se ejecutará a las 23 horas con 9 minutos
-															// y 0 segundos,
+	//@Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se ejecutará a las 23 horas con 9 minutos
+	@Scheduled(fixedDelay = 2000)													// y 0 segundos,
 	// todos los meses, los días 5 (visernes).
 	public void scheduleTaskWithCronExpression() throws Exception {
 
 		logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
-		List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins();
+		
+		List<WmsCinsCDDto> listaCD = wmsCinsService.getCDFotoWms();
+		logger.info(".:::oracle  tamaño lote CD :::. " + listaCD.size());
+		
 
-		CargaWms cargaWms = new CargaWms();
-		cargaWms.setFechaCarga(new Date());
-		cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
-		cargaWms.setEstado(true);
-		cargaWms.setNumRegistros(listaWmsCinsDto.size());
-		cargaWms.setIdmTipoImportacion(1);
-		cargaWms.setIdmestadoCuadratura(1);
-		cargaWms.setUsuarioCarga("AUTOMÁTICA");
-		cargaWms.setOrgNameShort("CD04"); // traer toda la datos de los CDS
-		Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
-		logger.info("id ==> " + id);
+		
+		for (int i = 0; i < listaCD.size(); i++) {
+			logger.info(".::: obj.getLoteFotoPmm() :::. " + listaCD.size());
 
-		TblWms tblWms = null;
-		for (WmsCinsDto obj : listaWmsCinsDto) {
+			logger.info(".::: insert idCD:::. " + listaCD.get(i).getIdCD());
 
-			tblWms = new TblWms();
-			tblWms.setIdCargaWMS(id);// reecupera id
+			
+			List<WmsCinsCDDto> listaFH = wmsCinsService.getFechaHoraFotoWms(listaCD.get(i).getFechaHora());
+			logger.info(".:::oracle  tamaño lote CD :::. " + listaFH.size());
+			
+			for (int j = 0; j < listaFH.size(); j++) {
+				
+				List<WmsCinsDto> listaTblWmsForm = this.wmsCinsService.findAllWMSWmsCins(listaCD.get(i).getIdCD(), listaFH.get(j).getFechaHora());
+				// TblPmm tblPmm = null;
+				logger.info(".::: oracle tamaño WMS de importacion :::. " + listaTblWmsForm.size());
 
+				// codigo de carga carga_pmm
 
-			tblWms.setNroCarga(obj.getNroCarga().intValue());
-			tblWms.setCreateDate(obj.getCreateDate());
-			tblWms.setFacilityCode(obj.getFacilityCode());
-			tblWms.setCompanyCode(obj.getCompanyCode());
+				CargaWms cargaWms = new CargaWms();
+				cargaWms.setFechaCarga(new Date());
+				cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
+				cargaWms.setEstado(true);
+				cargaWms.setNumRegistros(listaTblWmsForm.size());
+				cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
+				cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
+				cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+				cargaWms.setOrgNameShort(listaCD.get(i).getIdCD()); // traer toda la datos de los CDS
+				Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
+				logger.info("id ==> " + id);
+				tblWmsService.saveTblWms(listaTblWmsForm, j+1, id);
 
-			tblWms.setItemPartA(obj.getItemPartA());
-			tblWms.setItemPartB(obj.getItemPartB());
-			tblWms.setItemPartC(obj.getItemPartC());
-			tblWms.setItemPartD(obj.getItemPartD());
-			tblWms.setItemPartE(obj.getItemPartE());
-			tblWms.setItemPartF(obj.getItemPartF());
-
-			tblWms.setHierarchy1Code(obj.getHierarchy1Code());
-			tblWms.setHierarchy2Code(obj.getHierarchy2Code());
-			tblWms.setHierarchy3Code(obj.getHierarchy3Code());
-			tblWms.setHierarchy4Code(obj.getHierarchy4Code());
-			tblWms.setHierarchy5Code(obj.getHierarchy5Code());
-
-			tblWms.setBatchNbr(obj.getBatchNbr());
-			tblWms.setPrePackCode(obj.getPrePackCode());
-			tblWms.setPrePackRatio(obj.getPrePackRatio());
-			tblWms.setPrePackUnits(obj.getPrePackUnits());
-
-			tblWms.setOblpnTotal(obj.getOblpnTotal());
-			tblWms.setActiveTotal(obj.getActiveTotal());
-			tblWms.setActiveAllocated(obj.getActiveAllocated());
-			tblWms.setActiveAllocatedLockcode(obj.getActiveAllocatedLockcode());
-			tblWms.setActiveAvailable(obj.getActiveAvailable());
-			tblWms.setActiveLockcode(obj.getActiveLockcode());
-
-			tblWms.setIblpnTotal(obj.getIblpnTotal());
-			tblWms.setIblpnAllocated(obj.getIblpnAllocated());
-			tblWms.setIblpnAllocatedLockcode(obj.getIblpnAllocatedLockcode());
-			tblWms.setIblpnAvailable(obj.getIblpnAvailable());
-			tblWms.setIblpnNotverified(obj.getIblpnNotverified());
-			tblWms.setIblpnLockcode(obj.getIblpnLockcode());
-			tblWms.setIblpnLost(obj.getIblpnLost());
-
-			tblWms.setTotalAllocated(obj.getTotalAllocated());
-
-			tblWms.setTotalAvailable(obj.getTotalAvailable());
-			tblWms.setTotalInventory(obj.getTotalInventory());
-
-			tblWms.setFourWallInventory(obj.getFourWallInventory());
-			tblWms.setOpenOrderQty(obj.getOpenOrderQty());
-
-			tblWms.setLockCode1(obj.getLockCode1());
-			tblWms.setLockCodeQty1(obj.getLockCodeQty1());
-
-			tblWms.setLockCode2(obj.getLockCode2());
-			tblWms.setLockCodeQty2(obj.getLockCodeQty2());
-
-			tblWms.setLockCode3(obj.getLockCode3());
-			tblWms.setLockCodeQty3(obj.getLockCodeQty3());
-
-			tblWms.setLockCode4(obj.getLockCode4());
-			tblWms.setLockCodeQty4(obj.getLockCodeQty4());
-
-			tblWms.setLockCode5(obj.getLockCode5());
-			tblWms.setLockCodeQty5(obj.getLockCodeQty5());
-
-			tblWms.setLockCode6(obj.getLockCode6());
-			tblWms.setLockCodeQty6(obj.getLockCodeQty6());
-
-			tblWms.setLockCode7(obj.getLockCode7());
-			tblWms.setLockCodeQty7(obj.getLockCodeQty7());
-
-			tblWms.setLockCode8(obj.getLockCode8());
-			tblWms.setLockCodeQty8(obj.getLockCodeQty8());
-
-			tblWms.setLockCode9(obj.getLockCode9());
-			tblWms.setLockCodeQty9(obj.getLockCodeQty9());
-
-			tblWms.setLockCode10(obj.getLockCode10());
-			tblWms.setLockCodeQty10(obj.getLockCodeQty10());
-
-			tblWms.setDownloadDate1(obj.getDownloadDate1());
-			tblWms.setErrorCode(obj.getErrorCode());
-			tblWms.setObservacionError(obj.getObservacionError());
-			tblWms.setFlgTipo(obj.getFlgTipo().intValue());
-
-			tblWmsService.save(tblWms);
-			logger.info("fin insercion Wms  ==> ");
+				//this.tblPmmService.saveTblPmm(listaTblPmmForm, i + 1, id);
+				
+			}		
+			
+			
 		}
-
+		
+	
 	}
 
 }
