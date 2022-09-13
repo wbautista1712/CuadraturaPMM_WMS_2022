@@ -1,7 +1,6 @@
 package com.cuadratura.app.service.impl;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,17 +25,16 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 	private WmsCinsRepository wmsCinsRepository;
 
 	@Override
-	public List<WmsCinsDto> findAllWMSWmsCins(String idCD, String fechaHora) throws Exception {
+	public List<WmsCinsDto> findAllWMSWmsCins(String fechaHora) throws Exception {
 		// TODO Auto-generated method stub
 		WmsCinsDto wmsCinsDto = null;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		LOGGER.info(" inicio idCD "+idCD);
+		
 		LOGGER.info(" inicio fechaHora "+fechaHora);
-		List<Object[]> list = wmsCinsRepository.findAllWMSWmsCins(idCD, fechaHora);
+		List<Object[]> list = wmsCinsRepository.findAllWMSWmsCins( fechaHora);
 		
 		List<WmsCinsDto> listConciliaPf = new ArrayList<WmsCinsDto>();
 		
-		String i = "";
 		Date date  = null;
 		
 		for (Object[] fila : list) {
@@ -127,8 +125,15 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 	
 			wmsCinsDto.setObservacionError((String) fila[60]);
 			
-			i= fila[61] == null ? "0" : ((String) fila[61]);
-			wmsCinsDto.setFlgTipo(new BigInteger(i) );
+			
+			if (fila[61] != null ) {
+				   BigDecimal b = new BigDecimal(fila[61].toString());
+				   
+				wmsCinsDto.setFlgTipo(b.toBigInteger() );
+			}else {
+				wmsCinsDto.setFlgTipo(null);
+			}
+			
 					
 	
 			listConciliaPf.add(wmsCinsDto);
@@ -161,6 +166,21 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 			LOGGER.info("cast tamaño fecha hora ");
 			comboDTO = new WmsCinsCDDto();
 			comboDTO.setFechaHora( row[0]== null ? "" :row[0].toString()  );
+		
+			listReturn.add(comboDTO);
+		}
+		return listReturn;
+	}
+	
+	public List<WmsCinsCDDto> getCDXFechaHoraFotoWms() {
+		List<Object[]> listObject = wmsCinsRepository.getCDXFechaHoraFotoWms();
+		WmsCinsCDDto comboDTO;
+		List<WmsCinsCDDto> listReturn = new ArrayList<WmsCinsCDDto>();
+		for (Object[] row : listObject) {
+			LOGGER.info("cast tamaño fecha hora ");
+			comboDTO = new WmsCinsCDDto();
+			comboDTO.setIdCD(row[0]== null ? "": row[0].toString()  );
+			comboDTO.setFechaHora( row[1]== null ? "" :row[1].toString()  );
 		
 			listReturn.add(comboDTO);
 		}

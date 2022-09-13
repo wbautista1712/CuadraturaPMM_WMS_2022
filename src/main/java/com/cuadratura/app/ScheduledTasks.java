@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.entity.CargaWms;
-import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
@@ -137,60 +136,45 @@ public class ScheduledTasks {
 	 * 31). E: Mes (1 - 12). F: Día de la semana (0 - 6).
 	 */
 
-	//@Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se ejecutará a las 23 horas con 9 minutos
-	@Scheduled(fixedDelay = 2000)													// y 0 segundos,
+	// @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se
+	// ejecutará a las 23 horas con 9 minutos
+	@Scheduled(fixedDelay = 2000) // y 0 segundos,
 	// todos los meses, los días 5 (visernes).
 	public void scheduleTaskWithCronExpression() throws Exception {
 
 		logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
-		
-		List<WmsCinsCDDto> listaCD = wmsCinsService.getCDFotoWms();
-		logger.info(".:::oracle  tamaño lote CD :::. " + listaCD.size());
-		
+		List<WmsCinsCDDto> listaCDxFH = wmsCinsService.getCDXFechaHoraFotoWms();
+		logger.info(".:::oracle  tamaño lote listaCDxFH :::. " + listaCDxFH.size());
 
-		
-		for (int i = 0; i < listaCD.size(); i++) {
-			logger.info(".::: obj.getLoteFotoPmm() :::. " + listaCD.size());
+		for (int i = 0; i < listaCDxFH.size(); i++) {
+			logger.info(".::: obj.getLoteFotoPmm() :::. " + listaCDxFH.size());
 
-			logger.info(".::: insert idCD:::. " + listaCD.get(i).getIdCD());
+			logger.info(".::: insert idCD:::. " + listaCDxFH.get(i).getIdCD());
 
-			
-			List<WmsCinsCDDto> listaFH = wmsCinsService.getFechaHoraFotoWms(listaCD.get(i).getFechaHora());
-			logger.info(".:::oracle  tamaño lote CD :::. " + listaFH.size());
-			
-			for (int j = 0; j < listaFH.size(); j++) {
-				
-				logger.info(".:::oracle  listaCD.get(i).getIdCD() :::. " + listaCD.get(i).getIdCD());
-				logger.info(".:::oracle  listaFH.get(j).getFechaHora() :::. " + listaFH.get(j).getFechaHora());
-				
-				List<WmsCinsDto> listaTblWmsForm = this.wmsCinsService.findAllWMSWmsCins(listaCD.get(i).getIdCD(), listaFH.get(j).getFechaHora());
-				// TblPmm tblPmm = null;
-				logger.info(".::: oracle tamaño WMS de importacion :::. " + listaTblWmsForm.size());
+			logger.info(".:::oracle  listaFH.get(j).getFechaHora() :::. " + listaCDxFH.get(i).getFechaHora());
 
-				// codigo de carga carga_pmm
+			List<WmsCinsDto> listaTblWmsForm = this.wmsCinsService.findAllWMSWmsCins(listaCDxFH.get(i).getFechaHora());
+			// TblPmm tblPmm = null;
+			logger.info(".::: oracle tamaño WMS de importacion :::. " + listaTblWmsForm.size());
 
-				CargaWms cargaWms = new CargaWms();
-				cargaWms.setFechaCarga(new Date());
-				cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
-				cargaWms.setEstado(true);
-				cargaWms.setNumRegistros(listaTblWmsForm.size());
-				cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
-				cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
-				cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
-				cargaWms.setOrgNameShort(listaCD.get(i).getIdCD()); // traer toda la datos de los CDS
-				Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();
-				logger.info("id ==> " + id);
-				tblWmsService.saveTblWms(listaTblWmsForm, j+1, id);
+			// codigo de carga carga_pmm
 
-				//this.tblPmmService.saveTblPmm(listaTblPmmForm, i + 1, id);
-				
-			}		
-			
-			
+			CargaWms cargaWms = new CargaWms();
+			cargaWms.setFechaCarga(new Date());
+			cargaWms.setHoraCarga(dateTimeFormatter.format(LocalDateTime.now()));
+			cargaWms.setEstado(true);
+			cargaWms.setNumRegistros(listaTblWmsForm.size());
+			cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
+			cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
+			cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+			cargaWms.setOrgNameShort(listaCDxFH.get(i).getIdCD()); // traer toda la datos de los CDS
+			Integer id = this.cargaWmsService.saveCargaWms(cargaWms).intValue();
+			logger.info("id ==> " + id);
+			this.tblWmsService.saveTblWms(listaTblWmsForm, i + 1, id);
+
 		}
-		
-	
+
 	}
 
 }

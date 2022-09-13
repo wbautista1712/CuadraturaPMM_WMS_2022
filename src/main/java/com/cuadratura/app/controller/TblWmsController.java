@@ -50,7 +50,7 @@ public class TblWmsController {
 		List<WmsCinsCDDto> listaFH = wmsCinsService.getFechaHoraFotoWms(idCD);
 
 		for (int j = 0; j < listaFH.size(); j++) {
-			List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins(idCD, listaFH.get(j).getFechaHora());
+			List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins( listaFH.get(j).getFechaHora());
 			CargaWms cargaWms = new CargaWms();
 			org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022
 																										// 14:06:33
