@@ -16,12 +16,12 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.Usuario;
-import com.cuadratura.app.mysql.repository.UsuarioCustom;
+import com.cuadratura.app.mysql.repository.UsuarioRepositoryCustom;
 import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
 
 @Repository
 @Transactional
-public class UsuarioRepositoryImpl implements UsuarioCustom{
+public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom{
 private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.class);
 	
 	@Autowired

@@ -66,7 +66,7 @@ public class ScheduledTasks {
 	@Autowired
 	private MCronJobService mCronJobService;
 
-	@Bean
+	//@Bean
 	public String getCronValue() {
 		String job = "";
 
@@ -79,8 +79,8 @@ public class ScheduledTasks {
 		return job;
 	}
 
-	// @Scheduled(cron = "0 14 00 ? * 3 ", zone = TIME_ZONE)
-	@Scheduled(cron = "#{@getCronValue}", zone = TIME_ZONE)
+	@Scheduled(cron = "0 14 00 ? * 3 ", zone = TIME_ZONE)
+	//@Scheduled(cron = "#{@getCronValue}", zone = TIME_ZONE)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 

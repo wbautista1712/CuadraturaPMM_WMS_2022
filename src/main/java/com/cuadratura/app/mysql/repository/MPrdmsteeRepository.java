@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cuadratura.app.mysql.entity.MPrdmstee;
 
 @Repository
-public interface MPrdmsteeRepository  extends CrudRepository<MPrdmstee, Integer>, MPrdmsteeCustom {
+public interface MPrdmsteeRepository  extends CrudRepository<MPrdmstee, Integer>, MPrdmsteeRepositoryCustom {
 
 }

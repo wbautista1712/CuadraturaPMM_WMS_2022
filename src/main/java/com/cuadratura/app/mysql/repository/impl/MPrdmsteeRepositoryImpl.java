@@ -11,10 +11,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.MPrdmstee;
-import com.cuadratura.app.mysql.repository.MPrdmsteeCustom;
+import com.cuadratura.app.mysql.repository.MPrdmsteeRepositoryCustom;
 
 @Repository
-public class MPrdmsteeRepositoryImpl implements MPrdmsteeCustom {
+public class MPrdmsteeRepositoryImpl implements MPrdmsteeRepositoryCustom {
 	private static final Logger LOGGER = LogManager.getLogger(MPrdmsteeRepositoryImpl.class);
 
 	@PersistenceContext(unitName = "jpa_mysql")

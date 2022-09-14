@@ -10,11 +10,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.UsuarioRol;
-import com.cuadratura.app.mysql.repository.UsuarioRolCustom;
+import com.cuadratura.app.mysql.repository.UsuarioRolRepositoryCustom;
 
 @Repository
 @Transactional
-public class UsuarioRolRepositoryImpl implements UsuarioRolCustom {
+public class UsuarioRolRepositoryImpl implements UsuarioRolRepositoryCustom {
 
 	private static final Logger LOGGER = LogManager.getLogger(UsuarioRolRepositoryImpl.class);
 

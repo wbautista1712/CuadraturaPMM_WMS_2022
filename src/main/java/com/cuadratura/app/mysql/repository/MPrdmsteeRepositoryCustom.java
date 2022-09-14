@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.cuadratura.app.mysql.entity.MPrdmstee;
 
-public interface MPrdmsteeCustom {
+public interface MPrdmsteeRepositoryCustom {
 	public   List<MPrdmstee> getMaterialLote(String nombreMaterial);
 }

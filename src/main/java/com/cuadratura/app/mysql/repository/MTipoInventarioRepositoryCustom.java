@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cuadratura.app.mysql.entity.MTipoInventario;
 
-public interface MTipoInventarioCustom {
+public interface MTipoInventarioRepositoryCustom {
 	
 	public   List<MTipoInventario> getTipoInventario();
 	

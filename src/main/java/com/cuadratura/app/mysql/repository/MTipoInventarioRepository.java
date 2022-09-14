@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cuadratura.app.mysql.entity.MTipoInventario;
 
 @Repository
-public interface MTipoInventarioRepository  extends CrudRepository<MTipoInventario, Integer>, MTipoInventarioCustom {
+public interface MTipoInventarioRepository  extends CrudRepository<MTipoInventario, Integer>, MTipoInventarioRepositoryCustom {
 
 }
