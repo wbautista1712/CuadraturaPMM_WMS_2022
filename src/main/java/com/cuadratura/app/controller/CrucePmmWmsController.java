@@ -114,6 +114,7 @@ public class CrucePmmWmsController {
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 
+<<<<<<< Updated upstream
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
 			LOGGER.info(jsonData);
 			AjustePmmWms ajustePmmWms =null;
@@ -125,6 +126,21 @@ public class CrucePmmWmsController {
 				  
 				  LOGGER.info("nextAjusteBolsaDiscrepancia "+registroJsonList.get(i).getIdTipoInventario());
 				  ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
+=======
+			LOGGER.info("nextAjusteBolsaDiscrepancia " + result.size());
+			AjustePmmWms ajustePmmWms =null;
+			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+		
+			//records =result.size();
+			  for(int i = 0; i < result.size(); i++) {
+				  
+				  LOGGER.info("Ingresó al FOR " + result.toString());
+				  ajustePmmWms = new  AjustePmmWms();
+				  
+				  ajustePmmWms.setIdTipoInventario(result.get(i).getIdTipoInventario());
+				  
+				  LOGGER.info("Ingresó al primer valor " + result.get(i).getIdTipoInventario().toString());
+>>>>>>> Stashed changes
 				  
 				  ajustePmmWms.setFechaAjuste(new Date());
 				  ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
