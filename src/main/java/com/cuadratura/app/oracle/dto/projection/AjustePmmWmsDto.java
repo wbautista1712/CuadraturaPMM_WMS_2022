@@ -4,6 +4,8 @@ public class AjustePmmWmsDto {
 
 	private Integer idcrucePmmWms;
 	private Integer idTblPmmWms;
+	private String fechaMatch;
+	private String horaMatch;
 	private String cd;
 	private Integer codMat;
 	private String lote;
@@ -48,6 +50,22 @@ public class AjustePmmWmsDto {
 
 	public void setIdTblPmmWms(Integer idTblPmmWms) {
 		this.idTblPmmWms = idTblPmmWms;
+	}
+	
+	public String getFechaMatch() {
+		return fechaMatch;
+	}
+
+	public void setFechaMatch(String fechaMatch) {
+		this.fechaMatch = fechaMatch;
+	}
+
+	public String getHoraMatch() {
+		return horaMatch;
+	}
+
+	public void setHoraMatch(String horaMatch) {
+		this.horaMatch = horaMatch;
 	}
 
 	public String getCd() {
