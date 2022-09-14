@@ -39,7 +39,7 @@ public class Invbalee implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected InvbaleePK invbaleePK;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+  
     @Column(name = "ON_HAND_QTY")
     private BigDecimal onHandQty;
     @Column(name = "ON_HAND_RETL")
