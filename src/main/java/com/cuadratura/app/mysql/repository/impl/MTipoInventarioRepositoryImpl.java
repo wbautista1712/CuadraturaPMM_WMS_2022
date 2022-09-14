@@ -11,11 +11,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.MTipoInventario;
-import com.cuadratura.app.mysql.repository.MTipoInventarioCustom;
+import com.cuadratura.app.mysql.repository.MTipoInventarioRepositoryCustom;
 import com.cuadratura.app.util.Constantes;
 
 @Repository
-public class MTipoInventarioRepositoryImpl implements MTipoInventarioCustom {
+public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryCustom {
 	private static final Logger LOGGER = LogManager.getLogger(MTipoInventarioRepositoryImpl.class);
 
 	@PersistenceContext(unitName = "jpa_mysql")

@@ -23,11 +23,11 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
-import com.cuadratura.app.mysql.repository.CrucePmmWmsCustom;
+import com.cuadratura.app.mysql.repository.CrucePmmWmsRepositoryCustom;
 
 @Repository
 @Transactional
-public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsCustom {
+public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 
 	private static final Logger LOGGER = LogManager.getLogger(CrucePmmWmsRepositoryImpl.class);
 

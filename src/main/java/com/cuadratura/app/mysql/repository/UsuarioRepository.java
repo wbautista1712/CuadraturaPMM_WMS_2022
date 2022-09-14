@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.cuadratura.app.mysql.entity.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>, UsuarioCustom{
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>, UsuarioRepositoryCustom{
 	
 	public Usuario findByUsername(String username);
 	

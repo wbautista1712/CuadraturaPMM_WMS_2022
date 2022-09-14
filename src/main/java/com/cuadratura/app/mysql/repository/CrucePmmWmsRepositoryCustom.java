@@ -6,7 +6,7 @@ import java.util.Map;
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
 
 
-public interface CrucePmmWmsCustom {
+public interface CrucePmmWmsRepositoryCustom {
 	public Long saveCrucePmmWms(CrucePmmWms crucePmmWms);
 	
 	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort);
