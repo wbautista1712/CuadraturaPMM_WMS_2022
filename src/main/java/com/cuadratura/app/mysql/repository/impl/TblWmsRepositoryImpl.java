@@ -163,12 +163,14 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 					statement.setInt(61, obj.getErrorCode());
 					statement.setString(62, obj.getObservacionError());
 					
+
 					if( obj.getFlgTipo() != null) {
 						statement.setInt(63, obj.getFlgTipo().intValue());
 					}else {
 						statement.setInt(63,0);
 					}
 				
+
 					statement.setInt(64, idCargaWMS);// reecupera id
 
 					LOGGER.info("> Registro ( %s | %s ) agregado al lote #%s\n", obj.getActiveAllocated(),
