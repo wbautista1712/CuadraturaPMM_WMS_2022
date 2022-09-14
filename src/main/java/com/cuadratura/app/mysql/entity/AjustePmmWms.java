@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +30,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- *
- * @author ARANGO
- */
+
 @Entity
 @Getter
 @Setter
@@ -41,41 +40,63 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "ajuste_pmm_wms", schema = "cuadratura")
-
 public class AjustePmmWms implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idAjuste_PMM_WMS")
-    private Integer idAjustePMMWMS;
-    @Basic(optional = false)
+
+	private static final long serialVersionUID = 1L;
+   
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @Basic(optional = false)
+	    @Column(name = "idAjuste_PMM_WMS")
+	    private Integer idAjustePMMWMS;
+	 
+	@Basic(optional = false)
+    @NotNull
     @Column(name = "fechaAjuste")
     @Temporal(TemporalType.DATE)
     private Date fechaAjuste;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 8)
     @Column(name = "horaAjuste")
     private String horaAjuste;
     @Basic(optional = false)
+    @NotNull
+    @Column(name = "pmm")
+    private int pmm;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "wms")
+    private int wms;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "sugerenciaAjuste")
+    private int sugerenciaAjuste;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "stockBolsaDiscrepancia")
+    private int stockBolsaDiscrepancia;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "loteInicial")
     private String loteInicial;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "loteTraspaso")
     private String loteTraspaso;
     @Column(name = "cantTraspaso")
     private Integer cantTraspaso;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idEstado_cuadratura")
     private int idEstadocuadratura;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "estado")
     private boolean estado;
-    @JoinColumn(name = "id_m_TipoLogica", referencedColumnName = "id_m_TipoLogica")
-    @ManyToOne(optional = false)
-    private MTipoLogica idmTipoLogica;
-    @JoinColumn(name = "id_tbl_pmm_wms", referencedColumnName = "id_tbl_pmm_wms")
-    @ManyToOne(optional = false)
-    private TblPmmWms idTblPmmWms;
 
    
     

@@ -153,6 +153,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 			for (int i = 0; i < jsonarr.length(); i++) {
 
 				ajustePmmWmsDto = new AjustePmmWmsDto();
+				
 				LOGGER.info("idcruce_pmm_wms ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				LOGGER.info("cd===> " +jsonarr.getJSONObject(i).getString("CD").toString());
 				
@@ -162,6 +163,14 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 				if (jsonarr.getJSONObject(i).has("id_tbl_pmm_wms")) {
 					ajustePmmWmsDto.setIdTblPmmWms(jsonarr.getJSONObject(i).getInt("id_tbl_pmm_wms"));
+				}
+				
+				if (jsonarr.getJSONObject(i).has("fechaMatch")) {
+					ajustePmmWmsDto.setFechaMatch(jsonarr.getJSONObject(i).getString("fechaMatch").toString());
+				}
+				
+				if (jsonarr.getJSONObject(i).has("horaMatch")) {
+					ajustePmmWmsDto.setHoraMatch(jsonarr.getJSONObject(i).getString("horaMatch").toString());
 				}
 
 				if (jsonarr.getJSONObject(i).has("CD")) {

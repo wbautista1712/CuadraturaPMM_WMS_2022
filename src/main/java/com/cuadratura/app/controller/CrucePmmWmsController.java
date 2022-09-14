@@ -39,25 +39,27 @@ public class CrucePmmWmsController {
 	@Autowired
 	private TblPmmWmsService tblPmmWmsService;
 
-	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
-	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
-		try {
+	@PostMapping(value = "/crearCrucePmmWms")
+	public ResponseEntity<?> crearCrucePmmWms(@RequestParam Integer idCargaPMM, @RequestParam Integer idCargaWMS,
+			@RequestParam String idCD, @RequestParam Integer idUsuario) throws Exception {
+		if (idCargaPMM == null) {
+			return ResponseEntity.badRequest().body("Error Procesamiento");
+		} else {
+			CrucePmmWms crucePmmWms = new CrucePmmWms();
 
-			LOGGER.info("getAjusteBolsaDiscrepancia");
-			/*
-			ListResponse listResponse = new ListResponse();
-			Integer records = 0;
-		    Integer start = listResponse.getStart(page, rows);
-		    */
-			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
-			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
-			//records =result.size();
+			crucePmmWms.setFechaMatch(new Date());
+			crucePmmWms.setHoraMatch(dateTimeFormatter.format(LocalDateTime.now()));
+			crucePmmWms.setIdCargaPMM(idCargaPMM);
+			crucePmmWms.setIdCargaWMS(idCargaWMS);
+
+			crucePmmWms.setIdEstadoCuadratura(Constantes.ESTADO_CUADRATURA);
+
+			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
+		
+			this.tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
 			
-			return ResponseEntity.status(HttpStatus.OK).body(result);
-			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
-			
-		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(id, Constantes.ESTADO_CUADRATURA_PROCESO);
+			return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
 		}
 	}
 	
@@ -81,27 +83,25 @@ public class CrucePmmWmsController {
 		}
 	}
 	
-	@PostMapping(value = "/crearCrucePmmWms")
-	public ResponseEntity<?> crearCrucePmmWms(@RequestParam Integer idCargaPMM, @RequestParam Integer idCargaWMS,
-			@RequestParam String idCD, @RequestParam Integer idUsuario) throws Exception {
-		if (idCargaPMM == null) {
-			return ResponseEntity.badRequest().body("Error Procesamiento");
-		} else {
-			CrucePmmWms crucePmmWms = new CrucePmmWms();
+	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
+	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
+		try {
 
-			crucePmmWms.setFechaMatch(new Date());
-			crucePmmWms.setHoraMatch(dateTimeFormatter.format(LocalDateTime.now()));
-			crucePmmWms.setIdCargaPMM(idCargaPMM);
-			crucePmmWms.setIdCargaWMS(idCargaWMS);
-
-			crucePmmWms.setIdEstadoCuadratura(Constantes.ESTADO_CUADRATURA);
-
-			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
-		
-			this.tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
+			LOGGER.info("getAjusteBolsaDiscrepancia");
+			/*
+			ListResponse listResponse = new ListResponse();
+			Integer records = 0;
+		    Integer start = listResponse.getStart(page, rows);
+		    */
+			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
+			//records =result.size();
 			
-			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(id, Constantes.ESTADO_CUADRATURA_PROCESO);
-			return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK).body(result);
+			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+			
+		} catch (Exception ex) {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
 	}
 
