@@ -157,9 +157,9 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 					}
 
 					/*
-					 * 
-					 * error_code, observacion_error, flg_tipo, idCarga_WMS)
-					 * 
+					 
+					  error_code, observacion_error, flg_tipo, idCarga_WMS)
+					  
 					 */
 					statement.setInt(61, obj.getErrorCode());
 					statement.setString(62, obj.getObservacionError());
