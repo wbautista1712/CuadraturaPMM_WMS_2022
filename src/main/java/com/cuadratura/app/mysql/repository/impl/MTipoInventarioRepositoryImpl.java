@@ -58,7 +58,7 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryC
 	}
 
 	@Override
-	public List<MTipoInventario> getObtenerLote(String nombreLote) {
+	public MTipoInventario getObtenerNombreInventario(String idInventario){
 		// TODO Auto-generated method stub
 		return null;
 	}

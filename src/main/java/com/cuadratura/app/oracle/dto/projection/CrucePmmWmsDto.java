@@ -13,6 +13,8 @@ public class CrucePmmWmsDto {
 	private Integer sugerenciaAjuste;
 	private Integer sctockBolsaDiscrepancia;
 	private String descMaterial;
+	private Integer idTipoInventario;
+	
 	public Integer getIdcrucePmmWms() {
 		return idcrucePmmWms;
 	}
@@ -79,6 +81,13 @@ public class CrucePmmWmsDto {
 	public void setDescMaterial(String descMaterial) {
 		this.descMaterial = descMaterial;
 	}
+	public Integer getIdTipoInventario() {
+		return idTipoInventario;
+	}
+	public void setIdTipoInventario(Integer idTipoInventario) {
+		this.idTipoInventario = idTipoInventario;
+	}
+	
 	
 
 }

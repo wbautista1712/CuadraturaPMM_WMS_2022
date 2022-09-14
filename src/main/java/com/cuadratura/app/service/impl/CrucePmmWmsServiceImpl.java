@@ -99,6 +99,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				}
 
 				if (jsonarr.getJSONObject(i).has("CRUCE_HOMOLOGADO")) {
+					//aqui comparar
+					
 					libro.setCruceHomologado(jsonarr.getJSONObject(i).getString("CRUCE_HOMOLOGADO").toString());
 				}
 

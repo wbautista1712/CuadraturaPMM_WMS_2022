@@ -13,13 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cuadratura.app.mysql.entity.AjustePmmWms;
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
 import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
+import com.cuadratura.app.service.AjustePmmWmsService;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;
 import com.cuadratura.app.util.Constantes;
@@ -38,6 +41,9 @@ public class CrucePmmWmsController {
 	
 	@Autowired
 	private TblPmmWmsService tblPmmWmsService;
+	
+	@Autowired
+	private AjustePmmWmsService ajustePmmWmsService;
 
 	@PostMapping(value = "/crearCrucePmmWms")
 	public ResponseEntity<?> crearCrucePmmWms(@RequestParam Integer idCargaPMM, @RequestParam Integer idCargaWMS,
@@ -88,16 +94,42 @@ public class CrucePmmWmsController {
 		try {
 
 			LOGGER.info("getAjusteBolsaDiscrepancia");
-			/*
-			ListResponse listResponse = new ListResponse();
-			Integer records = 0;
-		    Integer start = listResponse.getStart(page, rows);
-		    */
+
 			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
 			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
-			//records =result.size();
 			
 			return ResponseEntity.status(HttpStatus.OK).body(result);
+			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
+			
+		} catch (Exception ex) {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+		}
+	}
+	
+	@PostMapping(value = "/nextAjusteBolsaDiscrepancia")
+	public ResponseEntity<String> nextAjusteBolsaDiscrepancia(@RequestBody List<CrucePmmWmsDto> result) {
+		try {
+
+			LOGGER.info("getAjusteBolsaDiscrepancia");
+			AjustePmmWms ajustePmmWms =null;
+			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+		
+			//records =result.size();
+			  for(int i = 0; i < result.size(); i++) {
+				  ajustePmmWms = new  AjustePmmWms();
+				  
+				  ajustePmmWms.setIdTipoInventario(result.get(i).getIdTipoInventario());
+				  ajustePmmWms.setFechaAjuste(new Date());
+				  ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
+				  ajustePmmWms.setPmm(result.get(i).getPmm());
+				  ajustePmmWms.setWms(result.get(i).getWms()); 
+				  ajustePmmWms.setSugerenciaAjuste(result.get(i).getSugerenciaAjuste());
+				  ajustePmmWms.setStockBolsaDiscrepancia(result.get(i).getSctockBolsaDiscrepancia());
+				  
+				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
+			}
+		
+			return new ResponseEntity<String>("Procesamiento Correcto.", HttpStatus.OK);
 			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
 			
 		} catch (Exception ex) {

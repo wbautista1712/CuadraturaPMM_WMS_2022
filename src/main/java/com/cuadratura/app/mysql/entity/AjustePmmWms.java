@@ -99,5 +99,8 @@ public class AjustePmmWms implements Serializable {
     private boolean estado;
 
    
-    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_tipo_inventario")
+    private int idTipoInventario;
 }
