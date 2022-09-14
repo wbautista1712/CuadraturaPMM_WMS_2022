@@ -1,4 +1,5 @@
 package com.cuadratura.app.controller;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,15 +36,15 @@ import com.cuadratura.app.util.Constantes;
 public class CrucePmmWmsController {
 
 	private static final Logger LOGGER = LogManager.getLogger(CrucePmmWmsController.class);
-	
+
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	
+
 	@Autowired
 	private CrucePmmWmsService crucePmmWmsService;
-	
+
 	@Autowired
 	private TblPmmWmsService tblPmmWmsService;
-	
+
 	@Autowired
 	private AjustePmmWmsService ajustePmmWmsService;
 
@@ -63,79 +64,90 @@ public class CrucePmmWmsController {
 			crucePmmWms.setIdEstadoCuadratura(Constantes.ESTADO_CUADRATURA);
 
 			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
-		
+
 			this.tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
-			
+
 			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(id, Constantes.ESTADO_CUADRATURA_PROCESO);
 			return new ResponseEntity<>("Procesamiento Correcto. ", HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping(value = "/getAnalisisAjustePmmWms")
 	public ResponseEntity<List<AjustePmmWmsDto>> getAnalisisAjustePmmWms(@RequestParam Integer idCrucePmmWms) {
-	
-		try 
-		{
-			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms "+idCrucePmmWms);
-			
-			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms);			
-			
-			LOGGER.info("result "+result.size());			
-			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms, Constantes.ESTADO_CUADRATURA_VALIDACION);
-			
+
+		try {
+			LOGGER.info("listAnalisisAjustePmmWms  idCrucePmmWms " + idCrucePmmWms);
+
+			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms);
+
+			LOGGER.info("result " + result.size());
+			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms,
+					Constantes.ESTADO_CUADRATURA_VALIDACION);
+
 			return ResponseEntity.status(HttpStatus.OK).body(result);
-		//	return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
-			
+			// return
+			// ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page,
+			// rows, records, result));
+
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
 	}
-	
+
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
 	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
 		try {
 
 			LOGGER.info("getAjusteBolsaDiscrepancia");
 
-			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
+			// List<CrucePmmWmsDto> result =
+			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
+			// rows);
 			List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms);
-			
+
 			return ResponseEntity.status(HttpStatus.OK).body(result);
-			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
-			
+			// return
+			// ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page,
+			// rows, records, result));
+
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
 	}
-	
+
 	@PostMapping(value = "/nextAjusteBolsaDiscrepancia")
 	public ResponseEntity<String> nextAjusteBolsaDiscrepancia(@RequestBody String jsonData) {
-        ObjectMapper om = new ObjectMapper();
-        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		ObjectMapper om = new ObjectMapper();
+		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
-			AjustePmmWms ajustePmmWms =null;
-			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
-		     List<CrucePmmWmsDto> registroJsonList  = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>(){});
-		     LOGGER.info("nextAjusteBolsaDiscrepancia "+registroJsonList.size());
-			  for(int i = 0; i < registroJsonList.size(); i++) {
-				  ajustePmmWms = new  AjustePmmWms();
-				  
-				  ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
-				  ajustePmmWms.setFechaAjuste(new Date());
-				  ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
-				  ajustePmmWms.setPmm(registroJsonList.get(i).getPmm());
-				  ajustePmmWms.setWms(registroJsonList.get(i).getWms()); 
-				  ajustePmmWms.setSugerenciaAjuste(registroJsonList.get(i).getSugerenciaAjuste());
-				  ajustePmmWms.setStockBolsaDiscrepancia(registroJsonList.get(i).getSctockBolsaDiscrepancia());
-				  
+			AjustePmmWms ajustePmmWms = null;
+			// List<CrucePmmWmsDto> result =
+			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
+			// rows);
+			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {
+			});
+			LOGGER.info("nextAjusteBolsaDiscrepancia " + registroJsonList.size());
+			for (int i = 0; i < registroJsonList.size(); i++) {
+				ajustePmmWms = new AjustePmmWms();
+
+				ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
+				ajustePmmWms.setFechaAjuste(new Date());
+				ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
+				ajustePmmWms.setPmm(registroJsonList.get(i).getPmm());
+				ajustePmmWms.setWms(registroJsonList.get(i).getWms());
+				ajustePmmWms.setSugerenciaAjuste(registroJsonList.get(i).getSugerenciaAjuste());
+				ajustePmmWms.setStockBolsaDiscrepancia(registroJsonList.get(i).getSctockBolsaDiscrepancia());
+
 				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
 			}
-		
+
 			return new ResponseEntity<String>("Procesamiento Correcto.", HttpStatus.OK);
-			//return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
-			
+			// return
+			// ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page,
+			// rows, records, result));
+
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
