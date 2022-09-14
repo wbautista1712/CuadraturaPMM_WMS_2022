@@ -1,5 +1,7 @@
 package com.cuadratura.app.controller;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -107,24 +109,26 @@ public class CrucePmmWmsController {
 	}
 	
 	@PostMapping(value = "/nextAjusteBolsaDiscrepancia")
-	public ResponseEntity<String> nextAjusteBolsaDiscrepancia(@RequestBody List<CrucePmmWmsDto> result) {
+	public ResponseEntity<String> nextAjusteBolsaDiscrepancia(@RequestBody String jsonData) {
+        ObjectMapper om = new ObjectMapper();
+        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 
-			LOGGER.info("getAjusteBolsaDiscrepancia");
+			LOGGER.info("nextAjusteBolsaDiscrepancia");
 			AjustePmmWms ajustePmmWms =null;
 			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
-		
-			//records =result.size();
-			  for(int i = 0; i < result.size(); i++) {
+		     List<CrucePmmWmsDto> registroJsonList  = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>(){});
+		     LOGGER.info("nextAjusteBolsaDiscrepancia "+registroJsonList.size());
+			  for(int i = 0; i < registroJsonList.size(); i++) {
 				  ajustePmmWms = new  AjustePmmWms();
 				  
-				  ajustePmmWms.setIdTipoInventario(result.get(i).getIdTipoInventario());
+				  ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
 				  ajustePmmWms.setFechaAjuste(new Date());
 				  ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
-				  ajustePmmWms.setPmm(result.get(i).getPmm());
-				  ajustePmmWms.setWms(result.get(i).getWms()); 
-				  ajustePmmWms.setSugerenciaAjuste(result.get(i).getSugerenciaAjuste());
-				  ajustePmmWms.setStockBolsaDiscrepancia(result.get(i).getSctockBolsaDiscrepancia());
+				  ajustePmmWms.setPmm(registroJsonList.get(i).getPmm());
+				  ajustePmmWms.setWms(registroJsonList.get(i).getWms()); 
+				  ajustePmmWms.setSugerenciaAjuste(registroJsonList.get(i).getSugerenciaAjuste());
+				  ajustePmmWms.setStockBolsaDiscrepancia(registroJsonList.get(i).getSctockBolsaDiscrepancia());
 				  
 				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
 			}
