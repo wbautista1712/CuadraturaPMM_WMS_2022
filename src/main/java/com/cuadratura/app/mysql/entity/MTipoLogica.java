@@ -50,10 +50,5 @@ public class MTipoLogica implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private boolean estado;
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
     
 }

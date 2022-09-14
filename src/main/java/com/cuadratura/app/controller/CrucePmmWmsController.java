@@ -121,43 +121,7 @@ public class CrucePmmWmsController {
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 
-<<<<<<< Updated upstream
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
-<<<<<<< HEAD
-			LOGGER.info(jsonData);
-			AjustePmmWms ajustePmmWms =null;
-			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
-		     List<CrucePmmWmsDto> registroJsonList  = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>(){});
-		     LOGGER.info("nextAjusteBolsaDiscrepancia "+registroJsonList.size());
-			  for(int i = 0; i < registroJsonList.size(); i++) {
-				  ajustePmmWms = new  AjustePmmWms();
-				  
-				  LOGGER.info("nextAjusteBolsaDiscrepancia "+registroJsonList.get(i).getIdTipoInventario());
-				  ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
-=======
-			LOGGER.info("nextAjusteBolsaDiscrepancia " + result.size());
-			AjustePmmWms ajustePmmWms =null;
-			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
-		
-			//records =result.size();
-			  for(int i = 0; i < result.size(); i++) {
-				  
-				  LOGGER.info("Ingresó al FOR " + result.toString());
-				  ajustePmmWms = new  AjustePmmWms();
-				  
-				  ajustePmmWms.setIdTipoInventario(result.get(i).getIdTipoInventario());
-				  
-				  LOGGER.info("Ingresó al primer valor " + result.get(i).getIdTipoInventario().toString());
->>>>>>> Stashed changes
-				  
-				  ajustePmmWms.setFechaAjuste(new Date());
-				  ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
-				  ajustePmmWms.setPmm(registroJsonList.get(i).getPmm());
-				  ajustePmmWms.setWms(registroJsonList.get(i).getWms()); 
-				  ajustePmmWms.setSugerenciaAjuste(registroJsonList.get(i).getSugerenciaAjuste());
-				  ajustePmmWms.setStockBolsaDiscrepancia(registroJsonList.get(i).getSctockBolsaDiscrepancia());
-				  
-=======
 			AjustePmmWms ajustePmmWms = null;
 			// List<CrucePmmWmsDto> result =
 			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
@@ -178,7 +142,6 @@ public class CrucePmmWmsController {
 				ajustePmmWms.setSugerenciaAjuste(registroJsonList.get(i).getSugerenciaAjuste());
 				ajustePmmWms.setStockBolsaDiscrepancia(registroJsonList.get(i).getSctockBolsaDiscrepancia());
 
->>>>>>> 40b9d37a7e64017a71dd5a468197739f69c48a1d
 				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
 			}
 
