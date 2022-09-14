@@ -156,8 +156,7 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 						statement.setDate(60, null);
 					}
 
-					/*
-					 
+					/*					 
 					  error_code, observacion_error, flg_tipo, idCarga_WMS)
 					  
 					 */
