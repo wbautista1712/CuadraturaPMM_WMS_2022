@@ -33,7 +33,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "CUADRATURA_TRANSFER")
+@Table(name = "CUADRATURA_TRANSFER", schema = "PMM")
 public class CuadraturaTransfer implements Serializable {
 
     private static final long serialVersionUID = 1L;

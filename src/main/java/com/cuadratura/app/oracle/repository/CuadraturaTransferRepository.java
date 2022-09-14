@@ -1,12 +1,13 @@
 package com.cuadratura.app.oracle.repository;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cuadratura.app.mysql.entity.TblWms;
-import com.cuadratura.app.mysql.repository.TblWmsRepositoryCustom;
+import com.cuadratura.app.oracle.entity.CuadraturaTransfer;
 
 @Repository
-public interface CuadraturaTransferRepository extends CrudRepository<TblWms, Integer>, CuadraturaTransferRepositoryCustom{
+public interface CuadraturaTransferRepository extends CrudRepository<CuadraturaTransfer, BigDecimal>, CuadraturaTransferRepositoryCustom{
 
 }
