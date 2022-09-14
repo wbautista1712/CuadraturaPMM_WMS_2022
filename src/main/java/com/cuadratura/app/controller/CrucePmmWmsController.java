@@ -129,6 +129,8 @@ public class CrucePmmWmsController {
 			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {
 			});
 			LOGGER.info("nextAjusteBolsaDiscrepancia " + registroJsonList.size());
+			registroJsonList.stream().forEach(x -> LOGGER.info(x));
+			 
 			for (int i = 0; i < registroJsonList.size(); i++) {
 				ajustePmmWms = new AjustePmmWms();
 
