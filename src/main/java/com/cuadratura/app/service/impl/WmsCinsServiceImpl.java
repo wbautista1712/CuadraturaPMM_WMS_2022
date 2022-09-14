@@ -127,9 +127,8 @@ public class WmsCinsServiceImpl implements WmsCinsService {
 			
 			
 			if (fila[61] != null ) {
-				   BigDecimal b = new BigDecimal(fila[61].toString());
-				   
-				wmsCinsDto.setFlgTipo(b.toBigInteger() );
+				 //  BigDecimal b = new BigDecimal(fila[61].toString());				   
+				wmsCinsDto.setFlgTipo(Integer.valueOf(fila[61].toString()));
 			}else {
 				wmsCinsDto.setFlgTipo(null);
 			}

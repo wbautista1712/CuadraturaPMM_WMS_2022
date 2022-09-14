@@ -127,7 +127,7 @@ public class WmsCinsDto {
 
 	private String observacionError;
 
-	private BigInteger flgTipo;
+	private Integer flgTipo;
 	
 	private String  tblWmscol;
 
@@ -622,11 +622,11 @@ public class WmsCinsDto {
 		this.observacionError = observacionError;
 	}
 
-	public BigInteger getFlgTipo() {
+	public Integer getFlgTipo() {
 		return flgTipo;
 	}
 
-	public void setFlgTipo(BigInteger flgTipo) {
+	public void setFlgTipo(Integer flgTipo) {
 		this.flgTipo = flgTipo;
 	}
 
