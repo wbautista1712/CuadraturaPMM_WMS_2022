@@ -6,10 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-import org.quartz.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -38,12 +38,12 @@ public class ScheduledTasks {
 	private static final Logger logger = LoggerFactory.getLogger(ScheduledTasks.class);
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	
+
 	// Agregado por wilber
-		 
-	 // private static final String cronExpression = "0 01 00 ? * 3 ";
-	 private static final String cronExpression = "";
-	 private static final String TIME_ZONE = "America/Lima";
+
+	private static final String cronExpression = "0 01 00 ? * 3 ";
+
+	private static final String TIME_ZONE = "America/Lima";
 
 	@Autowired
 	private FapinvbaleeService fapinvbaleeService;
@@ -62,24 +62,25 @@ public class ScheduledTasks {
 
 	@Autowired
 	private CargaWmsService cargaWmsService;
-	
+
 	@Autowired
 	private MCronJobService mCronJobService;
-	
-	public String job()
-	{
-		String job="";
-		
-		MCronJob mCronJob= mCronJobService.getCronJob();
-		
-		job= mCronJob.getSegundo() +" "+mCronJob.getMinuto()+" "+mCronJob.getHora()+" "+mCronJob.getDiaMes()+" "+mCronJob.getMes()+" "+mCronJob.getDiaSemana(); 
-		logger.info(job);
+
+	@Bean
+	public String getCronValue() {
+		String job = "";
+
+		MCronJob mCronJob = mCronJobService.getCronJob();
+
+		job = mCronJob.getSegundo() + " " + mCronJob.getMinuto() + " " + mCronJob.getHora() + " " + mCronJob.getDiaMes()
+				+ " " + mCronJob.getMes() + " " + mCronJob.getDiaSemana();
+		logger.info("Cron Expression:: "+job);
 
 		return job;
 	}
 
 	// @Scheduled(cron = "0 14 00 ? * 3 ", zone = TIME_ZONE)
-	@Scheduled(cron = job(), zone = TIME_ZONE)
+	@Scheduled(cron = "#{@getCronValue}", zone = TIME_ZONE)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
