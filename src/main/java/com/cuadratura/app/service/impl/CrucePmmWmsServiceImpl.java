@@ -57,7 +57,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 		Map<String, Object> mapList = crucePmmWmsRepository.listarAjusteBolsaDiscrepancia(idCrucePmmWms,idCDOrgNameShort);
 
 		List<CrucePmmWmsDto> list = new ArrayList<CrucePmmWmsDto>();
-		CrucePmmWmsDto libro = null;
+		CrucePmmWmsDto crucePmmWmsDto = null;
 
 		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
 		LOGGER.info("\nPretty toString ==> " + mapList.toString());
@@ -72,35 +72,35 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 			JSONArray jsonarr = new JSONArray(prettyJson);// prettyJson.getJSONArray("#result-set-1");
 			LOGGER.info("tamaño ==> " + jsonarr.length());
 			for (int i = 0; i < jsonarr.length(); i++) {
-				libro = new CrucePmmWmsDto();
+				crucePmmWmsDto = new CrucePmmWmsDto();
 
 				LOGGER.info("id  de Dato dd==> " + jsonarr.getJSONObject(i));
 				LOGGER.info("id  de Dato Canal_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				LOGGER.info("id  de Dato Estado_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				if (jsonarr.getJSONObject(i).has("idCruce_pmm_wms")) {
 					LOGGER.info("\nTipo de Dato ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
-					libro.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
+					crucePmmWmsDto.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("id_tbl_pmm_wms")) {
-					libro.setIdTblPmmWms(jsonarr.getJSONObject(i).getInt("id_tbl_pmm_wms"));
+					crucePmmWmsDto.setIdTblPmmWms(jsonarr.getJSONObject(i).getInt("id_tbl_pmm_wms"));
 
 				}
 
 				if (jsonarr.getJSONObject(i).has("CD")) {
-					libro.setCd(jsonarr.getJSONObject(i).getString("CD").toString());
+					crucePmmWmsDto.setCd(jsonarr.getJSONObject(i).getString("CD").toString());
 				}
 
 				if (jsonarr.getJSONObject(i).has("COD_MAT")) {
-					libro.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
+					crucePmmWmsDto.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
 				}
 				
 				if (jsonarr.getJSONObject(i).has("desc_Material")) {
-					libro.setDescMaterial(jsonarr.getJSONObject(i).getString("desc_Material"));
+					crucePmmWmsDto.setDescMaterial(jsonarr.getJSONObject(i).getString("desc_Material"));
 				}
 
 				if (jsonarr.getJSONObject(i).has("LOTE")) {
-					libro.setLote(jsonarr.getJSONObject(i).getString("LOTE").toString());
+					crucePmmWmsDto.setLote(jsonarr.getJSONObject(i).getString("LOTE").toString());
 				}
 
 				if (jsonarr.getJSONObject(i).has("CRUCE_HOMOLOGADO")) {
@@ -108,25 +108,25 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					idTipoInventario = Integer.parseInt( jsonarr.getJSONObject(i).getString("CRUCE_HOMOLOGADO").toString() );
 					nombreTipoInventario =mTipoInventarioRepository.getObtenerNombreInventario(idTipoInventario);
 					LOGGER.info("Nombre Inventario: "+ nombreTipoInventario);
-					libro.setCruceHomologado(nombreTipoInventario);
-					libro.setIdTipoInventario(idTipoInventario);
+					crucePmmWmsDto.setCruceHomologado(nombreTipoInventario);
+					crucePmmWmsDto.setIdTipoInventario(idTipoInventario);
 				}
 
 				if (jsonarr.getJSONObject(i).has("PMM")) {
-					libro.setPmm(jsonarr.getJSONObject(i).getInt("PMM"));
+					crucePmmWmsDto.setPmm(jsonarr.getJSONObject(i).getInt("PMM"));
 				}
 				if (jsonarr.getJSONObject(i).has("WMS")) {
-					libro.setWms(jsonarr.getJSONObject(i).getInt("WMS"));
+					crucePmmWmsDto.setWms(jsonarr.getJSONObject(i).getInt("WMS"));
 				}
 				if (jsonarr.getJSONObject(i).has("SUGERENCIA_AJUSTE")) {
-					libro.setSugerenciaAjuste(jsonarr.getJSONObject(i).getInt("SUGERENCIA_AJUSTE"));
+					crucePmmWmsDto.setSugerenciaAjuste(jsonarr.getJSONObject(i).getInt("SUGERENCIA_AJUSTE"));
 				}
 				if (jsonarr.getJSONObject(i).has("SCTOCK_BOLSA_DISCREPANCIA")) {
-					libro.setSctockBolsaDiscrepancia(jsonarr.getJSONObject(i).getInt("SCTOCK_BOLSA_DISCREPANCIA"));
+					crucePmmWmsDto.setSctockBolsaDiscrepancia(jsonarr.getJSONObject(i).getInt("SCTOCK_BOLSA_DISCREPANCIA"));
 				}
-				LOGGER.info("---getCruceHomologado------- " + libro.getCruceHomologado());
+				LOGGER.info("---getCruceHomologado------- " + crucePmmWmsDto.getCruceHomologado());
 
-				list.add(libro);
+				list.add(crucePmmWmsDto);
 
 			}
 
