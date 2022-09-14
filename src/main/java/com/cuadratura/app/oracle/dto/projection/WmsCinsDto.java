@@ -1,6 +1,5 @@
 package com.cuadratura.app.oracle.dto.projection;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class WmsCinsDto {
