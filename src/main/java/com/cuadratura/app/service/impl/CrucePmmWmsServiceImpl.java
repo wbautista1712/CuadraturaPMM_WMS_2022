@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.mysql.repository.CargaWmsRepository;
 import com.cuadratura.app.mysql.repository.CrucePmmWmsRepository;
+import com.cuadratura.app.mysql.repository.MTipoInventarioRepository;
 import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
 import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
 
@@ -33,6 +34,9 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 	@Autowired
 	private CargaWmsRepository cargaWmsRepository;
+	
+	@Autowired
+	private MTipoInventarioRepository mTipoInventarioRepository;
 
 	@Override
 	public CrudRepository<CrucePmmWms, Integer> getDao() {
@@ -62,7 +66,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 		LOGGER.info("\nPretty JSONObject ==> " + prettyJson);
 		LOGGER.info("mapList mapList ==> " + mapList.size());
-
+		String nombreTipoInventario ="";
+		Integer idTipoInventario =null;
 		try {
 			JSONArray jsonarr = new JSONArray(prettyJson);// prettyJson.getJSONArray("#result-set-1");
 			LOGGER.info("tamaño ==> " + jsonarr.length());
@@ -99,9 +104,12 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				}
 
 				if (jsonarr.getJSONObject(i).has("CRUCE_HOMOLOGADO")) {
-					//aqui comparar
-					
-					libro.setCruceHomologado(jsonarr.getJSONObject(i).getString("CRUCE_HOMOLOGADO").toString());
+					//aqui obtiene	
+					idTipoInventario = Integer.parseInt( jsonarr.getJSONObject(i).getString("CRUCE_HOMOLOGADO").toString() );
+					nombreTipoInventario =mTipoInventarioRepository.getObtenerNombreInventario(idTipoInventario);
+					LOGGER.info("Nombre Inventario: "+ nombreTipoInventario);
+					libro.setCruceHomologado(nombreTipoInventario);
+					libro.setIdTipoInventario(idTipoInventario);
 				}
 
 				if (jsonarr.getJSONObject(i).has("PMM")) {

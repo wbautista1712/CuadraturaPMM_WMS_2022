@@ -10,5 +10,5 @@ public interface MTipoInventarioRepositoryCustom {
 
 	public List<Object[]> getTipoInventarioLote(String idTipoInventario);
 
-	public MTipoInventario getObtenerNombreInventario(String idInventario);
+	public String  getObtenerNombreInventario(Integer idInventario);
 }
