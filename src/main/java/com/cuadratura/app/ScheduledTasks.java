@@ -38,7 +38,7 @@ public class ScheduledTasks {
 	
 	// Agregado por wilber
 		 
-	 private static final String cronExpression = "0 35 11 ? * 2 ";
+	 private static final String cronExpression = "0 44 23 ? * 2 ";
 	 private static final String TIME_ZONE = "America/Lima";
 
 	@Autowired
@@ -59,7 +59,7 @@ public class ScheduledTasks {
 	@Autowired
 	private CargaWmsService cargaWmsService;
 
-	@Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE)
+	@Scheduled(cron = "0 43 20 ? * 5 ", zone = TIME_ZONE)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
