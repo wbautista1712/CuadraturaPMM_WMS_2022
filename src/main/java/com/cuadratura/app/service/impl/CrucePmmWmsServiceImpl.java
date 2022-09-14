@@ -66,14 +66,17 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 		LOGGER.info("\nPretty JSONObject ==> " + prettyJson);
 		LOGGER.info("mapList mapList ==> " + mapList.size());
-		String nombreTipoInventario ="";
-		Integer idTipoInventario =null;
+		
 		try {
 			JSONArray jsonarr = new JSONArray(prettyJson);// prettyJson.getJSONArray("#result-set-1");
 			LOGGER.info("tamaño ==> " + jsonarr.length());
+			
+	
+			
 			for (int i = 0; i < jsonarr.length(); i++) {
 				crucePmmWmsDto = new CrucePmmWmsDto();
-
+				String nombreTipoInventario ="";
+				Integer idTipoInventario =null;
 				LOGGER.info("id  de Dato dd==> " + jsonarr.getJSONObject(i));
 				LOGGER.info("id  de Dato Canal_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				LOGGER.info("id  de Dato Estado_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
