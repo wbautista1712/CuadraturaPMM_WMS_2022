@@ -115,6 +115,7 @@ public class CrucePmmWmsController {
 		try {
 
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
+			LOGGER.info(jsonData);
 			AjustePmmWms ajustePmmWms =null;
 			//List<CrucePmmWmsDto> result = this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start, rows);
 		     List<CrucePmmWmsDto> registroJsonList  = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>(){});
@@ -122,7 +123,9 @@ public class CrucePmmWmsController {
 			  for(int i = 0; i < registroJsonList.size(); i++) {
 				  ajustePmmWms = new  AjustePmmWms();
 				  
+				  LOGGER.info("nextAjusteBolsaDiscrepancia "+registroJsonList.get(i).getIdTipoInventario());
 				  ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
+				  
 				  ajustePmmWms.setFechaAjuste(new Date());
 				  ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
 				  ajustePmmWms.setPmm(registroJsonList.get(i).getPmm());
