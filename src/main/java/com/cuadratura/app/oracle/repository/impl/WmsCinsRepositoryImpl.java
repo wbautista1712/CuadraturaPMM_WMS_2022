@@ -57,7 +57,7 @@ public class WmsCinsRepositoryImpl implements WmsCinsRepository {
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getCDFotoWms() {
 		String sql = "SELECT facility_code idcd, COUNT (*) num_registros " + "  FROM integracion.wms_cins "
-				+ " WHERE facility_code IN ('CD06') " + "GROUP BY facility_code ";
+				+ " WHERE facility_code IN ('CD04', 'CD06', 'CD11', 'CD12', 'CD15') " + "GROUP BY facility_code ";
 
 		Query query = this.entityManager.createNativeQuery(sql);
 		query.setHint(QueryHints.HINT_CACHEABLE, true);
@@ -68,7 +68,7 @@ public class WmsCinsRepositoryImpl implements WmsCinsRepository {
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getFechaHoraFotoWms(String idCD) {
 		String sql = "SELECT DISTINCT CREATE_DATE " + "FROM INTEGRACION.WMS_CINS " + "WHERE FACILITY_CODE = :idCD AND "
-				+ "(SUBSTR(CREATE_DATE,1,4)||'-'||SUBSTR(CREATE_DATE,5,2)||'-'||SUBSTR(CREATE_DATE,7,2))= TO_CHAR(SYSDATE-1, 'YYYY-MM-DD') ORDER BY 1";
+				+ "(SUBSTR(CREATE_DATE,1,4)||'-'||SUBSTR(CREATE_DATE,5,2)||'-'||SUBSTR(CREATE_DATE,7,2))= TO_CHAR(SYSDATE, 'YYYY-MM-DD') ORDER BY 1";
 
 		Query query = this.entityManager.createNativeQuery(sql);
 		query.setParameter("idCD", idCD);
@@ -81,7 +81,7 @@ public class WmsCinsRepositoryImpl implements WmsCinsRepository {
 	public List<Object[]> getCDXFechaHoraFotoWms() {
 		String sql = "             SELECT DISTINCT FACILITY_CODE idcd, CREATE_DATE  FROM INTEGRACION.WMS_CINS "
 				+ "				WHERE FACILITY_CODE IN ('CD04', 'CD06', 'CD11', 'CD12', 'CD15')   AND "
-				+ "				CREATE_DATE='20220913050215' ORDER BY 1";
+				+ "(SUBSTR(CREATE_DATE,1,4)||'-'||SUBSTR(CREATE_DATE,5,2)||'-'||SUBSTR(CREATE_DATE,7,2))= TO_CHAR(SYSDATE, 'YYYY-MM-DD') ORDER BY 1";
 
 		Query query = this.entityManager.createNativeQuery(sql);
 		query.setHint(QueryHints.HINT_CACHEABLE, true);

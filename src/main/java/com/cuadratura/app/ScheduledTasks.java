@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import org.quartz.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.entity.CargaWms;
+import com.cuadratura.app.mysql.entity.MCronJob;
 import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
 import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
@@ -21,6 +23,7 @@ import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.service.CargaPmmService;
 import com.cuadratura.app.service.CargaWmsService;
 import com.cuadratura.app.service.FapinvbaleeService;
+import com.cuadratura.app.service.MCronJobService;
 import com.cuadratura.app.service.TblPmmService;
 import com.cuadratura.app.service.TblWmsService;
 import com.cuadratura.app.service.WmsCinsService;
@@ -38,7 +41,8 @@ public class ScheduledTasks {
 	
 	// Agregado por wilber
 		 
-	 private static final String cronExpression = "0 44 23 ? * 2 ";
+	 // private static final String cronExpression = "0 01 00 ? * 3 ";
+	 private static final String cronExpression = "";
 	 private static final String TIME_ZONE = "America/Lima";
 
 	@Autowired
@@ -58,8 +62,24 @@ public class ScheduledTasks {
 
 	@Autowired
 	private CargaWmsService cargaWmsService;
+	
+	@Autowired
+	private MCronJobService mCronJobService;
+	
+	public String job()
+	{
+		String job="";
+		
+		MCronJob mCronJob= mCronJobService.getCronJob();
+		
+		job= mCronJob.getSegundo() +" "+mCronJob.getMinuto()+" "+mCronJob.getHora()+" "+mCronJob.getDiaMes()+" "+mCronJob.getMes()+" "+mCronJob.getDiaSemana(); 
+		logger.info(job);
 
-	@Scheduled(cron = "0 43 20 ? * 5 ", zone = TIME_ZONE)
+		return job;
+	}
+
+	// @Scheduled(cron = "0 14 00 ? * 3 ", zone = TIME_ZONE)
+	@Scheduled(cron = job(), zone = TIME_ZONE)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
 
