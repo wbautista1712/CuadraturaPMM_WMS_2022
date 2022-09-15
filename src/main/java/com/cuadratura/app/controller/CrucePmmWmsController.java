@@ -122,15 +122,51 @@ public class CrucePmmWmsController {
 		try {
 
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
-			AjustePmmWms ajustePmmWms = null;
+			AjustePmmWms ajustePmmWms  = new AjustePmmWms();
 			// List<CrucePmmWmsDto> result =
 			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
 			// rows);
 			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {
 			});
 			LOGGER.info("nextAjusteBolsaDiscrepancia " + registroJsonList.size());
-			registroJsonList.stream().forEach(x -> LOGGER.info(x));
+			registroJsonList.stream().forEach(x -> 
+			{
+			
+				//LOGGER.info(x.getIdTipoInventario());
+				//ajustePmmWms.setIdTipoInventario(x.getIdTipoInventario());
+				LOGGER.info("dddddddddddd");
+				ajustePmmWms.setFechaAjuste(new Date());
+			//	LOGGER.info(x.getIdTipoInventario());
+				ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
+				ajustePmmWms.setPmm(x.getPmm());
+				ajustePmmWms.setWms(x.getWms());
+				LOGGER.info(x.getWms());
+				ajustePmmWms.setSugerenciaAjuste(x.getSugerenciaAjuste());
+				LOGGER.info(x.getSugerenciaAjuste());
+				ajustePmmWms.setStockBolsaDiscrepancia(x.getSctockBolsaDiscrepancia());
+				LOGGER.info(x.getSctockBolsaDiscrepancia());
+				LOGGER.info(x.getSctockBolsaDiscrepancia());
+				
+				ajustePmmWms.setIdTblPmmWms(x.getIdTblPmmWms());
+				ajustePmmWms.setIdTipoInventario(x.getIdTipoInventario());
+				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
+			}
+		/*	LOGGER.info(x.getPmm())
+			ajustePmmWms = new AjustePmmWms();
+
+			ajustePmmWms.setIdTipoInventario(registroJsonList.get(i).getIdTipoInventario());
+			ajustePmmWms.setFechaAjuste(new Date());
+			ajustePmmWms.setHoraAjuste(dateTimeFormatter.format(LocalDateTime.now()));
+			ajustePmmWms.setPmm(registroJsonList.get(i).getPmm());
+			ajustePmmWms.setWms(registroJsonList.get(i).getWms());
+			ajustePmmWms.setSugerenciaAjuste(registroJsonList.get(i).getSugerenciaAjuste());
+			ajustePmmWms.setStockBolsaDiscrepancia(registroJsonList.get(i).getSctockBolsaDiscrepancia());*/
+
+			
+					
+					);
 			 
+			/*
 			for (int i = 0; i < registroJsonList.size(); i++) {
 				ajustePmmWms = new AjustePmmWms();
 
@@ -144,6 +180,7 @@ public class CrucePmmWmsController {
 
 				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
 			}
+			*/
 
 			return new ResponseEntity<String>("Procesamiento Correcto.", HttpStatus.OK);
 			// return

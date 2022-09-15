@@ -26,7 +26,9 @@ public class AjustePmmWmsServiceImpl  extends GenericServiceImpl<AjustePmmWms, I
 	
 	public void saveAjustePmmWms(AjustePmmWms ajustePmmWms) {
 		LOGGER.info(ajustePmmWms.getHoraAjuste());
-		ajustePmmWmsRepository.save(ajustePmmWms);
+		LOGGER.info(ajustePmmWms.getIdTipoInventario());
+		LOGGER.info(ajustePmmWms.getIdTblPmmWms());
+		ajustePmmWmsRepository.saveAjustePmmWms(ajustePmmWms);
 	}
 
 }
