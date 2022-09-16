@@ -35,14 +35,15 @@ public class AjustePmmWmsDto {
 	private String wmsEb;
 	private String difEconoBloqueado;
 	private String bolsaDiscrepanciaEcono;
-	private String material;
+	private String descMaterial;
 
-	public String getMaterial() {
-		return material;
+
+	public String getDescMaterial() {
+		return descMaterial;
 	}
 
-	public void setMaterial(String material) {
-		this.material = material;
+	public void setDescMaterial(String descMaterial) {
+		this.descMaterial = descMaterial;
 	}
 
 	public Integer getIdcrucePmmWms() {

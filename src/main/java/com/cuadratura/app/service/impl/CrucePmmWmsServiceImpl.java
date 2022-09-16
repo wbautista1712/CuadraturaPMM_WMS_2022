@@ -168,7 +168,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				ajustePmmWmsDto = new AjustePmmWmsDto();
 				
 				LOGGER.info("idcruce_pmm_wms ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
-				LOGGER.info("cd===> " +jsonarr.getJSONObject(i).getString("CD").toString());
+				
+				LOGGER.info("Material ===> " +jsonarr.getJSONObject(i).getString("Desc_Material").toString());
 				
 				if (jsonarr.getJSONObject(i).has("idCruce_pmm_wms")) {
 					ajustePmmWmsDto.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
@@ -194,8 +195,10 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					ajustePmmWmsDto.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
 				}
 			
-				if (jsonarr.getJSONObject(i).has("Material")) {
-					ajustePmmWmsDto.setMaterial(jsonarr.getJSONObject(i).getString("Material").toString());
+				if (jsonarr.getJSONObject(i).has("Desc_Material")) {
+					
+					ajustePmmWmsDto.setDescMaterial(jsonarr.getJSONObject(i).getString("Desc_Material").toString());
+					
 				}
 
 
