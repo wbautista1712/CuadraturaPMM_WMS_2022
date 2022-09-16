@@ -193,6 +193,11 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				if (jsonarr.getJSONObject(i).has("COD_MAT")) {
 					ajustePmmWmsDto.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
 				}
+			
+				if (jsonarr.getJSONObject(i).has("Material")) {
+					ajustePmmWmsDto.setMaterial(jsonarr.getJSONObject(i).getString("Material").toString());
+				}
+
 
 				if (jsonarr.getJSONObject(i).has("LOTE")) {
 					ajustePmmWmsDto.setLote(jsonarr.getJSONObject(i).getString("LOTE").toString());
