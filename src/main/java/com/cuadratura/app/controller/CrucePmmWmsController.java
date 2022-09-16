@@ -92,6 +92,7 @@ public class CrucePmmWmsController {
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
+		
 	}
 
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
@@ -113,6 +114,7 @@ public class CrucePmmWmsController {
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
+		
 	}
 
 	@PostMapping(value = "/nextAjusteBolsaDiscrepancia")
