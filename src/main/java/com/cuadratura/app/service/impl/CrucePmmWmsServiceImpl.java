@@ -93,6 +93,10 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				if (jsonarr.getJSONObject(i).has("CD")) {
 					crucePmmWmsDto.setCd(jsonarr.getJSONObject(i).getString("CD").toString());
 				}
+				
+				if (jsonarr.getJSONObject(i).has("desc_CD")) {
+					crucePmmWmsDto.setDescCD(jsonarr.getJSONObject(i).getString("desc_CD").toString());
+				}
 
 				if (jsonarr.getJSONObject(i).has("COD_MAT")) {
 					crucePmmWmsDto.setCodMat(jsonarr.getJSONObject(i).getInt("COD_MAT"));
@@ -187,6 +191,10 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					ajustePmmWmsDto.setHoraMatch(jsonarr.getJSONObject(i).getString("horaMatch").toString());
 				}
 
+				if (jsonarr.getJSONObject(i).has("desc_CD")) {
+					ajustePmmWmsDto.setDescCD(jsonarr.getJSONObject(i).getString("desc_CD").toString());
+				}
+				
 				if (jsonarr.getJSONObject(i).has("CD")) {
 					ajustePmmWmsDto.setCd(jsonarr.getJSONObject(i).getString("CD").toString());
 				}

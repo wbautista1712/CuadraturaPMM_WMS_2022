@@ -5,6 +5,7 @@ public class CrucePmmWmsDto {
 	private Integer idcrucePmmWms;
 	private Integer idTblPmmWms;
 	private String cd;
+	private String descCD;
 	private Integer codMat;
 	private String lote;
 	private String cruceHomologado;
@@ -14,6 +15,13 @@ public class CrucePmmWmsDto {
 	private Integer sctockBolsaDiscrepancia;
 	private String descMaterial;
 	private Integer idTipoInventario;
+	
+	public String getDescCD() {
+		return descCD;
+	}
+	public void setDescCD(String descCD) {
+		this.descCD = descCD;
+	}
 	
 	public Integer getIdcrucePmmWms() {
 		return idcrucePmmWms;

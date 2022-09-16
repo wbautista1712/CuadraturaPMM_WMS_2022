@@ -7,6 +7,7 @@ public class AjustePmmWmsDto {
 	private String fechaMatch;
 	private String horaMatch;
 	private String cd;
+	private String descCD;
 	private Integer codMat;
 	private String lote;
 	private Integer pmmDisponible;
@@ -37,6 +38,13 @@ public class AjustePmmWmsDto {
 	private String bolsaDiscrepanciaEcono;
 	private String descMaterial;
 
+	public String getDescCD() {
+		return descCD;
+	}
+
+	public void setDescCD(String descCD) {
+		this.descCD = descCD;
+	}
 
 	public String getDescMaterial() {
 		return descMaterial;
