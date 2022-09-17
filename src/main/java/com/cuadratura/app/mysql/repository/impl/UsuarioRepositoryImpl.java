@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.mysql.repository.UsuarioRepositoryCustom;
-import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
+import com.cuadratura.app.oracle.dto.UsuarioDto;
 
 @Repository
 @Transactional

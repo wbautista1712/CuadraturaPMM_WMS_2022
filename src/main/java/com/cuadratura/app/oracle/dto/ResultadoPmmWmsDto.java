@@ -1,4 +1,4 @@
-package com.cuadratura.app.oracle.dto.projection;
+package com.cuadratura.app.oracle.dto;
 
 public class ResultadoPmmWmsDto {
 

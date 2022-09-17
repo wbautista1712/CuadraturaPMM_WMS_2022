@@ -3,7 +3,7 @@ package com.cuadratura.app.mysql.repository;
 import java.util.List;
 
 import com.cuadratura.app.mysql.entity.Usuario;
-import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
+import com.cuadratura.app.oracle.dto.UsuarioDto;
 
 public interface UsuarioRepositoryCustom {
 	public Long saveUsuario(Usuario usuario);

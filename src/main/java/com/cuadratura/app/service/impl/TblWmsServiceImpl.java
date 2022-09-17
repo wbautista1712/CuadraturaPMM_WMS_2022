@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.mysql.repository.TblWmsRepository;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 import com.cuadratura.app.service.TblWmsService;
 
 @Service

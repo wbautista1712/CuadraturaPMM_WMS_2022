@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.AjustePmmWms;
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
-import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
-import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
+import com.cuadratura.app.oracle.dto.AjustePmmWmsDto;
+import com.cuadratura.app.oracle.dto.CrucePmmWmsDto;
 import com.cuadratura.app.service.AjustePmmWmsService;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;

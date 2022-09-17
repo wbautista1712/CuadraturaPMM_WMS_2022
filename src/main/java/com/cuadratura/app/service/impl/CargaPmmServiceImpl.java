@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.repository.CargaPmmRepository;
-import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
+import com.cuadratura.app.oracle.dto.FotoPmmDto;
 import com.cuadratura.app.service.CargaPmmService;
 
 @Service

@@ -11,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsCDDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 import com.cuadratura.app.oracle.repository.WmsCinsRepository;
 import com.cuadratura.app.service.WmsCinsService;
 

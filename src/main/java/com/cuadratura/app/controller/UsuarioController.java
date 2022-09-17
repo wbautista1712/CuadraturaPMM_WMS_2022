@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.mysql.entity.UsuarioRol;
-import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
+import com.cuadratura.app.oracle.dto.UsuarioDto;
 import com.cuadratura.app.service.UsuarioRolService;
 import com.cuadratura.app.service.UsuarioService;
 

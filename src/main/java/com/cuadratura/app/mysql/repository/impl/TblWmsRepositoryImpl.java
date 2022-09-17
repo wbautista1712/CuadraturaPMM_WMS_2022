@@ -16,7 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.repository.TblWmsRepositoryCustom;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 
 @Repository
 public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {

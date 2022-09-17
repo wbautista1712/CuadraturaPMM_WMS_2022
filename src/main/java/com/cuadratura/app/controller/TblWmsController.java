@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.entity.TblWms;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsCDDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 import com.cuadratura.app.service.CargaWmsService;
 import com.cuadratura.app.service.TblWmsService;
 import com.cuadratura.app.service.WmsCinsService;

@@ -11,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
+import com.cuadratura.app.oracle.dto.FotoPmmDto;
 
 public class ExcelGeneratorFotoPmm {
 

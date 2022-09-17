@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.AjustePmmWms;
 import com.cuadratura.app.mysql.repository.AjustePmmWmsRepository;
-import com.cuadratura.app.oracle.dto.projection.SpBolsaSdiDto;
+import com.cuadratura.app.oracle.dto.SpBolsaSdiDto;
 import com.cuadratura.app.service.AjustePmmWmsService;
 
 @Service
@@ -38,10 +38,10 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 
 	public List<SpBolsaSdiDto> getAllBolsaSdi() {
 		List<SpBolsaSdiDto> listaClasificadores = new ArrayList<SpBolsaSdiDto>();
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
 
 		List<Object[]> lista = ajustePmmWmsRepository.getAllBolsaSdi();
-		LOGGER.info("get lista " + lista.size());
+		LOGGER.info("get lista getAllBolsaSdi " + lista.size());
 		SpBolsaSdiDto fotoWms;
 		for (Object[] filaObj : lista) {
 			fotoWms = new SpBolsaSdiDto();
@@ -72,17 +72,23 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 			} else {
 				fotoWms.setTransDate(null);
 			}
-
+	
 			fotoWms.setTransCurrCode(filaObj[11] == null ? "" : filaObj[11].toString());
 			fotoWms.setTransOrgLvlNumber(filaObj[12] == null ? "" : filaObj[12].toString());
 			fotoWms.setTransPrdLvlNumber(filaObj[13] == null ? "" : filaObj[13].toString());
 			fotoWms.setProcSource(filaObj[14] == null ? "" : filaObj[14].toString());
 			fotoWms.setTransInners(filaObj[15] == null ? "" : filaObj[15].toString());
 			fotoWms.setTransLote(filaObj[16] == null ? "" : filaObj[16].toString());
-
+			LOGGER.info(filaObj[17] );
+			fotoWms.setIdAjustePMMWMS(filaObj[17] == null ? 0 :Integer.valueOf( filaObj[17].toString() ));
+			fotoWms.setPrdLvlChild(filaObj[18] == null ? 0 :Integer.valueOf( filaObj[18].toString() ));
 			listaClasificadores.add(fotoWms);
 		}
 		return listaClasificadores;
+	}
+	
+	public void updateAjustePmmWms(Integer idAjustePMMWMS) {
+		ajustePmmWmsRepository.updateAjustePmmWms(idAjustePMMWMS);
 	}
 
 }

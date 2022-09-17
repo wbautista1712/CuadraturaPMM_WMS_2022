@@ -13,7 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
+import com.cuadratura.app.oracle.dto.FotoWmsDto;
 
 public class ExcelGeneratorFotoWms {
 

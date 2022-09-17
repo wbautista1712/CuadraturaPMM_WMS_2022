@@ -17,9 +17,8 @@ import com.cuadratura.app.mysql.entity.CrucePmmWms;
 import com.cuadratura.app.mysql.repository.CargaWmsRepository;
 import com.cuadratura.app.mysql.repository.CrucePmmWmsRepository;
 import com.cuadratura.app.mysql.repository.MTipoInventarioRepository;
-import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
-import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
-
+import com.cuadratura.app.oracle.dto.AjustePmmWmsDto;
+import com.cuadratura.app.oracle.dto.CrucePmmWmsDto;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

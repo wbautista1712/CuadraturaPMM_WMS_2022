@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.repository.TblPmmWmsRepository;
-import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
-import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ResultadoPmmWmsDto;
 import com.cuadratura.app.service.TblPmmWmsService;
 
 @Service

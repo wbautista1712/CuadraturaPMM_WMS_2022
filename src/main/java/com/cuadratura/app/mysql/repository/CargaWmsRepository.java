@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
-import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
+import com.cuadratura.app.oracle.dto.FotoWmsDto;
 
 @Repository
 public interface CargaWmsRepository extends CrudRepository<CargaWms, Integer>, CargaWmsRepositoryCustom {

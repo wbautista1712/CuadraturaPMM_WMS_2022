@@ -3,7 +3,7 @@ package com.cuadratura.app.mysql.repository;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 
 public interface TblWmsRepositoryCustom {
 

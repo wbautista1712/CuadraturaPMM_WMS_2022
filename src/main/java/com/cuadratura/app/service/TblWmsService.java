@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cuadratura.app.mysql.entity.TblWms;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 
 

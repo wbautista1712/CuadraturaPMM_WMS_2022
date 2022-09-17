@@ -36,7 +36,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "CUADRATURA_TRANSFER", schema = "PMM")
+@Table(name = "CUADRATURA_TRANSFER", schema = "CUADRATURAWYP")
 public class CuadraturaTransfer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,8 +45,8 @@ public class CuadraturaTransfer implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_CUADRATURA_TRANSFER")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MERCHANDISE_TRANSFER_generator")
-	@SequenceGenerator(sequenceName = "MERCHANDISE_TRANSFER_seq", allocationSize = 1, name = "MERCHANDISE_TRANSFER_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUADRATURA_TRANSFER_generator")
+	@SequenceGenerator(sequenceName = "CUADRATURA_TRANSFER_seq", schema = "CUADRATURAWYP" , allocationSize = 1,  name = "CUADRATURA_TRANSFER_generator")
     private BigDecimal idCuadraturaTransfer;    
     
     

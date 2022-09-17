@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
-import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ResultadoPmmWmsDto;
 import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;

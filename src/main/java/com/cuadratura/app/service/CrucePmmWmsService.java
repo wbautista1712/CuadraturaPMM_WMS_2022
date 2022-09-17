@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cuadratura.app.mysql.entity.CrucePmmWms;
-import com.cuadratura.app.oracle.dto.projection.AjustePmmWmsDto;
-import com.cuadratura.app.oracle.dto.projection.CrucePmmWmsDto;
+import com.cuadratura.app.oracle.dto.AjustePmmWmsDto;
+import com.cuadratura.app.oracle.dto.CrucePmmWmsDto;
 
 
 public interface CrucePmmWmsService {

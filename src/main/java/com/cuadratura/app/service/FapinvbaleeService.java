@@ -2,7 +2,7 @@ package com.cuadratura.app.service;
 
 import java.util.List;
 
-import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
+import com.cuadratura.app.oracle.dto.FapinvbaleeDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
 

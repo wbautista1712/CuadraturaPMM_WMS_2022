@@ -1,4 +1,4 @@
-package com.cuadratura.app.oracle.dto.projection;
+package com.cuadratura.app.oracle.dto;
 
 import java.util.Date;
 
@@ -21,7 +21,16 @@ public class SpBolsaSdiDto {
 	private String procSource;
 	private String transInners;
 	private String transLote;
+	private Integer idAjustePMMWMS;
+	private Integer prdLvlChild ;
 	
+	
+	public Integer getPrdLvlChild() {
+		return prdLvlChild;
+	}
+	public void setPrdLvlChild(Integer prdLvlChild) {
+		this.prdLvlChild = prdLvlChild;
+	}
 	public String getTransUser() {
 		return transUser;
 	}
@@ -124,7 +133,12 @@ public class SpBolsaSdiDto {
 	public void setTransLote(String transLote) {
 		this.transLote = transLote;
 	}
-	
+	public Integer getIdAjustePMMWMS() {
+		return idAjustePMMWMS;
+	}
+	public void setIdAjustePMMWMS(Integer idAjustePMMWMS) {
+		this.idAjustePMMWMS = idAjustePMMWMS;
+	}
 	
 
 }

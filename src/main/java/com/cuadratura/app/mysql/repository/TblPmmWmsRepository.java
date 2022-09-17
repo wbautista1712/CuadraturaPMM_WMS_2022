@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.TblPmmWms;
-import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ConsolidadoPmmWmsDto;
 
 @Repository
 public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> , TblPmmWmsRepositoryCustom{

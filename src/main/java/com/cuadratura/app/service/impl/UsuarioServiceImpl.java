@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.mysql.repository.UsuarioRepository;
-import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
+import com.cuadratura.app.oracle.dto.UsuarioDto;
 import com.cuadratura.app.service.UsuarioService;
 
 

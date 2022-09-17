@@ -2,8 +2,8 @@ package com.cuadratura.app.service;
 
 import java.util.List;
 
-import com.cuadratura.app.oracle.dto.projection.WmsCinsCDDto;
-import com.cuadratura.app.oracle.dto.projection.WmsCinsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsCDDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
 
 public interface WmsCinsService {
 

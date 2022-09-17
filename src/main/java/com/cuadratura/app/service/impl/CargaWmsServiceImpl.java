@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.repository.CargaWmsRepository;
-import com.cuadratura.app.oracle.dto.projection.FotoWmsDto;
+import com.cuadratura.app.oracle.dto.FotoWmsDto;
 import com.cuadratura.app.service.CargaWmsService;
 
 @Service

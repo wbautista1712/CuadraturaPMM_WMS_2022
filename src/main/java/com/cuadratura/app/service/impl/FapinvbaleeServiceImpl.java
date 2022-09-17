@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import com.cuadratura.app.oracle.dto.projection.FapinvbaleeDto;
+import com.cuadratura.app.oracle.dto.FapinvbaleeDto;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
 import com.cuadratura.app.oracle.repository.FapinvbaleeRepository;

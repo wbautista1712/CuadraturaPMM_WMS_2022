@@ -2,8 +2,8 @@ package com.cuadratura.app.service;
 
 import java.util.List;
 
-import com.cuadratura.app.oracle.dto.projection.ConsolidadoPmmWmsDto;
-import com.cuadratura.app.oracle.dto.projection.ResultadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ConsolidadoPmmWmsDto;
+import com.cuadratura.app.oracle.dto.ResultadoPmmWmsDto;
 
 public interface TblPmmWmsService {
 	

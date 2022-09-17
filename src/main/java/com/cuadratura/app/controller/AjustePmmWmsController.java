@@ -1,7 +1,6 @@
 package com.cuadratura.app.controller;
 
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,10 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cuadratura.app.oracle.dto.projection.SpBolsaSdiDto;
+import com.cuadratura.app.oracle.dto.SpBolsaSdiDto;
 import com.cuadratura.app.oracle.entity.CuadraturaTransfer;
+import com.cuadratura.app.oracle.entity.Fapprdlotee;
+import com.cuadratura.app.oracle.entity.Prdpcdee;
 import com.cuadratura.app.service.AjustePmmWmsService;
 import com.cuadratura.app.service.CuadraturaTransferService;
+import com.cuadratura.app.service.FapprdloteeService;
+import com.cuadratura.app.service.PrdpcdeeService;
 
 @RestController
 @RequestMapping(path = "/api/wmsmysql")
@@ -31,17 +34,27 @@ public class AjustePmmWmsController {
 
 	@Autowired
 	private CuadraturaTransferService cuadraturaTransferService;
+	
+	@Autowired
+	private FapprdloteeService fapprdloteeService;
+	
+	@Autowired
+	private PrdpcdeeService prdpcdeeService;
 
 	@GetMapping(value = "/procesarAjusteSDI")
 	public ResponseEntity<String> procesarAjusteSDI() {
 		try {
 			CuadraturaTransfer cuadraturaTransfer = null;
+			Fapprdlotee  fapprdlotee = null;
+			Prdpcdee prdpcdee= null;
 			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();
 			LOGGER.info("result " + result.size());
+			Long idSesion=  cuadraturaTransferService.getSequence();
+			LOGGER.info("idSesion " + idSesion);
 			for (SpBolsaSdiDto objeto : result) {
 				cuadraturaTransfer = new CuadraturaTransfer();
-
-				cuadraturaTransfer.setTransSession( new BigInteger("1344350") );//  SELECT INTEGRACION.WMS_SEQ_FAPINVTRHEE.nextval from dual;
+			
+				cuadraturaTransfer.setTransSession( BigInteger.valueOf((idSesion) ));//  SELECT INTEGRACION.WMS_SEQ_FAPINVTRHEE.nextval from dual;
 				cuadraturaTransfer.setTransUser(objeto.getTransUser());//arreglar
 				cuadraturaTransfer.setTransBatchDate(objeto.getTransBatchDate());
 				cuadraturaTransfer.setTransSource(objeto.getTransSource());
@@ -60,7 +73,9 @@ public class AjustePmmWmsController {
 
 				cuadraturaTransfer.setProcSource(objeto.getProcSource());
 				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty()));
-				cuadraturaTransfer.setInnerPackId(new BigInteger("55519")  );//usar consulta oracle //
+				
+				prdpcdee= prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
+				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId())  );//usar consulta oracle //
 				/*
 				 * 
 				 Select i.inner_pack_id, i.* from pmm.prdpcdee i, pmm.prdmstee p
@@ -76,9 +91,13 @@ and rownum = 1;
 				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
-				cuadraturaTransfer.setTransVctoLote(new Date());//Select * from pmm.FAPPRDLOTEE x where x.prd_lvl_child =36278 and x.prd_nlote='10317639'; // corregir
+				
+				fapprdlotee =fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());//prd_lvl_child //prd_nlote
+				cuadraturaTransfer.setTransVctoLote(fapprdlotee.getLotFechaVcto());//Select * from pmm.FAPPRDLOTEE x where x.prd_lvl_child =36278 and x.prd_nlote='10317639'; // corregir
 
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
+				
+				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
 			}
 
 			// return ResponseEntity.status(HttpStatus.OK).body(result);

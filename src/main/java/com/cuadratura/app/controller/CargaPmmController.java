@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cuadratura.app.oracle.dto.projection.FotoPmmDto;
+import com.cuadratura.app.oracle.dto.FotoPmmDto;
 import com.cuadratura.app.response.ListResponse;
 import com.cuadratura.app.service.CargaPmmService;
 import com.cuadratura.app.util.ExcelGeneratorFotoPmm;

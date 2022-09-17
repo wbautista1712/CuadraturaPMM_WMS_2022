@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.cuadratura.app.mysql.entity.Usuario;
-import com.cuadratura.app.oracle.dto.projection.UsuarioDto;
+import com.cuadratura.app.oracle.dto.UsuarioDto;
 
 
 public interface UsuarioService {
