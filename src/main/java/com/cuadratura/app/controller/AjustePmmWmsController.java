@@ -99,8 +99,9 @@ and rownum = 1;
 				
 				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
 			}
-
-			// return ResponseEntity.status(HttpStatus.OK).body(result);
+			
+			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
+			LOGGER.info("Proceso Correcto ok " );
 			return ResponseEntity.status(HttpStatus.OK).body("Proceso Correcto");
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);

@@ -28,7 +28,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "COD_ERROR_SDI", schema = "PMM")
+@Table(name = "COD_ERROR_SDI", schema = "CUADRATURAWYP")
 public class CodErrorSdi implements Serializable {
 
     private static final long serialVersionUID = 1L;

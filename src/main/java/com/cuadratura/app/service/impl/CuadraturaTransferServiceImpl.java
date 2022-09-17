@@ -1,6 +1,7 @@
 package com.cuadratura.app.service.impl;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,5 +33,9 @@ public class CuadraturaTransferServiceImpl extends GenericServiceImpl<Cuadratura
 	public void saveCuadraturaTransferService(CuadraturaTransfer cuadraturaTransfer) {
 		LOGGER.info("cuadraturaTransfer "+cuadraturaTransfer.getProcSource());
 		this.cuadraturaTransferRepository.saveCuadraturaTransfer(cuadraturaTransfer);
+	}
+	
+	public void spCuadraturaTransfer(int idSesion) throws SQLException {
+		this.cuadraturaTransferRepository.spCuadraturaTransfer(idSesion);
 	}
 }
