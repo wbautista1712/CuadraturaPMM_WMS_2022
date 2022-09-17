@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,7 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 
 	public List<SpBolsaSdiDto> getAllBolsaSdi() {
 		List<SpBolsaSdiDto> listaClasificadores = new ArrayList<SpBolsaSdiDto>();
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 
 		List<Object[]> lista = ajustePmmWmsRepository.getAllBolsaSdi();
 		LOGGER.info("get lista " + lista.size());
@@ -44,7 +47,15 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 			fotoWms = new SpBolsaSdiDto();
 
 			fotoWms.setTransUser(filaObj[0] == null ? "" : filaObj[0].toString());
-			fotoWms.setTransBatchDate(filaObj[1] == null ? "" : filaObj[1].toString());
+
+			if (filaObj[1] != null) {
+				DateTime jodaDateTransBatch = DateTime.parse(filaObj[1].toString(), formatter);
+				java.util.Date dateTransBatchDate = jodaDateTransBatch.toDate();
+				fotoWms.setTransBatchDate(dateTransBatchDate);
+			} else {
+				fotoWms.setTransBatchDate(null);
+			}
+
 			fotoWms.setTransSource(filaObj[2] == null ? "" : filaObj[2].toString());
 			fotoWms.setTransAudited(filaObj[3] == null ? "" : filaObj[3].toString());
 			fotoWms.setTransSequence(filaObj[4] == null ? "" : filaObj[4].toString());
@@ -53,7 +64,15 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 			fotoWms.setTransTypeCode(filaObj[7] == null ? "" : filaObj[7].toString());
 			fotoWms.setTransTrnCode(filaObj[8] == null ? "" : filaObj[8].toString());
 			fotoWms.setInvDrptCode(filaObj[9] == null ? "" : filaObj[9].toString());
-			fotoWms.setTransDate(filaObj[10] == null ? "" : filaObj[10].toString());
+			if (filaObj[10] != null) {
+				DateTime jodaDateTrans = DateTime.parse(filaObj[10].toString(), formatter);
+				java.util.Date dateTransDate = jodaDateTrans.toDate();
+
+				fotoWms.setTransDate(dateTransDate);
+			} else {
+				fotoWms.setTransDate(null);
+			}
+
 			fotoWms.setTransCurrCode(filaObj[11] == null ? "" : filaObj[11].toString());
 			fotoWms.setTransOrgLvlNumber(filaObj[12] == null ? "" : filaObj[12].toString());
 			fotoWms.setTransPrdLvlNumber(filaObj[13] == null ? "" : filaObj[13].toString());

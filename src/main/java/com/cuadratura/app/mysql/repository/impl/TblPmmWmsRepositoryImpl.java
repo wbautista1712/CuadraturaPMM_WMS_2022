@@ -66,18 +66,19 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 	}
 	
 	@Override
-	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception{
+	public Integer countResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta) throws Exception{
 		String sql =  "SELECT COUNT(*) FROM (SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
 				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado " + "FROM cuadratura.cruce_pmm_wms C "
 				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
 				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "WHERE WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC ) tt	";	
+				+ "WHERE WMS.fechaCarga BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC ) tt	";	
 		
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("idCD_org_name_short", idCD_org_name_short);	
-		
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta", fechaHasta);
 		return Integer.valueOf(query.getSingleResult().toString());
 	}
 }

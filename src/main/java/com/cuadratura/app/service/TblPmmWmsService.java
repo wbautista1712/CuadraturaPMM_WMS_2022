@@ -13,5 +13,5 @@ public interface TblPmmWmsService {
 	
 	void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario, int idCrucePmmWms) ;
 	
-	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception;
+	public Integer countResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta) throws Exception;
 }

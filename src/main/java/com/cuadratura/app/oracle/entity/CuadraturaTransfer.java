@@ -8,8 +8,11 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +45,11 @@ public class CuadraturaTransfer implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_CUADRATURA_TRANSFER")
-    private BigDecimal idCuadraturaTransfer;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MERCHANDISE_TRANSFER_generator")
+	@SequenceGenerator(sequenceName = "MERCHANDISE_TRANSFER_seq", allocationSize = 1, name = "MERCHANDISE_TRANSFER_generator")
+    private BigDecimal idCuadraturaTransfer;    
+    
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRANS_SESSION")
@@ -65,7 +72,7 @@ public class CuadraturaTransfer implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRANS_AUDITED")
-    private Character transAudited;
+    private String transAudited;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRANS_SEQUENCE")

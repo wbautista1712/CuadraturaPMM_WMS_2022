@@ -7,5 +7,5 @@ public interface TblPmmWmsRepositoryCustom {
 	
 	List<Object[]> getAllResultadoPmmWms( String idCD_org_name_short, String fechaDesde, String fechaHasta, Integer start, Integer end);
 	
-	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception;
+	public Integer countResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta) throws Exception;
 }

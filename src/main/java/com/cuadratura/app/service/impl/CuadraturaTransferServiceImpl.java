@@ -26,4 +26,9 @@ public class CuadraturaTransferServiceImpl extends GenericServiceImpl<Cuadratura
 		// TODO Auto-generated method stub
 		return cuadraturaTransferRepository;
 	}
+	
+	public void saveCuadraturaTransferService(CuadraturaTransfer cuadraturaTransfer) {
+		LOGGER.info("cuadraturaTransfer "+cuadraturaTransfer.getProcSource());
+		this.cuadraturaTransferRepository.save(cuadraturaTransfer);
+	}
 }

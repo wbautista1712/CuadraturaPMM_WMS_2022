@@ -61,7 +61,7 @@ public class TblPmmWmsController {
 
 			LOGGER.info("getAllResultadoPmmWms  idCD_org_name_short " + idCD_org_name_short);
 			List<ResultadoPmmWmsDto> result = tblPmmWmsService.getAllResultadoPmmWms(idCD_org_name_short , fechaDesde,  fechaHasta, start,  rows);
-			records =tblPmmWmsService.countResultadoPmmWms(idCD_org_name_short);
+			records =tblPmmWmsService.countResultadoPmmWms(idCD_org_name_short , fechaDesde,  fechaHasta);
 			LOGGER.info("result getAllResultadoPmmWms " + result.size());
 			//return ResponseEntity.status(HttpStatus.OK).body(result);
 			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));

@@ -1,9 +1,11 @@
 package com.cuadratura.app.oracle.dto.projection;
 
+import java.util.Date;
+
 public class SpBolsaSdiDto {
 
 	private String transUser;
-	private String transBatchDate;
+	private Date transBatchDate;
 	private String transSource;
 	private String transAudited;
 	private String transSequence;
@@ -12,7 +14,7 @@ public class SpBolsaSdiDto {
 	private String transTypeCode;
 	private String transTrnCode;
 	private String invDrptCode;
-	private String transDate;
+	private Date transDate;
 	private String transCurrCode;
 	private String transOrgLvlNumber;
 	private String transPrdLvlNumber;
@@ -26,10 +28,10 @@ public class SpBolsaSdiDto {
 	public void setTransUser(String transUser) {
 		this.transUser = transUser;
 	}
-	public String getTransBatchDate() {
+	public Date getTransBatchDate() {
 		return transBatchDate;
 	}
-	public void setTransBatchDate(String transBatchDate) {
+	public void setTransBatchDate(Date transBatchDate) {
 		this.transBatchDate = transBatchDate;
 	}
 	public String getTransSource() {
@@ -80,10 +82,10 @@ public class SpBolsaSdiDto {
 	public void setInvDrptCode(String invDrptCode) {
 		this.invDrptCode = invDrptCode;
 	}
-	public String getTransDate() {
+	public Date getTransDate() {
 		return transDate;
 	}
-	public void setTransDate(String transDate) {
+	public void setTransDate(Date transDate) {
 		this.transDate = transDate;
 	}
 	public String getTransCurrCode() {

@@ -61,8 +61,8 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 	}
 
 	@Override
-	public Integer countResultadoPmmWms(String idCD_org_name_short) throws Exception {
-		return tblPmmWmsRepository.countResultadoPmmWms(idCD_org_name_short);
+	public Integer countResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta) throws Exception {
+		return this.tblPmmWmsRepository.countResultadoPmmWms(idCD_org_name_short, fechaDesde, fechaHasta);
 
 	}
 }
