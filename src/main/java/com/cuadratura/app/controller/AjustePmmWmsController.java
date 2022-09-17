@@ -76,18 +76,7 @@ public class AjustePmmWmsController {
 				
 				prdpcdee= prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
 				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId())  );//usar consulta oracle //
-				/*
-				 * 
-				 Select i.inner_pack_id, i.* from pmm.prdpcdee i, pmm.prdmstee p
-where i.prd_lvl_child = p.prd_lvl_child
-and i.loose_pack_flag = 'F'
-and i.sll_units_per_inner = 1
-and i.inv_units_per_inner = 1
-and p.prd_lvl_number = '135925'
-and rownum = 1;
-
-				 * 
-				 * */
+		
 				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
