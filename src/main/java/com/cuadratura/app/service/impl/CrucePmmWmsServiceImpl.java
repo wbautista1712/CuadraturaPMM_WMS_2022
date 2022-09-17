@@ -52,34 +52,42 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 	public List<CrucePmmWmsDto> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms) {
 		// TODO Auto-generated method stub
 		LOGGER.info("idCrucePmmWms: " + idCrucePmmWms);
+		
 	    String idCDOrgNameShort = cargaWmsRepository.getCDCrucePmmWms(idCrucePmmWms);
-		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::..."+idCDOrgNameShort);
+		
+	    // LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::..."+idCDOrgNameShort);
+		
 		Map<String, Object> mapList = crucePmmWmsRepository.listarAjusteBolsaDiscrepancia(idCrucePmmWms,idCDOrgNameShort);
 
 		List<CrucePmmWmsDto> list = new ArrayList<CrucePmmWmsDto>();
 		CrucePmmWmsDto crucePmmWmsDto = null;
 
 		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+		
+		/*
 		LOGGER.info("\nPretty toString ==> " + mapList.toString());
 		LOGGER.info("\nPretty toString ==> " + mapList.get("#result-set-1"));
+		*/
+		
 		String prettyJson = prettyGson.toJson(mapList.get("#result-set-1"));
 
 		LOGGER.info("\nPretty JSONObject ==> " + prettyJson);
 		LOGGER.info("mapList mapList ==> " + mapList.size());
 		
 		try {
+			
 			JSONArray jsonarr = new JSONArray(prettyJson);// prettyJson.getJSONArray("#result-set-1");
 			LOGGER.info("tamaño ==> " + jsonarr.length());
-			
-	
 			
 			for (int i = 0; i < jsonarr.length(); i++) {
 				crucePmmWmsDto = new CrucePmmWmsDto();
 				String nombreTipoInventario ="";
 				Integer idTipoInventario =null;
-				LOGGER.info("id  de Dato dd==> " + jsonarr.getJSONObject(i));
-				LOGGER.info("id  de Dato Canal_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
-				LOGGER.info("id  de Dato Estado_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
+				
+				// LOGGER.info("id  de Dato dd==> " + jsonarr.getJSONObject(i));
+				// LOGGER.info("id  de Dato Canal_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
+				// LOGGER.info("id  de Dato Estado_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
+				
 				if (jsonarr.getJSONObject(i).has("idCruce_pmm_wms")) {
 					LOGGER.info("\nTipo de Dato ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 					crucePmmWmsDto.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
@@ -112,10 +120,14 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				}
 
 				if (jsonarr.getJSONObject(i).has("CRUCE_HOMOLOGADO")) {
+					
 					//aqui obtiene	
 					idTipoInventario = Integer.parseInt( jsonarr.getJSONObject(i).getString("CRUCE_HOMOLOGADO").toString() );
+					
 					nombreTipoInventario =mTipoInventarioRepository.getObtenerNombreInventario(idTipoInventario);
+					
 					LOGGER.info("Nombre Inventario: "+ nombreTipoInventario);
+					
 					crucePmmWmsDto.setCruceHomologado(nombreTipoInventario);
 					crucePmmWmsDto.setIdTipoInventario(idTipoInventario);
 				}

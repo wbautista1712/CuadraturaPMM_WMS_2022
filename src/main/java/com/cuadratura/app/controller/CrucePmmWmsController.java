@@ -81,8 +81,8 @@ public class CrucePmmWmsController {
 			List<AjustePmmWmsDto> result = crucePmmWmsService.listAnalisisAjustePmmWms(idCrucePmmWms);
 
 			LOGGER.info("result " + result.size());
-			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms,
-					Constantes.ESTADO_CUADRATURA_VALIDACION);
+			
+			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms,Constantes.ESTADO_CUADRATURA_VALIDACION);
 
 			return ResponseEntity.status(HttpStatus.OK).body(result);
 			// return
