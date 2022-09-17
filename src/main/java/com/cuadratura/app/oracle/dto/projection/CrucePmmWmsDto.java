@@ -19,6 +19,9 @@ public class CrucePmmWmsDto {
 	public String getDescCD() {
 		return descCD;
 	}
+	
+	
+	
 	public void setDescCD(String descCD) {
 		this.descCD = descCD;
 	}
