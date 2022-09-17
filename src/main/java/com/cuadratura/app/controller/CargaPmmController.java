@@ -43,8 +43,7 @@ public class CargaPmmController {
 			LOGGER.info("getAllFotoPmmm  fechaDesde " + fechaDesde);
 			List<FotoPmmDto> result = cargaPmmService.getAllFindFotoPmm(idCD, fechaDesde, fechaHasta, start, rows);
 			LOGGER.info("result " + result.size());
-			records =cargaPmmService.countFotoPmm(idCD, fechaDesde, fechaHasta);
-			//return ResponseEntity.status(HttpStatus.OK).body(result);
+			records =cargaPmmService.countFotoPmm(idCD, fechaDesde, fechaHasta);			
 			return ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page, rows, records, result));
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
