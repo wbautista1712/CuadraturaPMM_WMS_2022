@@ -49,7 +49,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
 				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "WHERE WMS.fechaCarga BETWEEN :fechaDesde AND :fechaHasta AND "
+				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND "
 				+ "WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC	";
 
 		
