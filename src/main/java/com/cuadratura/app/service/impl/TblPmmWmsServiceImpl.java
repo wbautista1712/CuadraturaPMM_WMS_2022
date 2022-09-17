@@ -29,10 +29,10 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 	}
 
 	@Override
-	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short, Integer start, Integer end) {
+	public List<ResultadoPmmWmsDto> getAllResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta, Integer start, Integer end) {
 
 		List<ResultadoPmmWmsDto> listaClasificadores = new ArrayList<ResultadoPmmWmsDto>();
-		List<Object[]> lista = tblPmmWmsRepository.getAllResultadoPmmWms(idCD_org_name_short, start, end);
+		List<Object[]> lista = tblPmmWmsRepository.getAllResultadoPmmWms(idCD_org_name_short, fechaDesde, fechaHasta, start, end);
 		LOGGER.info("get lista " + lista.size());
 		ResultadoPmmWmsDto fotoWms;
 		for (Object[] filaObj : lista) {

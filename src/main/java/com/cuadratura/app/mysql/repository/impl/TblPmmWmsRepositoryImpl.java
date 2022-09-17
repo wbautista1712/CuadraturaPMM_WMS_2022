@@ -37,10 +37,11 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getAllResultadoPmmWms(String idCD_org_name_short, Integer start, Integer end) {
+	public List<Object[]> getAllResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta, Integer start, Integer end) {
 		LOGGER.info("idCD_org_name_short ===>> " + idCD_org_name_short);
 		LOGGER.info("start  ===>> " + start);
 		LOGGER.info("end  ===>> " + end);
+		
 		
 		String sql = "SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
 				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
@@ -48,10 +49,14 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
 				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "WHERE WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC	";
+				+ "WHERE WMS.fechaCarga BETWEEN :fechaDesde AND :fechaHasta AND "
+				+ "WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC	";
 
+		
 		Query query = this.em.createNativeQuery(sql);
 		query.setParameter("idCD_org_name_short", idCD_org_name_short);
+		query.setParameter("fechaDesde", fechaDesde);
+		query.setParameter("fechaHasta", fechaHasta);
 
 		query.setFirstResult(start);
 		query.setMaxResults(end);
