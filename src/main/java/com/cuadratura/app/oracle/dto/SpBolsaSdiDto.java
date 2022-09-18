@@ -10,7 +10,7 @@ public class SpBolsaSdiDto {
 	private String transAudited;
 	private String transSequence;
 	private String invMrptCode;
-	private String transQty;
+	private Integer transQty;
 	private String transTypeCode;
 	private String transTrnCode;
 	private String invDrptCode;
@@ -67,10 +67,10 @@ public class SpBolsaSdiDto {
 	public void setInvMrptCode(String invMrptCode) {
 		this.invMrptCode = invMrptCode;
 	}
-	public String getTransQty() {
+	public Integer getTransQty() {
 		return transQty;
 	}
-	public void setTransQty(String transQty) {
+	public void setTransQty(Integer transQty) {
 		this.transQty = transQty;
 	}
 	public String getTransTypeCode() {

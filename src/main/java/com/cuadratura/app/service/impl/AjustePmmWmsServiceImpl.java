@@ -60,7 +60,7 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 			fotoWms.setTransAudited(filaObj[3] == null ? "" : filaObj[3].toString());
 			fotoWms.setTransSequence(filaObj[4] == null ? "" : filaObj[4].toString());
 			fotoWms.setInvMrptCode(filaObj[5] == null ? "" : filaObj[5].toString());
-			fotoWms.setTransQty(filaObj[6] == null ? "" : filaObj[6].toString());
+			fotoWms.setTransQty(filaObj[6] == null ? 0 :Integer.parseInt( filaObj[6].toString()));
 			fotoWms.setTransTypeCode(filaObj[7] == null ? "" : filaObj[7].toString());
 			fotoWms.setTransTrnCode(filaObj[8] == null ? "" : filaObj[8].toString());
 			fotoWms.setInvDrptCode(filaObj[9] == null ? "" : filaObj[9].toString());
