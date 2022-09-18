@@ -34,10 +34,10 @@ public class AjustePmmWmsController {
 
 	@Autowired
 	private CuadraturaTransferService cuadraturaTransferService;
-	
+
 	@Autowired
 	private FapprdloteeService fapprdloteeService;
-	
+
 	@Autowired
 	private PrdpcdeeService prdpcdeeService;
 
@@ -45,21 +45,21 @@ public class AjustePmmWmsController {
 	public ResponseEntity<String> procesarAjusteSDI() {
 		try {
 			CuadraturaTransfer cuadraturaTransfer = null;
-			Fapprdlotee  fapprdlotee = null;
-			Prdpcdee prdpcdee= null;
+			Fapprdlotee fapprdlotee = null;
+			Prdpcdee prdpcdee = null;
 			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();
 			LOGGER.info("result " + result.size());
-			Long idSesion=  cuadraturaTransferService.getSequence();
+			Long idSesion = cuadraturaTransferService.getSequence();
 			LOGGER.info("idSesion " + idSesion);
 			for (SpBolsaSdiDto objeto : result) {
 				cuadraturaTransfer = new CuadraturaTransfer();
-			
-				cuadraturaTransfer.setTransSession( BigInteger.valueOf((idSesion) ));//  SELECT INTEGRACION.WMS_SEQ_FAPINVTRHEE.nextval from dual;
-				cuadraturaTransfer.setTransUser(objeto.getTransUser());//arreglar
+
+				cuadraturaTransfer.setTransSession(BigInteger.valueOf((idSesion)));
+				cuadraturaTransfer.setTransUser(objeto.getTransUser());// arreglar
 				cuadraturaTransfer.setTransBatchDate(objeto.getTransBatchDate());
 				cuadraturaTransfer.setTransSource(objeto.getTransSource());
 				cuadraturaTransfer.setTransAudited(objeto.getTransAudited());
-				cuadraturaTransfer.setTransSequence(new BigInteger(objeto.getTransSequence()) );
+				cuadraturaTransfer.setTransSequence(new BigInteger(objeto.getTransSequence()));
 				cuadraturaTransfer.setTransTrnCode(objeto.getTransTrnCode());
 				cuadraturaTransfer.setTransTypeCode(objeto.getTransTypeCode());
 
@@ -69,28 +69,27 @@ public class AjustePmmWmsController {
 				cuadraturaTransfer.setTransCurrCode(objeto.getTransCurrCode());
 
 				cuadraturaTransfer.setTransOrgLvlNumber(new BigInteger(objeto.getTransOrgLvlNumber()));
-				cuadraturaTransfer.setTransPrdLvlNumber(objeto.getTransPrdLvlNumber());/// este debe ir a consulta 
+				cuadraturaTransfer.setTransPrdLvlNumber(objeto.getTransPrdLvlNumber());/// este debe ir a consulta
 
 				cuadraturaTransfer.setProcSource(objeto.getProcSource());
-				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty()+""));// valor absoluto
-				
-				prdpcdee= prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
-				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId())  );//usar consulta oracle //
-		
-				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
+				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty() + ""));// valor absoluto
 
+				prdpcdee = prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
+				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId()));// usar consulta oracle
+																									// //
+
+				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
-				
-				fapprdlotee =fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());//prd_lvl_child //prd_nlote
-				cuadraturaTransfer.setTransVctoLote(fapprdlotee.getLotFechaVcto());//Select * from pmm.FAPPRDLOTEE x where x.prd_lvl_child =36278 and x.prd_nlote='10317639'; // corregir
+
+				fapprdlotee = fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());																												
+				cuadraturaTransfer.setTransVctoLote(fapprdlotee.getLotFechaVcto());
 
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
-				
 				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
 			}
-			
+
 			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
-			LOGGER.info("Proceso Correcto ok " );
+			LOGGER.info("Proceso Correcto ok ");
 			return ResponseEntity.status(HttpStatus.OK).body("Proceso Correcto");
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);

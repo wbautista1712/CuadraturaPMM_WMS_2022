@@ -60,7 +60,7 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 			fotoWms.setTransAudited(filaObj[3] == null ? "" : filaObj[3].toString());
 			fotoWms.setTransSequence(filaObj[4] == null ? "" : filaObj[4].toString());
 			fotoWms.setInvMrptCode(filaObj[5] == null ? "" : filaObj[5].toString());
-			fotoWms.setTransQty(filaObj[6] == null ? 0 :Integer.parseInt( filaObj[6].toString()));
+			fotoWms.setTransQty(filaObj[6] == null ? 0 : Integer.parseInt(filaObj[6].toString()));
 			fotoWms.setTransTypeCode(filaObj[7] == null ? "" : filaObj[7].toString());
 			fotoWms.setTransTrnCode(filaObj[8] == null ? "" : filaObj[8].toString());
 			fotoWms.setInvDrptCode(filaObj[9] == null ? "" : filaObj[9].toString());
@@ -72,21 +72,21 @@ public class AjustePmmWmsServiceImpl extends GenericServiceImpl<AjustePmmWms, In
 			} else {
 				fotoWms.setTransDate(null);
 			}
-	
+
 			fotoWms.setTransCurrCode(filaObj[11] == null ? "" : filaObj[11].toString());
 			fotoWms.setTransOrgLvlNumber(filaObj[12] == null ? "" : filaObj[12].toString());
 			fotoWms.setTransPrdLvlNumber(filaObj[13] == null ? "" : filaObj[13].toString());
 			fotoWms.setProcSource(filaObj[14] == null ? "" : filaObj[14].toString());
 			fotoWms.setTransInners(filaObj[15] == null ? "" : filaObj[15].toString());
 			fotoWms.setTransLote(filaObj[16] == null ? "" : filaObj[16].toString());
-			LOGGER.info(filaObj[17] );
-			fotoWms.setIdAjustePMMWMS(filaObj[17] == null ? 0 :Integer.valueOf( filaObj[17].toString() ));
-			fotoWms.setPrdLvlChild(filaObj[18] == null ? 0 :Integer.valueOf( filaObj[18].toString() ));
+			LOGGER.info(filaObj[17]);
+			fotoWms.setIdAjustePMMWMS(filaObj[17] == null ? 0 : Integer.valueOf(filaObj[17].toString()));
+			fotoWms.setPrdLvlChild(filaObj[18] == null ? 0 : Integer.valueOf(filaObj[18].toString()));
 			listaClasificadores.add(fotoWms);
 		}
 		return listaClasificadores;
 	}
-	
+
 	public void updateAjustePmmWms(Integer idAjustePMMWMS) {
 		ajustePmmWmsRepository.updateAjustePmmWms(idAjustePMMWMS);
 	}
