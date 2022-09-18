@@ -14,15 +14,31 @@ public class ResultadoPmmWmsDto {
 
 	public String horafotopmm;
 
-	public String fechacargawms;
+	public String fechafotowms;
 
-	public String horacargawms;
+	public String horafotowms;
 
 	public Integer idcarga_Pmm;
 
 	public Integer idcarga_Wms;
 
 	public String estado;
+	
+	public String getFechafotowms() {
+		return fechafotowms;
+	}
+
+	public void setFechafotowms(String fechafotowms) {
+		this.fechafotowms = fechafotowms;
+	}
+
+	public String getHorafotowms() {
+		return horafotowms;
+	}
+
+	public void setHorafotowms(String horafotowms) {
+		this.horafotowms = horafotowms;
+	}
 
 	public Integer getIdcruce_Pmm_Wms() {
 		return idcruce_Pmm_Wms;
@@ -70,22 +86,6 @@ public class ResultadoPmmWmsDto {
 
 	public void setHorafotopmm(String horafotopmm) {
 		this.horafotopmm = horafotopmm;
-	}
-
-	public String getFechacargawms() {
-		return fechacargawms;
-	}
-
-	public void setFechacargawms(String fechacargawms) {
-		this.fechacargawms = fechacargawms;
-	}
-
-	public String getHoracargawms() {
-		return horacargawms;
-	}
-
-	public void setHoracargawms(String horacargawms) {
-		this.horacargawms = horacargawms;
 	}
 
 	public Integer getIdcarga_Pmm() {

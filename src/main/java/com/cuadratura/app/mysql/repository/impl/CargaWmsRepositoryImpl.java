@@ -72,7 +72,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 	public List<Object[]> getAllFindFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end){
 		LOGGER.info("::: getAllFindFotoWms:::start "+start);
 		LOGGER.info("::: getAllFindFotoWms:::end "+end);
-	String sql = "SELECT CD.org_lvl_child,  C.idCarga_WMS,  "
+	String sql = "SELECT distinct CD.org_lvl_child,  C.idCarga_WMS,  "
 				+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS FECHA_FOTO, "
 				+ "CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS HORA_FOTO, "
 				+ "date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
@@ -96,7 +96,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 	}	
 	
 	public Integer countFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception{
-		String sql = "SELECT COUNT(*) FROM (SELECT CD.org_lvl_child,  C.idCarga_WMS,  "
+		String sql = "SELECT COUNT(*) FROM (SELECT distinct CD.org_lvl_child,  C.idCarga_WMS,  "
 				+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS FECHA_FOTO, "
 				+ "CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS HORA_FOTO, "
 				+ "date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "

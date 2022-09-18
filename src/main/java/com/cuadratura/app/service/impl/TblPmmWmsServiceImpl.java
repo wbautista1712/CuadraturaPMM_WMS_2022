@@ -44,8 +44,10 @@ public class TblPmmWmsServiceImpl implements TblPmmWmsService {
 			fotoWms.setUsuario(filaObj[3] == null ? "" : filaObj[3].toString());
 			fotoWms.setFechafotopmm(filaObj[4] == null ? "" : filaObj[4].toString());
 			fotoWms.setHorafotopmm(filaObj[5] == null ? "" : filaObj[5].toString());
-			fotoWms.setFechacargawms(filaObj[6] == null ? "" : filaObj[6].toString());
-			fotoWms.setHoracargawms(filaObj[7] == null ? "" : filaObj[7].toString());
+			
+			fotoWms.setFechafotowms(filaObj[6] == null ? "" : filaObj[6].toString());
+			fotoWms.setHorafotowms(filaObj[7] == null ? "" : filaObj[7].toString());
+			
 			fotoWms.setIdcarga_Pmm(filaObj[8] == null ? 0 : (Integer) filaObj[8]);
 			fotoWms.setIdcarga_Wms(filaObj[9] == null ? 0 : (Integer) filaObj[9]);
 			fotoWms.setEstado(filaObj[10] == null ? "" : filaObj[10].toString());

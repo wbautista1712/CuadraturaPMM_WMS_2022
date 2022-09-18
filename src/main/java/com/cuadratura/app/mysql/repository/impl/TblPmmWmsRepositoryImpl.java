@@ -42,7 +42,8 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 		LOGGER.info("start  ===>> " + start);
 		LOGGER.info("end  ===>> " + end);
 		
-		
+		// MODIFICAR SCRIPT CON DISTINCT
+		/*
 		String sql = "SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
 				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado " + "FROM cuadratura.cruce_pmm_wms C "
@@ -50,8 +51,24 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
 				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND "
-				+ "WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC	";
+				+ "WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC	"; */
 
+		String sql="SELECT DISTINCT ATE.idCruce_pmm_wms,  ATE.fechaMatch, ATE.horaMatch, ATE.USUARIO, ATE.fechaFotoPMM, ATE.horaFotoPMM, "
+				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
+				+ "FROM ("
+				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
+				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
+				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
+				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
+				+ "FROM cuadratura.cruce_pmm_wms C "
+				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
+				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
+				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
+				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
+				+ ")ATE ORDER BY ATE.fechaMatch DESC";
+		
 		
 		Query query = this.em.createNativeQuery(sql);
 		query.setParameter("idCD_org_name_short", idCD_org_name_short);
@@ -67,13 +84,21 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 	
 	@Override
 	public Integer countResultadoPmmWms(String idCD_org_name_short, String fechaDesde, String fechaHasta) throws Exception{
-		String sql =  "SELECT COUNT(*) FROM (SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
-				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado " + "FROM cuadratura.cruce_pmm_wms C "
+		String sql =  "SELECT COUNT(*) FROM (SELECT DISTINCT ATE.idCruce_pmm_wms,  ATE.fechaMatch, ATE.horaMatch, ATE.USUARIO, ATE.fechaFotoPMM, ATE.horaFotoPMM, "
+				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
+				+ "FROM ("
+				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
+				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
+				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
+				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
+				+ "FROM cuadratura.cruce_pmm_wms C "
 				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
 				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "WHERE WMS.fechaCarga BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC ) tt	";	
+				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
+				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
+				+ ")ATE ORDER BY ATE.fechaMatch DESC) tt";	
 		
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("idCD_org_name_short", idCD_org_name_short);	
