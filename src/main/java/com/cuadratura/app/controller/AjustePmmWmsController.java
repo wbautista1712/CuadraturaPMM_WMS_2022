@@ -75,8 +75,7 @@ public class AjustePmmWmsController {
 				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty() + ""));// valor absoluto
 
 				prdpcdee = prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
-				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId()));// usar consulta oracle
-																									// //
+				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId()));// usar consulta oracle																					
 
 				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
