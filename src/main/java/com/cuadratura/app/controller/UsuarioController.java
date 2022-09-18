@@ -122,7 +122,7 @@ public class UsuarioController {
 		}
 
 		response.put("mensaje", "El usuario ha sido creado con éxito!");
-		response.put("cliente", usuarioNew);
+		// response.put("cliente", usuarioNew);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
