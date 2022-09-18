@@ -60,14 +60,15 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryC
 	@Override
 	public String getObtenerNombreInventario(Integer idInventario){
 		// TODO Auto-generated method stub
-		LOGGER.info("getTipoInventario ");
+		// LOGGER.info("getTipoInventario ");
+		
 		StringBuilder sb = new StringBuilder();
+		
 		sb.append("SELECT I.nombre FROM cuadratura.m_tipo_inventario I where I.id_tipo_inventario=:idInventario ");
-	
 	
 		Query q = em.createNativeQuery(sb.toString());
 		q.setParameter("idInventario", idInventario);
-		LOGGER.info(sb.toString());
+		// LOGGER.info(sb.toString());
 		return (String) q.getSingleResult();
 	}
 }

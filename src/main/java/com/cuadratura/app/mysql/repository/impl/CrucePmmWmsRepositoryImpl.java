@@ -66,8 +66,8 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 	public Map<String, Object> listarAjusteBolsaDiscrepancia(Integer idCrucePmmWms, String idCDOrgNameShort) {
 
 		LOGGER.info("...:::listarAjusteBolsaDiscrepancia:::...");
-		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
-				.withProcedureName("sp_listar_ajuste_bolsaDiscrepancia");
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura").withProcedureName("sp_listar_ajuste_bolsaDiscrepancia");
 
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
 
@@ -78,6 +78,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 		SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 
 		Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+		
 		LOGGER.info("tamano::. " + simpleJdbcCallResult.size());
 
 		return simpleJdbcCallResult;
@@ -90,8 +91,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 		LOGGER.info("idCrucePmmWms::: " + idCrucePmmWms);
 		LOGGER.info("idCDOrgNameShort::: " + idCDOrgNameShort);
 
-		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura")
-				.withProcedureName("sp_listar_ajuste_param");
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withSchemaName("cuadratura").withProcedureName("sp_listar_ajuste_param");
 
 		Map<String, Object> inParamMap = new HashMap<String, Object>();
 

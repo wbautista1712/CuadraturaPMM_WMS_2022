@@ -59,6 +59,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 		Map<String, Object> mapList = crucePmmWmsRepository.listarAjusteBolsaDiscrepancia(idCrucePmmWms,idCDOrgNameShort);
 
 		List<CrucePmmWmsDto> list = new ArrayList<CrucePmmWmsDto>();
+		
 		CrucePmmWmsDto crucePmmWmsDto = null;
 
 		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
@@ -88,7 +89,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				// LOGGER.info("id  de Dato Estado_solicitud==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				
 				if (jsonarr.getJSONObject(i).has("idCruce_pmm_wms")) {
-					LOGGER.info("\nTipo de Dato ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
+				
+					// LOGGER.info("\nTipo de Dato ==> " + jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 					crucePmmWmsDto.setIdcrucePmmWms(jsonarr.getJSONObject(i).getInt("idCruce_pmm_wms"));
 				}
 
@@ -125,7 +127,7 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 					
 					nombreTipoInventario =mTipoInventarioRepository.getObtenerNombreInventario(idTipoInventario);
 					
-					LOGGER.info("Nombre Inventario: "+ nombreTipoInventario);
+					// LOGGER.info("Nombre Inventario: "+ nombreTipoInventario);
 					
 					crucePmmWmsDto.setCruceHomologado(nombreTipoInventario);
 					crucePmmWmsDto.setIdTipoInventario(idTipoInventario);
@@ -143,7 +145,8 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				if (jsonarr.getJSONObject(i).has("SCTOCK_BOLSA_DISCREPANCIA")) {
 					crucePmmWmsDto.setSctockBolsaDiscrepancia(jsonarr.getJSONObject(i).getInt("SCTOCK_BOLSA_DISCREPANCIA"));
 				}
-				LOGGER.info("---getCruceHomologado------- " + crucePmmWmsDto.getCruceHomologado());
+				
+				// LOGGER.info("---getCruceHomologado------- " + crucePmmWmsDto.getCruceHomologado());
 
 				list.add(crucePmmWmsDto);
 
