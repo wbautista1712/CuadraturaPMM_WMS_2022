@@ -64,7 +64,7 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryC
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("SELECT I.nombre FROM cuadratura.m_tipo_inventario I where I.id_tipo_inventario=:idInventario ");
+		sb.append("SELECT I.nombre FROM pmm.m_tipo_inventario I where I.id_tipo_inventario=:idInventario ");
 	
 		Query q = em.createNativeQuery(sb.toString());
 		q.setParameter("idInventario", idInventario);

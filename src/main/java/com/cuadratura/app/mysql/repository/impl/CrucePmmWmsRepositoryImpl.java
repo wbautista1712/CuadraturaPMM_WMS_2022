@@ -38,7 +38,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 	@Override
 	public Long saveCrucePmmWms(CrucePmmWms crucePmmWms) {
 		// TODO Auto-generated method stub
-		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.cruce_pmm_wms "
+		String INSERT_MESSAGE_SQL = "INSERT INTO pmm.cruce_pmm_wms "
 				+ "(fechaMatch, horaMatch, idCarga_PMM, idCarga_WMS, idEstadoCuadratura) " + "VALUES (?,?,?,?,?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();

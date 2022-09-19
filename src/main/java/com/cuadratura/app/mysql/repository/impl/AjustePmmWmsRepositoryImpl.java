@@ -27,7 +27,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 	@Override
 	public void saveAjustePmmWms(AjustePmmWms ajustePmmWms) {
 		// TODO Auto-generated method stub
-		String query = "INSERT INTO cuadratura.ajuste_pmm_wms "
+		String query = "INSERT INTO pmm.ajuste_pmm_wms "
 				+ "(id_tbl_pmm_wms, id_tipo_inventario, fechaAjuste, horaAjuste, pmm, wms, sugerenciaAjuste, stockBolsaDiscrepancia, estado) "
 				+ "VALUES(:idTblPmmWms, :idTipoInventario, :fechaAjuste, :horaAjuste, :pmm, :wms, :sugerenciaAjuste, :stockBolsaDiscrepancia, :estado)";
 		LOGGER.info("xxxx " + ajustePmmWms.getIdTblPmmWms());
