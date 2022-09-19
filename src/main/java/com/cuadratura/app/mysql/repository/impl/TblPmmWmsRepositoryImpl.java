@@ -61,11 +61,11 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
 				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
-				+ "FROM cuadratura.cruce_pmm_wms C "
-				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
-				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
-				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
+				+ "FROM pmm.cruce_pmm_wms C "
+				+ "INNER JOIN pmm.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
+				+ "INNER JOIN pmm.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+				+ "INNER JOIN pmm.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
+				+ "inner join pmm.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
 				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
 				+ ")ATE ORDER BY ATE.fechaMatch DESC";
 		
@@ -92,11 +92,11 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
 				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
-				+ "FROM cuadratura.cruce_pmm_wms C "
-				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
-				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
-				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
+				+ "FROM pmm.cruce_pmm_wms C "
+				+ "INNER JOIN pmm.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
+				+ "INNER JOIN pmm.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+				+ "INNER JOIN pmm.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
+				+ "inner join pmm.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
 				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
 				+ ")ATE ORDER BY ATE.fechaMatch DESC) tt";	
 		

@@ -74,8 +74,8 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 		LOGGER.info("id fechaHasta==>> "+fechaHasta);
 		String sql =  "SELECT C.idCarga_PMM, date_format(C.fechaFoto, '%d/%m/%Y') AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
 				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
-				+ "FROM cuadratura.carga_pmm C "
-				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
+				+ "FROM pmm.carga_pmm C "
+				+ "INNER JOIN pmm.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
 				+ "WHERE C.org_lvl_child=:idCentroDistribucion AND C.fechaFoto BETWEEN :fechaDesde AND :fechaHasta ";
 		
 		
@@ -95,8 +95,8 @@ public class CargaPmmRepositoryImpl implements CargaPmmRepositoryCustom{
 	public Integer countFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception{
 		String sql ="SELECT COUNT(*) FROM (SELECT C.idCarga_PMM, date_format(C.fechaFoto, '%d/%m/%Y') AS FECHA_FOTO, C.horaFoto AS HORA_FOTO, date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
 				+ "C.numRegistros AS REGISTROS, C.usuarioCarga as USUARIO, C.nombreArchivo AS NOMBRE_ARCHIVO, EC.nombreEC AS ESTADO "
-				+ "FROM cuadratura.carga_pmm C "
-				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
+				+ "FROM pmm.carga_pmm C "
+				+ "INNER JOIN pmm.m_estado_cuadratura EC ON C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura "		
 				+ "WHERE C.org_lvl_child=:idCentroDistribucion AND C.fechaFoto BETWEEN :fechaDesde AND :fechaHasta  ) tt ";
 		
 		Query query = em.createNativeQuery(sql.toString());

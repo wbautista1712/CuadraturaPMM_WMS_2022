@@ -24,7 +24,7 @@ public class MPrdmsteeRepositoryImpl implements MPrdmsteeRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	public List<MPrdmstee> getMaterialLote(String nombreMaterial) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT * from cuadratura.m_prdmstee x WHERE x.prd_name_full LIKE :nombreMaterial ");
+		sb.append("SELECT * from pmm.m_prdmstee x WHERE x.prd_name_full LIKE :nombreMaterial ");
 
 		LOGGER.info(sb.toString());
 		Query q = em.createNativeQuery(sb.toString(), MPrdmstee.class);

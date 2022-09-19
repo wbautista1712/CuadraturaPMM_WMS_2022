@@ -64,7 +64,7 @@ private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.
 	                + " WHERE  x.idUsuario =  ? ", 
 	                usuario.getAppaterno(), usuario.getApmaterno(),  usuario.getNombres(), usuario.getIdusuario());
 		  */
-		  String sql = " UPDATE  cuadratura.usuario x  set x.apPaterno  = ? , "
+		  String sql = " UPDATE  pmm.usuario x  set x.apPaterno  = ? , "
 	                + " x.apMaterno  =  ? , x.nombres  =  ? "
 	                + " WHERE  x.idUsuario =  ? ";
 		
@@ -77,9 +77,9 @@ private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.
 	public   List<UsuarioDto> getUsuarioRol(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(" SELECT U.idUsuario,U.apPaterno, U.apMaterno, U.nombres, U.email, U.username, R.idRol, R.nombreRol "
-				+ "FROM cuadratura.usuario U "
-				+ "INNER JOIN cuadratura.usuario_rol UR ON U.idUsuario=UR.idUsuario "
-				+ "INNER JOIN cuadratura.rol R ON UR.idRol=R.idRol ");
+				+ "FROM pmm.usuario U "
+				+ "INNER JOIN pmm.usuario_rol UR ON U.idUsuario=UR.idUsuario "
+				+ "INNER JOIN pmm.rol R ON UR.idRol=R.idRol ");
 		LOGGER.info(sb.toString());
 
 	        List<UsuarioDto> customers = jdbcTemplate.query(

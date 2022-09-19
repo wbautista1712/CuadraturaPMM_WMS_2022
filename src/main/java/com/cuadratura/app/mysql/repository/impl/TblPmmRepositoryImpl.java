@@ -42,7 +42,7 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 				connection.setAutoCommit(false);
 				// El Prepared Statement para los insert
 
-				String sql = "INSERT INTO cuadratura.tbl_pmm "
+				String sql = "INSERT INTO pmm.tbl_pmm "
 						+ " ( org_lvl_child, prd_lvl_child, inv_type_code, trans_lote, on_hand_qty, on_hand_retl, on_hand_cost, "
 						+ " po_ord_qty, po_ord_retl, po_ord_cost, po_intrn_qty, po_intrn_retl, po_intrn_cost, to_ord_qty, to_ord_retl, "
 						+ " to_ord_cost, to_intrn_qty, to_intrn_retl, to_intrn_cost, first_pis_date, last_pis_date, ltd_qty, ltd_retl, "

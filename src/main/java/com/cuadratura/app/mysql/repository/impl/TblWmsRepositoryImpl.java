@@ -41,7 +41,7 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 				connection.setAutoCommit(false);
 				// El Prepared Statement para los insert
 
-				String sql = "INSERT INTO cuadratura.tbl_wms "
+				String sql = "INSERT INTO pmm.tbl_wms "
 						+ "(nro_carga, create_date, facility_code, company_code, item_alternate, item_part_a, item_part_b, "
 						+ "item_part_c, item_part_d, item_part_e, item_part_f, hierarchy1_code, hierarchy2_code, hierarchy3_code, "
 						+ "hierarchy4_code, hierarchy5_code, batch_nbr, pre_pack_code, tbl_wmscol, pre_pack_ratio, pre_pack_units,  "
