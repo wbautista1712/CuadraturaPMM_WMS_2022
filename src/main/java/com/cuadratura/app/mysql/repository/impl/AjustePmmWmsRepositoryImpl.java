@@ -27,7 +27,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 	@Override
 	public void saveAjustePmmWms(AjustePmmWms ajustePmmWms) {
 		// TODO Auto-generated method stub
-		String query = "INSERT INTO cuadratura.ajuste_pmm_wms "
+		String query = "INSERT INTO pmm.ajuste_pmm_wms "
 				+ "(id_tbl_pmm_wms, id_tipo_inventario, fechaAjuste, horaAjuste, pmm, wms, sugerenciaAjuste, stockBolsaDiscrepancia, estado) "
 				+ "VALUES(:idTblPmmWms, :idTipoInventario, :fechaAjuste, :horaAjuste, :pmm, :wms, :sugerenciaAjuste, :stockBolsaDiscrepancia, :estado)";
 		LOGGER.info("xxxx " + ajustePmmWms.getIdTblPmmWms());
@@ -55,7 +55,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 				"		'Cuadratura' AS TRANS_USER,		" + "		 DATE(NOW()) AS TRANS_BATCH_DATE,         "
 				+ "		'Ajuste Cuadratura' AS TRANS_SOURCE,    	" + "		'F' AS TRANS_AUDITED,      		" +
 
-			//	"		AJ.idAjuste_PMM_WMS AS TRANS_SEQUENCE,    		" +
+
 
 				"		'MV' AS INV_MRPT_CODE,    	" + "		AJ.sugerenciaAjuste AS TRANS_QTY,        	" +
 
@@ -88,7 +88,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 				"		'Cuadratura' AS TRANS_USER,		" + "		 DATE(NOW()) AS TRANS_BATCH_DATE,         		"
 				+ "		'Ajuste Cuadratura' AS TRANS_SOURCE,    	" + "		'F' AS TRANS_AUDITED,  		" +
 
-			//	"		AJ.idAjuste_PMM_WMS AS TRANS_SEQUENCE,   		" +
+	
 
 				"		'MV' AS INV_MRPT_CODE,      	" + "		AJ.sugerenciaAjuste AS TRANS_QTY,     	" +
 

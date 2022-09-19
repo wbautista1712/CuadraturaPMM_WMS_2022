@@ -32,7 +32,7 @@ private static final Logger LOGGER = LogManager.getLogger(UsuarioRepositoryImpl.
 	@Override
 	public Long saveUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
-		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.usuario (apPaterno,apMaterno,nombres,email,password,estado,username) VALUES (?,?,?,?,?,?,?) ";
+		String INSERT_MESSAGE_SQL = "INSERT INTO pmm.usuario (apPaterno,apMaterno,nombres,email,password,estado,username) VALUES (?,?,?,?,?,?,?) ";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(connection -> {

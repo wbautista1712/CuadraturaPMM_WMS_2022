@@ -40,7 +40,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 	@Override
 	public Long saveCargaWms(CargaWms cargaWms) {		
 
-		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.carga_wms "
+		String INSERT_MESSAGE_SQL = "INSERT INTO pmm.carga_wms "
 				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado, org_name_short) "
 				+ "VALUES (?,?,?,?,?,?,?, ?)";
 
