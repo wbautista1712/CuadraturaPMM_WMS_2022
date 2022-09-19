@@ -54,12 +54,12 @@ public class AjustePmmWmsController {
 			for (SpBolsaSdiDto objeto : result) {
 				cuadraturaTransfer = new CuadraturaTransfer();
 
-				cuadraturaTransfer.setTransSession(BigInteger.valueOf((idSesion)));
+				cuadraturaTransfer.setTransSession(BigInteger.valueOf((idSesion))); //pk
 				cuadraturaTransfer.setTransUser(objeto.getTransUser());// arreglar
 				cuadraturaTransfer.setTransBatchDate(objeto.getTransBatchDate());
 				cuadraturaTransfer.setTransSource(objeto.getTransSource());
 				cuadraturaTransfer.setTransAudited(objeto.getTransAudited());
-				cuadraturaTransfer.setTransSequence(new BigInteger(objeto.getTransSequence()));
+				cuadraturaTransfer.setTransSequence(new BigInteger(objeto.getTransSequence()));// pk
 				cuadraturaTransfer.setTransTrnCode(objeto.getTransTrnCode());
 				cuadraturaTransfer.setTransTypeCode(objeto.getTransTypeCode());
 
