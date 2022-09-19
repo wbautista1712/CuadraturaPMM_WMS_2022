@@ -46,7 +46,8 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Object[]> getAllBolsaSdi() {
-		String sql = "	SELECT ATE.TRANS_USER, ATE.TRANS_BATCH_DATE, ATE.TRANS_SOURCE, ATE.TRANS_AUDITED,  @n := @n + 1 TRANS_SEQUENCE, ATE.INV_MRPT_CODE,			"
+		LOGGER.info("getAllBolsaSdi... " );
+		String sql = "	SELECT ATE.TRANS_USER, ATE.TRANS_BATCH_DATE, ATE.TRANS_SOURCE, ATE.TRANS_AUDITED,  ATE.INV_MRPT_CODE,			"
 				+ "	ABS(ATE.TRANS_QTY) TRANS_QTY, ATE.TRANS_TYPE_CODE, ATE.TRANS_TRN_CODE, ATE.INV_DRPT_CODE, ATE.TRANS_DATE, ATE.TRANS_CURR_CODE, 			"
 				+ "	ATE.TRANS_ORG_LVL_NUMBER, ATE.TRANS_PRD_LVL_NUMBER, ATE.PROC_SOURCE, ATE.TRANS_INNERS, ATE.TRANS_LOTE, ATE.idAjuste_PMM_WMS	, ATE.mat_prd_lvl_child		"
 				+ "	FROM			" + "	(			" + "	SELECT DISTINCT 			" +
@@ -118,7 +119,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 				+ "	INNER JOIN cuadratura.m_prdmstee PROD ON TBL.mat_prd_lvl_child=PROD.prd_lvl_child 		" +
 
 				"	INNER JOIN cuadratura.m_tipo_inventario TI ON AJ.id_tipo_inventario=TI.id_tipo_inventario 			"
-				+ " where AJ.estado = true  " + "	)ATE, (SELECT @n := 0) m						"
+				+ " where AJ.estado = true  " + "	)ATE					"
 				+ "	ORDER BY  ATE.TRANS_TYPE_CODE			";
 
 		Query query = this.em.createNativeQuery(sql);

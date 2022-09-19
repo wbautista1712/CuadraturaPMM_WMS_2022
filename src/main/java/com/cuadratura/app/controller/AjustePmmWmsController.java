@@ -43,6 +43,7 @@ public class AjustePmmWmsController {
 
 	@GetMapping(value = "/procesarAjusteSDI")
 	public ResponseEntity<String> procesarAjusteSDI() {
+		LOGGER.info("procesarAjusteSDI " );
 		try {
 			CuadraturaTransfer cuadraturaTransfer = null;
 			Fapprdlotee fapprdlotee = null;
@@ -51,6 +52,7 @@ public class AjustePmmWmsController {
 			LOGGER.info("result " + result.size());
 			Long idSesion = cuadraturaTransferService.getSequence();
 			LOGGER.info("idSesion " + idSesion);
+			int i =1;
 			for (SpBolsaSdiDto objeto : result) {
 				cuadraturaTransfer = new CuadraturaTransfer();
 
@@ -59,7 +61,7 @@ public class AjustePmmWmsController {
 				cuadraturaTransfer.setTransBatchDate(objeto.getTransBatchDate());
 				cuadraturaTransfer.setTransSource(objeto.getTransSource());
 				cuadraturaTransfer.setTransAudited(objeto.getTransAudited());
-				cuadraturaTransfer.setTransSequence(new BigInteger(objeto.getTransSequence()));// pk
+				cuadraturaTransfer.setTransSequence(new BigInteger( i +""));// pk //objeto.getTransSequence()
 				cuadraturaTransfer.setTransTrnCode(objeto.getTransTrnCode());
 				cuadraturaTransfer.setTransTypeCode(objeto.getTransTypeCode());
 
@@ -85,6 +87,7 @@ public class AjustePmmWmsController {
 
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
 				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
+				i=i+1;
 			}
 
 			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
