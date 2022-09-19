@@ -24,7 +24,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 
 	public void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario, int idCrucePmmWms) {
 		LOGGER.info("idCargaPMM " + idCargaPMM);
-		StoredProcedureQuery query = em.createStoredProcedureQuery("cuadratura.sp_carga_pmm_wms")
+		StoredProcedureQuery query = em.createStoredProcedureQuery("pmm.sp_carga_pmm_wms")
 				.registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
 				.registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN)
 				.registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
