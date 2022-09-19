@@ -55,7 +55,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 				"		'Cuadratura' AS TRANS_USER,		" + "		 DATE(NOW()) AS TRANS_BATCH_DATE,         "
 				+ "		'Ajuste Cuadratura' AS TRANS_SOURCE,    	" + "		'F' AS TRANS_AUDITED,      		" +
 
-			//	"		AJ.idAjuste_PMM_WMS AS TRANS_SEQUENCE,    		" +
+
 
 				"		'MV' AS INV_MRPT_CODE,    	" + "		AJ.sugerenciaAjuste AS TRANS_QTY,        	" +
 
@@ -88,7 +88,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 				"		'Cuadratura' AS TRANS_USER,		" + "		 DATE(NOW()) AS TRANS_BATCH_DATE,         		"
 				+ "		'Ajuste Cuadratura' AS TRANS_SOURCE,    	" + "		'F' AS TRANS_AUDITED,  		" +
 
-			//	"		AJ.idAjuste_PMM_WMS AS TRANS_SEQUENCE,   		" +
+	
 
 				"		'MV' AS INV_MRPT_CODE,      	" + "		AJ.sugerenciaAjuste AS TRANS_QTY,     	" +
 
