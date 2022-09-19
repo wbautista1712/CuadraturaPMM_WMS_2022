@@ -32,7 +32,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "m_cron_job", schema = "cuadratura")
+@Table(name = "m_cron_job", schema = "pmm")
 public class MCronJob implements Serializable {
 
     private static final long serialVersionUID = 1L;

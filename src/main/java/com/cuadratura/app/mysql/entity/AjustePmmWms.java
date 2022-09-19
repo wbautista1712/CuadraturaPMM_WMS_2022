@@ -36,7 +36,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "ajuste_pmm_wms", schema = "cuadratura")
+@Table(name = "ajuste_pmm_wms", schema = "pmm")
 public class AjustePmmWms implements Serializable {
 
 	private static final long serialVersionUID = 1L;
