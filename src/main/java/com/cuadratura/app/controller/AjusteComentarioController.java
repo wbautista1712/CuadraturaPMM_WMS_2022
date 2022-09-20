@@ -43,23 +43,30 @@ public class AjusteComentarioController {
 	@GetMapping(value = "/getAjusteComentario")
 	public ResponseEntity<AjusteComentario> getAjusteComentario(@RequestParam Integer idAjusteComentario) {
 
-		try {
+	
 			LOGGER.info("getAjusteComentario  idAjusteComentario " + idAjusteComentario);
 
 			//List<AjustePmmWmsDto> result = ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario);
-
+/*
 			 return Optional.ofNullable(ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario))
 				        .map(result -> new ResponseEntity<AjusteComentario>(HttpStatus.FOUND))
 				        .orElseGet(() -> new ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));
+			 */
 			 
 /*
 			return Optional.ofNullable(ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario))
 	        .map(result -> new ResponseEntity<AjusteComentario>(result, HttpStatus.FOUND))
 	        .orElseGet(() -> new ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));*/
 			
-		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
-		}
+			 Optional<AjusteComentario> user = ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario);
+		        if (user.isPresent()) {
+		            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+		        } else {
+		           // throw new RecordNotFoundException();
+		        	return null;
+		        }
+
+		
 		
 	}
 }
