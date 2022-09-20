@@ -83,7 +83,7 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 
 				obj.getErrorCode(), obj.getObservacionError(),
 
-				obj.getFlgTipo().intValue(),
+				obj.getFlgTipo(),
 
 				idCargaWMS);
 		LOGGER.info("> insercion correcta " + insertCount);
