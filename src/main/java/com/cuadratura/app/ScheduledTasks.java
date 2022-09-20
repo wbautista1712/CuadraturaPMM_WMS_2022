@@ -40,7 +40,8 @@ public class ScheduledTasks {
 
 	// Agregado por wilber
 
-	private static final String cronExpression = "0 12 01 ? * 2 ";
+	private static final String cronExpressionWms = "0 12 01 ? * 2 ";
+	private static final String cronExpressionPmm = "0 12 01 ? * 2 ";
 
 	private static final String TIME_ZONE = "America/Lima";
 
@@ -78,7 +79,7 @@ public class ScheduledTasks {
 		return job;
 	}
 
-	@Scheduled(cron = "0 14 00 ? * 3 ", zone = TIME_ZONE)
+	@Scheduled(cron = cronExpressionPmm, zone = TIME_ZONE)
 	//@Scheduled(cron = "#{@getCronValue}", zone = TIME_ZONE)
 	public void scheduleTaskWithFixedRate() throws SQLException {
 		logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
@@ -160,7 +161,7 @@ public class ScheduledTasks {
 
 	// @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se
 	// ejecutará a las 23 horas con 9 minutos
-	@Scheduled(cron = cronExpression, zone = TIME_ZONE) 
+	@Scheduled(cron = cronExpressionWms, zone = TIME_ZONE) 
 	//@Scheduled(fixedDelay = 2000) 
 	public void scheduleTaskWithCronExpression() throws Exception {
 
