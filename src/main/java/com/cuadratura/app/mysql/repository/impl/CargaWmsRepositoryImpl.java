@@ -40,7 +40,7 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 	@Override
 	public Long saveCargaWms(CargaWms cargaWms) {		
 
-		String INSERT_MESSAGE_SQL = "INSERT INTO pmm.carga_wms "
+		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.carga_wms "
 				+ "(fechaCarga,horaCarga,num_registros,usuario_carga,id_m_TipoImportacion,id_m_estadoCuadratura,estado, org_name_short) "
 				+ "VALUES (?,?,?,?,?,?,?, ?)";
 
@@ -76,9 +76,9 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 				+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS FECHA_FOTO, "
 				+ "CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS HORA_FOTO, "
 				+ "date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
-				+ "C.num_Registros AS REGISTROS, C.usuario_Carga as USUARIO, EC.nombreEC AS ESTADO FROM pmm.carga_wms C  "
-				+ "INNER JOIN pmm.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS INNER JOIN pmm.m_estado_cuadratura EC ON  "
-				+ "C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura INNER JOIN pmm.m_orgmstee CD ON C.org_name_short=CD.org_name_short "
+				+ "C.num_Registros AS REGISTROS, C.usuario_Carga as USUARIO, EC.nombreEC AS ESTADO FROM cuadratura.carga_wms C  "
+				+ "INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS INNER JOIN cuadratura.m_estado_cuadratura EC ON  "
+				+ "C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura INNER JOIN cuadratura.m_orgmstee CD ON C.org_name_short=CD.org_name_short "
 				+ "WHERE CD.org_lvl_child=:idCentroDistribucion  "		
 				+ "AND date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%Y-%m-%d')  "		 
 				+ "BETWEEN :fechaDesde AND :fechaHasta ";		
@@ -100,9 +100,9 @@ public class CargaWmsRepositoryImpl implements CargaWmsRepositoryCustom {
 				+ "date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%d/%m/%Y') AS FECHA_FOTO, "
 				+ "CONCAT(SUBSTR(WMS.CREATE_DATE,9,2),':',SUBSTR(WMS.CREATE_DATE,11,2),':',SUBSTR(WMS.CREATE_DATE,13,2)) AS HORA_FOTO, "
 				+ "date_format(now(), '%d/%m/%Y') AS FECHA_CARGA,  date_format(now(), '%H:%i:%s') AS HORA_CARGA, "
-				+ "C.num_Registros AS REGISTROS, C.usuario_Carga as USUARIO, EC.nombreEC AS ESTADO FROM pmm.carga_wms C  "
-				+ "INNER JOIN pmm.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS INNER JOIN pmm.m_estado_cuadratura EC ON  "
-				+ "C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura INNER JOIN pmm.m_orgmstee CD ON C.org_name_short=CD.org_name_short "
+				+ "C.num_Registros AS REGISTROS, C.usuario_Carga as USUARIO, EC.nombreEC AS ESTADO FROM cuadratura.carga_wms C  "
+				+ "INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS INNER JOIN cuadratura.m_estado_cuadratura EC ON  "
+				+ "C.id_m_estadoCuadratura=EC.id_m_estadoCuadratura INNER JOIN cuadratura.m_orgmstee CD ON C.org_name_short=CD.org_name_short "
 				+ "WHERE CD.org_lvl_child=:idCentroDistribucion  "		
 				+ "AND date_format(CONCAT(SUBSTR(WMS.CREATE_DATE,1,4),'-',SUBSTR(WMS.CREATE_DATE,5,2),'-',SUBSTR(WMS.CREATE_DATE,7,2)),'%Y-%m-%d')  "		 
 				+ "BETWEEN :fechaDesde AND :fechaHasta )   tt ";		

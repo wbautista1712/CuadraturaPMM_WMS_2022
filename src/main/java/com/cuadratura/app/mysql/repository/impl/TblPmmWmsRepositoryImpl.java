@@ -24,7 +24,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 
 	public void saveCrucePmmWms(int idCargaPMM, int idCargaWMS, String idCD, int idUsuario, int idCrucePmmWms) {
 		LOGGER.info("idCargaPMM " + idCargaPMM);
-		StoredProcedureQuery query = em.createStoredProcedureQuery("pmm.sp_carga_pmm_wms")
+		StoredProcedureQuery query = em.createStoredProcedureQuery("cuadratura.sp_carga_pmm_wms")
 				.registerStoredProcedureParameter(1, Integer.class, ParameterMode.IN)
 				.registerStoredProcedureParameter(2, Integer.class, ParameterMode.IN)
 				.registerStoredProcedureParameter(3, String.class, ParameterMode.IN)
@@ -45,7 +45,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 		// MODIFICAR SCRIPT CON DISTINCT
 		/*
 		String sql = "SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, cuadratura.horaFoto AS horaFotoPMM, date_format(WMS.fechaCarga, '%d/%m/%Y') AS fechaCargaWMS, WMS.horaCarga AS horaCargaWMS,"
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado " + "FROM cuadratura.cruce_pmm_wms C "
 				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
 				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
@@ -57,15 +57,15 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
 				+ "FROM ("
 				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, cuadratura.horaFoto AS horaFotoPMM, "
 				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
 				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
-				+ "FROM pmm.cruce_pmm_wms C "
-				+ "INNER JOIN pmm.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
-				+ "INNER JOIN pmm.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
-				+ "INNER JOIN pmm.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "inner join pmm.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
+				+ "FROM cuadratura.cruce_pmm_wms C "
+				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
+				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
+				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
 				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
 				+ ")ATE ORDER BY ATE.fechaMatch DESC";
 		
@@ -88,15 +88,15 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
 				+ "FROM ("
 				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, cuadratura.horaFoto AS horaFotoPMM, "
 				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
 				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
-				+ "FROM pmm.cruce_pmm_wms C "
-				+ "INNER JOIN pmm.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
-				+ "INNER JOIN pmm.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
-				+ "INNER JOIN pmm.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
-				+ "inner join pmm.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
+				+ "FROM cuadratura.cruce_pmm_wms C "
+				+ "INNER JOIN cuadratura.carga_pmm PMM ON C.idCarga_PMM=PMM.idCarga_PMM "
+				+ "INNER JOIN cuadratura.carga_wms WMS on C.idCarga_WMS=WMS.idCarga_WMS "
+				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
+				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
 				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
 				+ ")ATE ORDER BY ATE.fechaMatch DESC) tt";	
 		

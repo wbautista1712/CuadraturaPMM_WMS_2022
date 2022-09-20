@@ -32,23 +32,23 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> 
 			"	(T_PMM.ECONOMATO_DISPONIBLE - T_WMS.EC) as ECONOMATO_DISPONIBLE_EC		"+
 			"	FROM		"+
 			"	(		"+
-			"		SELECT C.idCarga_PMM, ORG_NAME_SHORT AS CENTRO, PMM.PRD_LVL_CHILD as COD_MATERIAL, P.prd_name_full AS MATERIAL, PMM.trans_lote AS LOTE,	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('01','02','03') THEN SUM(IFNULL(ON_HAND_QTY,0)) END AS DISPONIBLE_ASIGNADO_RESERVADO_PMM,	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('04') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS EN_PUERTA_NO_DISPONIBLE, 	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('05') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS PERDIDO_NO_DISPONIBLE, 	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('06') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS ACONDICIONAMIENTO_EN_CUARENTENA, 	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('07') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS CANJE_MERCADERIA, 	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('08') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS MERMAS,	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('09') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS BOLSA_DISCREPANCIA,     	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('12') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS ECONOMATO_DISPONIBLE,	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('13') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS ECONOMATO_BLOQUEADO,	"+
-			"		CASE WHEN PMM.INV_TYPE_CODE IN ('14') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS BOLA_DISCREPANCIA_ECONOMATO	"+
-			"		FROM pmm.tbl_pmm PMM 	"+
-			"		INNER JOIN pmm.m_orgmstee CD ON PMM.org_lvl_child=CD.org_lvl_child	"+
-			"		INNER JOIN pmm.m_prdmstee P ON PMM.prd_lvl_child=P.prd_lvl_child	"+
-			"		INNER JOIN pmm.carga_pmm C ON PMM.idCarga_PMM=C.idCarga_PMM	"+
+			"		SELECT C.idCarga_PMM, ORG_NAME_SHORT AS CENTRO, cuadratura.PRD_LVL_CHILD as COD_MATERIAL, P.prd_name_full AS MATERIAL, cuadratura.trans_lote AS LOTE,	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('01','02','03') THEN SUM(IFNULL(ON_HAND_QTY,0)) END AS DISPONIBLE_ASIGNADO_RESERVADO_PMM,	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('04') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS EN_PUERTA_NO_DISPONIBLE, 	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('05') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS PERDIDO_NO_DISPONIBLE, 	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('06') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS ACONDICIONAMIENTO_EN_CUARENTENA, 	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('07') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS CANJE_MERCADERIA, 	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('08') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS MERMAS,	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('09') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS BOLSA_DISCREPANCIA,     	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('12') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS ECONOMATO_DISPONIBLE,	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('13') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS ECONOMATO_BLOQUEADO,	"+
+			"		CASE WHEN cuadratura.INV_TYPE_CODE IN ('14') THEN SUM(IFNULL(PMM.ON_HAND_QTY,0)) END AS BOLA_DISCREPANCIA_ECONOMATO	"+
+			"		FROM cuadratura.tbl_pmm PMM 	"+
+			"		INNER JOIN cuadratura.m_orgmstee CD ON cuadratura.org_lvl_child=CD.org_lvl_child	"+
+			"		INNER JOIN cuadratura.m_prdmstee P ON cuadratura.prd_lvl_child=P.prd_lvl_child	"+
+			"		INNER JOIN cuadratura.carga_pmm C ON cuadratura.idCarga_PMM=C.idCarga_PMM	"+
 			"		WHERE C.idCarga_PMM=:idCargaPmm AND CD.org_name_short=:idCD	"+
-			"		GROUP BY C.idCarga_PMM, CD.ORG_NAME_SHORT, PMM.PRD_LVL_CHILD, P.prd_name_full, PMM.trans_lote, PMM.INV_TYPE_CODE	"+
+			"		GROUP BY C.idCarga_PMM, CD.ORG_NAME_SHORT, cuadratura.PRD_LVL_CHILD, P.prd_name_full, cuadratura.trans_lote, cuadratura.INV_TYPE_CODE	"+
 			"	)T_PMM  INNER  join 		"+
 			"	(		"+
 			"		SELECT C.idCarga_WMS, WMS.FACILITY_CODE AS CENTRO, P.prd_lvl_child as COD_MATERIAL, P.prd_name_full AS MATERIAL, WMS.BATCH_NBR AS LOTE, 	"+
@@ -61,9 +61,9 @@ public interface TblPmmWmsRepository extends CrudRepository<TblPmmWms, Integer> 
 			"	    SUM(CASE WHEN WMS.lock_code_2='BJ' THEN IFNULL(WMS.lock_code_qty_2,0) ELSE 0 END) AS BJ,		"+
 			"	    SUM(CASE WHEN WMS.lock_code_7='EC' THEN IFNULL(WMS.lock_code_qty_7,0) ELSE 0 END) AS EC,		"+
 			"	    SUM(CASE WHEN WMS.lock_code_8='EB' THEN IFNULL(WMS.lock_code_qty_8,0) ELSE 0 END) AS EB		"+
-			"		FROM pmm.carga_wms C	"+
-			"		INNER JOIN pmm.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS	"+
-			"		INNER JOIN pmm.m_prdmstee P ON WMS.item_alternate=P.prd_lvl_number	"+
+			"		FROM cuadratura.carga_wms C	"+
+			"		INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS	"+
+			"		INNER JOIN cuadratura.m_prdmstee P ON WMS.item_alternate=P.prd_lvl_number	"+
 			"		WHERE C.idCarga_WMS=:idCargaWms AND WMS.FACILITY_CODE=:idCD	"+
 			"		GROUP BY C.idCarga_WMS, WMS.FACILITY_CODE, P.prd_lvl_child, P.prd_name_full, WMS.BATCH_NBR	"+
 			"	)T_WMS ON T_PMM.CENTRO =T_WMS.CENTRO AND T_PMM.LOTE =T_WMS.LOTE AND T_PMM.COD_MATERIAL =T_WMS.COD_MATERIAL		"+

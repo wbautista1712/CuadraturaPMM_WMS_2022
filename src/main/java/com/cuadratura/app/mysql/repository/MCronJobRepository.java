@@ -9,6 +9,6 @@ import com.cuadratura.app.mysql.entity.MCronJob;
 @Repository
 public interface MCronJobRepository extends CrudRepository<MCronJob, Integer>{
 	@Query(value = "SELECT idm_cron_job, segundo, minuto, hora, diaMes, mes, diaSemana, estado"
-			+ "FROM pmm.m_cron_job j where estado=1;", nativeQuery = true)
+			+ "FROM cuadratura.m_cron_job j where estado=1;", nativeQuery = true)
 	MCronJob getCronJob();
 }

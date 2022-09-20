@@ -26,7 +26,7 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryC
 	public List<MTipoInventario> getTipoInventario() {
 		LOGGER.info("getTipoInventario ");
 		List<MTipoInventario> listOfEmailDomains = em.createNativeQuery(
-				" SELECT I.* FROM pmm.m_tipo_inventario I WHERE I.estado= true ",
+				" SELECT I.* FROM cuadratura.m_tipo_inventario I WHERE I.estado= true ",
 				MTipoInventario.class).getResultList();
 		return listOfEmailDomains;
 
@@ -37,7 +37,7 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryC
 	public List<Object[]> getTipoInventarioLote(String idTipoInventario) {
 		LOGGER.info("getTipoInventario ");
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT I.id_tipo_inventario, I.nombre FROM pmm.m_tipo_inventario I ");
+		sb.append("SELECT I.id_tipo_inventario, I.nombre FROM cuadratura.m_tipo_inventario I ");
 		sb.append("WHERE I.estado = :estado ");
 		if (!idTipoInventario.equals(Constantes.VACIO)) {
 			sb.append("AND I.id_tipo_inventario IN (");
@@ -64,7 +64,7 @@ public class MTipoInventarioRepositoryImpl implements MTipoInventarioRepositoryC
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("SELECT I.nombre FROM pmm.m_tipo_inventario I where I.id_tipo_inventario=:idInventario ");
+		sb.append("SELECT I.nombre FROM cuadratura.m_tipo_inventario I where I.id_tipo_inventario=:idInventario ");
 	
 		Query q = em.createNativeQuery(sb.toString());
 		q.setParameter("idInventario", idInventario);

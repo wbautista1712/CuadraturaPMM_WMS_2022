@@ -38,7 +38,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 	@Override
 	public Long saveCrucePmmWms(CrucePmmWms crucePmmWms) {
 		// TODO Auto-generated method stub
-		String INSERT_MESSAGE_SQL = "INSERT INTO pmm.cruce_pmm_wms "
+		String INSERT_MESSAGE_SQL = "INSERT INTO cuadratura.cruce_pmm_wms "
 				+ "(fechaMatch, horaMatch, idCarga_PMM, idCarga_WMS, idEstadoCuadratura) " + "VALUES (?,?,?,?,?)";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -118,7 +118,7 @@ public class CrucePmmWmsRepositoryImpl implements CrucePmmWmsRepositoryCustom {
 	
 		try {
 			conn = ds.getConnection();
-			csmt = conn.prepareCall("{call pmm.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
+			csmt = conn.prepareCall("{call cuadratura.sp_actualizarEstado_WMS_PMM_Total(?,?)}");
 
 			csmt.setInt(1, pidCrucePmmWms);
 			csmt.setInt(2, idEstado);
