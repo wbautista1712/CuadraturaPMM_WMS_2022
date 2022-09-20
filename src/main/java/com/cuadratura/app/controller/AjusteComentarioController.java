@@ -27,7 +27,7 @@ public class AjusteComentarioController {
 
 	@PostMapping(value = "/registroAjusteComentario")
 	public ResponseEntity<String> registroAjusteComentario(@Valid @RequestBody AjusteComentario  ajusteComentario) {
-		LOGGER.info("registroAjusteComentario " );
+		LOGGER.info("registroAjusteComentario" );
 		try {
 			this.ajusteComentarioService.saveAjusteComentario(ajusteComentario);
 			return ResponseEntity.status(HttpStatus.OK).body("Registro Correcto");
