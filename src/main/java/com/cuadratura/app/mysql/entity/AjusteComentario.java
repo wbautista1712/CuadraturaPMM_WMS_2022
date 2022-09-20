@@ -40,4 +40,8 @@ public class AjusteComentario implements Serializable {
     @Size(max = 500)
     @Column(name = "comentario")
     private String comentario;
+    
+    @Column(name = "id_tbl_pmm_wms")
+    private Integer idTblPmmWms;
+	
 }

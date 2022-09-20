@@ -11,7 +11,8 @@ import com.cuadratura.app.mysql.repository.AjusteComentarioRepository;
 import com.cuadratura.app.service.AjusteComentarioService;
 
 @Service
-public class AjusteComentarioServiceImpl extends GenericServiceImpl<AjusteComentario, Integer> implements AjusteComentarioService{
+public class AjusteComentarioServiceImpl extends GenericServiceImpl<AjusteComentario, Integer>
+		implements AjusteComentarioService {
 	private static final Logger LOGGER = LogManager.getLogger(AjusteComentarioServiceImpl.class);
 
 	@Autowired
@@ -21,10 +22,10 @@ public class AjusteComentarioServiceImpl extends GenericServiceImpl<AjusteComent
 	public CrudRepository<AjusteComentario, Integer> getDao() {
 		return ajusteComentarioRepository;
 	}
-	
-	 public void saveAjusteComentario (AjusteComentario ajusteComentario) {
-		 LOGGER.info( ajusteComentario.toString());
-		 this.ajusteComentarioRepository.save(ajusteComentario);
-	 }
+
+	public void saveAjusteComentario(AjusteComentario ajusteComentario) {
+		LOGGER.info(ajusteComentario.toString());
+		this.ajusteComentarioRepository.save(ajusteComentario);
+	}
 
 }
