@@ -46,7 +46,7 @@ public class TblPmmWmsController {
 	}
 
 	@GetMapping(value = "/getAllResultadoPmmWms")
-	public ResponseEntity<ListResponse> getAllResultadoPmmWms(@RequestParam String idCD_org_name_short, String fechaDesde, String fechaHasta,
+	public ResponseEntity<ListResponse> getAllResultadoPmmWms(@RequestParam String idCD_org_name_short, @RequestParam String fechaDesde, @RequestParam String fechaHasta,
 			@RequestParam  Integer rows, @RequestParam Integer page) {
 		 ListResponse listResponse = new ListResponse();
 		 Integer records = 0;
