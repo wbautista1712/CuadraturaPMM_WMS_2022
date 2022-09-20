@@ -120,7 +120,7 @@ public class AjustePmmWmsRepositoryImpl implements AjustePmmWmsRepositoryCustom 
 
 				"	INNER JOIN cuadratura.m_tipo_inventario TI ON AJ.id_tipo_inventario=TI.id_tipo_inventario 			"
 				+ " where AJ.estado = true  " + "	)ATE					"
-				+ "	ORDER BY  ATE.TRANS_TYPE_CODE			";
+				+ "	ORDER BY  ATE.idAjuste_PMM_WMS, ATE.TRANS_TYPE_CODE			";
 
 		Query query = this.em.createNativeQuery(sql);
 		query.setHint(QueryHints.HINT_CACHEABLE, true);
