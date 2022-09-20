@@ -26,7 +26,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "rol", schema = "pmm")
+@Table(name = "rol", schema = "cuadratura")
 public class Rol implements Serializable {
 
 	private static final long serialVersionUID = 1L;

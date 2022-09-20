@@ -39,7 +39,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "tbl_pmm", schema = "pmm")
+@Table(name = "tbl_pmm", schema = "cuadratura")
 
 public class TblPmm implements Serializable {
 	private static final long serialVersionUID = 1L;
