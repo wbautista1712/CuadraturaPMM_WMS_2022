@@ -30,10 +30,12 @@ public class AjusteComentarioServiceImpl extends GenericServiceImpl<AjusteComent
 		LOGGER.info(ajusteComentario.toString());
 		this.ajusteComentarioRepository.save(ajusteComentario);
 	}
-	
+
 	@Override
-	 public Optional<AjusteComentario> findByIdAjusteComentario (Integer  id) {
-		 return this.ajusteComentarioRepository.findById(id);
-	 }
+	public Optional<AjusteComentario> findByIdAjusteComentario(Integer id) {
+		AjusteComentario ajusteComentario = this.ajusteComentarioRepository.findByIdAjusteComentario(id);
+		Optional<AjusteComentario> userOptional = Optional.of(ajusteComentario);
+		return userOptional;
+	}
 
 }

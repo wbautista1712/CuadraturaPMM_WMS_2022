@@ -1,5 +1,7 @@
 package com.cuadratura.app.mysql.repository;
 
-public interface AjusteComentarioRepositoryCustom {
+import com.cuadratura.app.mysql.entity.AjusteComentario;
 
+public interface AjusteComentarioRepositoryCustom {
+	public AjusteComentario findByIdAjusteComentario(Integer id);
 }
