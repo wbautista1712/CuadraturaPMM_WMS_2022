@@ -9,5 +9,5 @@ import com.cuadratura.app.oracle.entity.Fapinvbalee;
 
 
 public interface TblWmsService  extends GenericService<TblWms, Integer> {
-	void saveTblWms(List<WmsCinsDto> listaTblPmmForm, int numeroLotes, int idCargaWMS) throws SQLException ;
+	void saveTblWms(List<WmsCinsDto> listaTblPmmForm, int idCargaWMS) throws SQLException ;
 }

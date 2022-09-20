@@ -28,7 +28,70 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public void saveTblWms(List<WmsCinsDto> listaTblPmmForm, int numeroLotes, int idCargaWMS) throws SQLException {
+	public void saveTblWms(WmsCinsDto obj, int idCargaWMS) throws SQLException {
+		// TODO Auto-generated method stub
+
+		// El Prepared Statement para los insert
+
+		String sql = "INSERT INTO cuadratura.tbl_wms "
+				+ "(nro_carga, create_date, facility_code, company_code, item_alternate, item_part_a, item_part_b, "
+				+ "item_part_c, item_part_d, item_part_e, item_part_f, hierarchy1_code, hierarchy2_code, hierarchy3_code, "
+				+ "hierarchy4_code, hierarchy5_code, batch_nbr, pre_pack_code, tbl_wmscol, pre_pack_ratio, pre_pack_units,  "
+				+ "oblpn_total, active_total, active_allocated, active_allocated_lockcode, active_available, active_lockcode,  "
+				+ "iblpn_total, iblpn_allocated, iblpn_allocated_lockcode, iblpn_available, iblpn_notverified, iblpn_lockcode,  "
+				+ "iblpn_lost, total_allocated, total_available, total_inventory, four_wall_inventory, open_order_qty, lock_code_1,  "
+				+ "lock_code_qty_1, lock_code_2, lock_code_qty_2, lock_code_3, lock_code_qty_3, lock_code_4, lock_code_qty_4, lock_code_5, "
+				+ "lock_code_qty_5, lock_code_6, lock_code_qty_6, lock_code_7, lock_code_qty_7, lock_code_8, lock_code_qty_8, lock_code_9,  "
+				+ "lock_code_qty_9, lock_code_10, lock_code_qty_10, download_date1, error_code, observacion_error, flg_tipo, idCarga_WMS) "
+				+ "VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+				+ " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+				+ " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?,?)";
+
+		int insertCount = jdbcTemplate.update(sql,
+
+				obj.getNroCarga().intValue(), obj.getCreateDate(), obj.getFacilityCode(), obj.getCompanyCode(),
+				obj.getItemAlternate(), obj.getItemPartA(),
+
+				obj.getItemPartB(), obj.getItemPartC(), obj.getItemPartD(), obj.getItemPartE(), obj.getItemPartF(),
+				obj.getHierarchy1Code(),
+
+				obj.getHierarchy2Code(), obj.getHierarchy3Code(), obj.getHierarchy4Code(), obj.getHierarchy5Code(),
+				obj.getBatchNbr(),
+
+				obj.getPrePackCode(), obj.getTblWmscol(), obj.getPrePackRatio(), obj.getPrePackUnits(),
+				obj.getOblpnTotal(), obj.getActiveTotal(),
+
+				obj.getActiveAllocated(), obj.getActiveAllocatedLockcode(), obj.getActiveAvailable(),
+				obj.getActiveLockcode(), obj.getIblpnTotal(),
+
+				obj.getIblpnAllocated(), obj.getIblpnAllocatedLockcode(), obj.getIblpnAvailable(),
+				obj.getIblpnNotverified(), obj.getIblpnLockcode(),
+
+				obj.getIblpnLost(), obj.getTotalAllocated(), obj.getTotalAvailable(), obj.getTotalInventory(),
+				obj.getFourWallInventory(), obj.getOpenOrderQty(),
+
+				obj.getLockCode1(), obj.getLockCodeQty1(), obj.getLockCode2(), obj.getLockCodeQty2(),
+				obj.getLockCode3(), obj.getLockCodeQty3(), obj.getLockCode4(),
+
+				obj.getLockCodeQty4(), obj.getLockCode5(), obj.getLockCodeQty5(), obj.getLockCode6(),
+				obj.getLockCodeQty6(), obj.getLockCode7(), obj.getLockCodeQty7(),
+
+				obj.getLockCode8(), obj.getLockCodeQty8(), obj.getLockCode9(), obj.getLockCodeQty9(),
+				obj.getLockCode10(), obj.getLockCodeQty10(),
+
+				obj.getDownloadDate1(),
+
+				obj.getErrorCode(), obj.getObservacionError(),
+
+				obj.getFlgTipo().intValue(),
+
+				idCargaWMS);
+		LOGGER.info("> insercion correcta " + insertCount);
+
+	}
+
+	@Override
+	public void saveTblWmsBatch(List<WmsCinsDto> listaTblPmmForm, int numeroLotes, int idCargaWMS) throws SQLException {
 		// TODO Auto-generated method stub
 		DataSource ds = jdbcTemplate.getDataSource();
 		Connection connection = ds.getConnection();

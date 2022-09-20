@@ -40,7 +40,7 @@ public class ScheduledTasks {
 
 	// Agregado por wilber
 
-	private static final String cronExpression = "0 37 23 ? * 1 ";
+	private static final String cronExpression = "0 12 01 ? * 2 ";
 
 	private static final String TIME_ZONE = "America/Lima";
 
@@ -160,8 +160,8 @@ public class ScheduledTasks {
 
 	// @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se
 	// ejecutará a las 23 horas con 9 minutos
-	//@Scheduled(cron = cronExpression, zone = TIME_ZONE) 
-	@Scheduled(fixedDelay = 2000) 
+	@Scheduled(cron = cronExpression, zone = TIME_ZONE) 
+	//@Scheduled(fixedDelay = 2000) 
 	public void scheduleTaskWithCronExpression() throws Exception {
 
 		logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
@@ -193,8 +193,8 @@ public class ScheduledTasks {
 			cargaWms.setOrgNameShort(listaCDxFH.get(i).getIdCD()); // traer toda la datos de los CDS
 			Integer id = this.cargaWmsService.saveCargaWms(cargaWms).intValue();
 			logger.info("id ==> " + id);
-			this.tblWmsService.saveTblWms(listaTblWmsForm, i + 1, id);
-
+			this.tblWmsService.saveTblWms(listaTblWmsForm,  id);
+			logger.info("i ==> " + i);
 		}
 
 	}

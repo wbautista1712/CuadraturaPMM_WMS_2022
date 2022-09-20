@@ -7,5 +7,7 @@ import com.cuadratura.app.oracle.dto.WmsCinsDto;
 
 public interface TblWmsRepositoryCustom {
 
-	public void saveTblWms(List<WmsCinsDto> listaTblPmmForm, int numeroLotes, int idCargaWMS) throws SQLException;
+	public void saveTblWms(WmsCinsDto listaTblPmmForm, int idCargaWMS) throws SQLException;
+	
+	public void saveTblWmsBatch(List<WmsCinsDto> listaTblPmmForm, int numeroLotes, int idCargaWMS) throws SQLException;
 }
