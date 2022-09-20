@@ -29,7 +29,57 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public void saveTblPmm(List<Fapinvbalee> listaTblPmmForm, int numeroLotes, int idCargaPMM) throws SQLException {
+	public void saveTblPmm(Fapinvbalee obj, int idCargaPMM) throws SQLException {
+
+		String sql = "INSERT INTO cuadratura.tbl_pmm "
+				+ " ( org_lvl_child, prd_lvl_child, inv_type_code, trans_lote, on_hand_qty, on_hand_retl, on_hand_cost, "
+				+ " po_ord_qty, po_ord_retl, po_ord_cost, po_intrn_qty, po_intrn_retl, po_intrn_cost, to_ord_qty, to_ord_retl, "
+				+ " to_ord_cost, to_intrn_qty, to_intrn_retl, to_intrn_cost, first_pis_date, last_pis_date, ltd_qty, ltd_retl, "
+				+ " ltd_cost, last_chg_date, on_hand_weight, weight_uom, po_ord_weight, po_intrn_weight, to_ord_weight, to_intrn_weight, "
+				+ " ltd_weight, prd_sll_uom, curr_code, on_hand_eaches, first_shipped_date, first_sales_date, on_hand_cost_hm, on_hand_retl_hm, "
+				+ " to_intrn_cost_hm, to_intrn_retl_hm, trans_vcto_lote, idCarga_PMM ) "
+
+				+ " VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+				+ " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?) ";
+
+		int insertCount = jdbcTemplate.update(sql,
+
+				obj.getFapinvbaleePK().getOrgLvlChild(), obj.getFapinvbaleePK().getPrdLvlChild(),
+				obj.getFapinvbaleePK().getInvTypeCode(), obj.getFapinvbaleePK().getTransLote(),
+
+				obj.getOnHandQty(),
+				obj.getOnHandRetl(), obj.getOnHandCost(), obj.getPoOrdQty(), obj.getPoOrdRetl(), obj.getPoOrdCost(),
+
+				obj.getPoIntrnQty(), obj.getPoIntrnRetl(), obj.getPoIntrnCost(), obj.getToOrdQty(), obj.getToOrdRetl(),
+				obj.getToOrdCost(), obj.getToIntrnQty(), obj.getToIntrnRetl(), obj.getToIntrnCost(),
+
+				obj.getFirstPisDate(),
+				obj.getLastPisDate(),
+
+				obj.getLtdQty(), obj.getLtdRetl(), obj.getLtdCost(),
+				obj.getLastChgDate(),
+
+				obj.getOnHandWeight(),
+
+				obj.getWeightUom(), obj.getPoOrdWeight(), obj.getPoIntrnWeight(), obj.getToOrdWeight(),
+				obj.getToIntrnWeight(),
+
+				obj.getLtdWeight(), obj.getPrdSllUom(), obj.getCurrCode(), obj.getOnHandEaches(),
+				obj.getFirstShippedDate(),
+
+				obj.getFirstSalesDate(),
+				obj.getOnHandCostHm(), obj.getOnHandRetlHm(), obj.getToIntrnCostHm(), obj.getToIntrnRetlHm(),
+				obj.getTransVctoLote(),
+
+				idCargaPMM);
+
+		LOGGER.info("> insercion correcta " + insertCount);
+
+	}
+
+	@Override
+	public void saveTblPmmBatch(List<Fapinvbalee> listaTblPmmForm, int numeroLotes, int idCargaPMM)
+			throws SQLException {
 		// TODO Auto-generated method stub
 		DataSource ds = jdbcTemplate.getDataSource();
 		Connection connection = ds.getConnection();
@@ -63,8 +113,8 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 					statement.setInt(2, (int) (long) (obj.getFapinvbaleePK().getPrdLvlChild()));
 					statement.setString(3, obj.getFapinvbaleePK().getInvTypeCode());
 					statement.setString(4, obj.getFapinvbaleePK().getTransLote());
-					
-					statement.setBigDecimal(5, obj.getOnHandQty() == null ? BigDecimal.ZERO :obj.getOnHandQty());
+
+					statement.setBigDecimal(5, obj.getOnHandQty() == null ? BigDecimal.ZERO : obj.getOnHandQty());
 
 					// on_hand_retl, on_hand_cost, po_ord_qty, po_ord_retl, po_ord_cost,
 					statement.setBigDecimal(6, obj.getOnHandRetl());

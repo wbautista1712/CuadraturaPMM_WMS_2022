@@ -112,7 +112,7 @@ public class ScheduledTasks {
 
 			Integer id = this.cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 
-			this.tblPmmService.saveTblPmm(listaTblPmmForm, i + 1, id);
+			this.tblPmmService.saveTblPmm(listaTblPmmForm,  id);
 		}
 	}
 

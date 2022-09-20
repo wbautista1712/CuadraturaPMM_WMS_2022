@@ -7,5 +7,5 @@ import com.cuadratura.app.mysql.entity.TblPmm;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 
 public interface TblPmmService  extends GenericService<TblPmm, Integer> {
-	void saveTblPmm(List<Fapinvbalee> listaTblPmmForm, int numeroLotes, int idCargaPMM) throws SQLException ;
+	void saveTblPmm(List<Fapinvbalee> listaTblPmmForm, int idCargaPMM) throws SQLException ;
 }

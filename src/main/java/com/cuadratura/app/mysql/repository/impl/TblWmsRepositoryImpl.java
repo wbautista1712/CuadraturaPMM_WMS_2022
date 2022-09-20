@@ -49,7 +49,7 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 
 		int insertCount = jdbcTemplate.update(sql,
 
-				obj.getNroCarga().intValue(), obj.getCreateDate(), obj.getFacilityCode(), obj.getCompanyCode(),
+				obj.getNroCarga(), obj.getCreateDate(), obj.getFacilityCode(), obj.getCompanyCode(),
 				obj.getItemAlternate(), obj.getItemPartA(),
 
 				obj.getItemPartB(), obj.getItemPartC(), obj.getItemPartD(), obj.getItemPartE(), obj.getItemPartF(),
