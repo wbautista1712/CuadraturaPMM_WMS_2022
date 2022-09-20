@@ -1,5 +1,7 @@
 package com.cuadratura.app.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.AjusteComentario;
@@ -34,5 +38,28 @@ public class AjusteComentarioController {
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 		}
+	}
+	
+	@GetMapping(value = "/getAjusteComentario")
+	public ResponseEntity<AjusteComentario> getAjusteComentario(@RequestParam Integer idAjusteComentario) {
+
+		try {
+			LOGGER.info("getAjusteComentario  idAjusteComentario " + idAjusteComentario);
+
+			//List<AjustePmmWmsDto> result = ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario);
+
+			 return Optional.ofNullable(ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario))
+				        .map(result -> new ResponseEntity<AjusteComentario>(HttpStatus.FOUND))
+				        .orElseGet(() -> new ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));
+			 
+/*
+			return Optional.ofNullable(ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario))
+	        .map(result -> new ResponseEntity<AjusteComentario>(result, HttpStatus.FOUND))
+	        .orElseGet(() -> new ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));*/
+			
+		} catch (Exception ex) {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+		}
+		
 	}
 }
