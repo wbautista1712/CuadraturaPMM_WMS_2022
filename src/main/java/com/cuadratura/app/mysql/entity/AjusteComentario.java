@@ -28,7 +28,7 @@ import lombok.ToString;
 @Data
 @ToString
 @RequiredArgsConstructor
-@Table(name = "ajusteComentario", schema = "cuadratura")
+@Table(name = "ajuste_Comentario", schema = "cuadratura")
 public class AjusteComentario implements Serializable {
 
     private static final long serialVersionUID = 1L;

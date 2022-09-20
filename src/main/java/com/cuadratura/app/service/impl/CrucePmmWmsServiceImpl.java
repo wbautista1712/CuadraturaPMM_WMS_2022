@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.cuadratura.app.mysql.repository.MTipoInventarioRepository;
 import com.cuadratura.app.oracle.dto.AjustePmmWmsDto;
 import com.cuadratura.app.oracle.dto.CrucePmmWmsDto;
 import com.cuadratura.app.service.CrucePmmWmsService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -73,18 +76,32 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 		LOGGER.info("\nPretty JSONObject ==> " + prettyJson);
 		LOGGER.info("mapList mapList ==> " + mapList.size());
-		
+
+	
 		try {
 			
 			JSONArray jsonarr = new JSONArray(prettyJson);// prettyJson.getJSONArray("#result-set-1");
 			LOGGER.info("tamaño ==> " + jsonarr.length());
 			
+			
+	
+			
+			// list = jsonarr.toList().stream().map(CrucePmmWmsDto.class::cast).collect(Collectors.toList());
+			// LOGGER.info("list ==> " + list.size());
+			/*
+			List<CrucePmmWmsDto> result = jsonarr.toList().stream()
+			        .filter(Map.class::isInstance)
+			        .map(Map.class::cast)
+			        .map(o -> o.get("name"))
+			        .filter(CrucePmmWmsDto.class::isInstance)
+			        .map(CrucePmmWmsDto.class::cast)
+			        .collect(Collectors.toList());*/
+			
+
 			for (int i = 0; i < jsonarr.length(); i++) {
 				crucePmmWmsDto = new CrucePmmWmsDto();
-				String nombreTipoInventario ="";
-				Integer idTipoInventario =null;
 				
-		
+				
 				
 				if (jsonarr.getJSONObject(i).has("idCruce_pmm_wms")) {
 				
@@ -118,16 +135,13 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				}
 
 				if (jsonarr.getJSONObject(i).has("CRUCE_HOMOLOGADO")) {
-					
-			
-					idTipoInventario = Integer.parseInt( jsonarr.getJSONObject(i).getString("CRUCE_HOMOLOGADO").toString() );
-					
-					nombreTipoInventario =mTipoInventarioRepository.getObtenerNombreInventario(idTipoInventario);
-		
-					
-					crucePmmWmsDto.setCruceHomologado(nombreTipoInventario);
-					crucePmmWmsDto.setIdTipoInventario(idTipoInventario);
+					crucePmmWmsDto.setIdTipoInventario(jsonarr.getJSONObject(i).getInt("CRUCE_HOMOLOGADO"));
 				}
+				if (jsonarr.getJSONObject(i).has("Nombre_Inventario")) {
+					crucePmmWmsDto.setCruceHomologado(jsonarr.getJSONObject(i).getString("Nombre_Inventario").toString());
+				}
+				
+				
 
 				if (jsonarr.getJSONObject(i).has("PMM")) {
 					crucePmmWmsDto.setPmm(jsonarr.getJSONObject(i).getInt("PMM"));
@@ -146,6 +160,9 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 				list.add(crucePmmWmsDto);
 
 			}
+		
+			
+			
 
 		} catch (JSONException e) {
 			e.printStackTrace();
