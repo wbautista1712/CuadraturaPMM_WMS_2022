@@ -40,7 +40,7 @@ public class ScheduledTasks {
 
 	// Agregado por wilber
 
-	private static final String cronExpression = "0 23 23 ? * 1 ";
+	private static final String cronExpression = "0 37 23 ? * 1 ";
 
 	private static final String TIME_ZONE = "America/Lima";
 
@@ -160,8 +160,8 @@ public class ScheduledTasks {
 
 	// @Scheduled(cron = "0 30 11 ? * 5 ", zone = TIME_ZONE) // a tarea anterior se
 	// ejecutará a las 23 horas con 9 minutos
-	@Scheduled(cron = cronExpression, zone = TIME_ZONE) // y 0 segundos,
-	// todos los meses, los días 5 (visernes).
+	//@Scheduled(cron = cronExpression, zone = TIME_ZONE) 
+	@Scheduled(fixedDelay = 2000) 
 	public void scheduleTaskWithCronExpression() throws Exception {
 
 		logger.info("Cron Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
