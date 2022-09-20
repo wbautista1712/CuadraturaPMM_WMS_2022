@@ -28,8 +28,8 @@ public class TblWmsServiceImpl extends GenericServiceImpl<TblWms, Integer> imple
 		return tblWmsRepository;
 	}
 
-	public void saveTblWms(List<WmsCinsDto> listaTblPmmForm,  int idCargaWMS) throws SQLException {
-	
+	public void saveTblWms(List<WmsCinsDto> listaTblPmmForm, int idCargaWMS) throws SQLException {
+
 		LOGGER.info("idCargaWMS " + idCargaWMS);
 		WmsCinsDto statement = null;
 		for (WmsCinsDto obj : listaTblPmmForm) {
