@@ -1,6 +1,5 @@
 package com.cuadratura.app.controller;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cuadratura.app.oracle.dto.ConsolidadoPmmWmsDto;
 import com.cuadratura.app.oracle.dto.ResultadoPmmWmsDto;
 import com.cuadratura.app.response.ListResponse;
-import com.cuadratura.app.service.CrucePmmWmsService;
 import com.cuadratura.app.service.TblPmmWmsService;
 
 @RestController
@@ -27,13 +25,9 @@ public class TblPmmWmsController {
 
 	private static final Logger LOGGER = LogManager.getLogger(TblPmmWmsController.class);
 
-	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
 	@Autowired
 	private TblPmmWmsService tblPmmWmsService;
 
-	@Autowired
-	private CrucePmmWmsService crucePmmWmsService;
 
 	@GetMapping(value = "/getAllConsolidadoPmmWms")
 	public ResponseEntity<List<ConsolidadoPmmWmsDto>> getAllConsolidadoPmmWms(@RequestParam Integer idCargaWms,
