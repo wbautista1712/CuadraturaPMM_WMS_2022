@@ -40,7 +40,7 @@ public class ScheduledTasks {
 
 	// Agregado por wilber
 
-	private static final String cronExpression = "0 01 00 ? * 3 ";
+	private static final String cronExpression = "0 23 23 ? * 1 ";
 
 	private static final String TIME_ZONE = "America/Lima";
 
