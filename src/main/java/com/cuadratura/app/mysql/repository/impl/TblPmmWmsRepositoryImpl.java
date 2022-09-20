@@ -42,6 +42,8 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 		LOGGER.info("start  ===>> " + start);
 		LOGGER.info("end  ===>> " + end);
 		
+		LOGGER.info("Fechas  ===>> " + fechaDesde + " - " + fechaHasta);
+		
 		// MODIFICAR SCRIPT CON DISTINCT
 		/*
 		String sql = "SELECT C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
@@ -57,7 +59,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
 				+ "FROM ("
 				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, cuadratura.horaFoto AS horaFotoPMM, "
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
 				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
 				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
@@ -88,7 +90,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
 				+ "FROM ("
 				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
-				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, cuadratura.horaFoto AS horaFotoPMM, "
+				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
 				+ "date_format(CONCAT(SUBSTR(tWMS.create_date,1,4),'-',SUBSTR(tWMS.create_date,5,2),'-',SUBSTR(tWMS.create_date,7,2)),'%d/%m/%Y') AS fechaFotoWMS, "
 				+ "CONCAT(SUBSTR(tWMS.create_date,9,2),':',SUBSTR(tWMS.create_date,11,2),':',SUBSTR(tWMS.create_date,13,2)) AS horaFotoWMS, "
 				+ "PMM.idCarga_PMM, WMS.idCarga_WMS, EC.nombreEC AS estado "
