@@ -65,7 +65,6 @@ public class CargaPmmController {
 		List<FotoPmmDto> listOfStudents = this.cargaPmmService.getAllFindFotoPmmExcel(idCD, fechaDesde, fechaHasta);
 		LOGGER.info("listOfStudents size " + listOfStudents.size());
 		ExcelGeneratorFotoPmm generator = new ExcelGeneratorFotoPmm(listOfStudents);
-
 		generator.generateExcelFile(response);
 	}
 }
