@@ -59,14 +59,19 @@ public class CargaWmsController {
 	public void exportFotoWmsExcelFile(@RequestParam String idCD,
 			@RequestParam String fechaDesde, @RequestParam String fechaHasta, HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		String currentDateTime = dateFormatter.format(new Date());
 
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=FotoWms" + currentDateTime + ".xlsx";
 		response.setHeader(headerKey, headerValue);
-
+		LOGGER.info("fechaDesde "+fechaDesde);
+		LOGGER.info("fechaHasta "+fechaHasta);
+		LOGGER.info("cd "+idCD);
+		
 		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWmsExcel(idCD, fechaDesde, fechaHasta);
+		LOGGER.info("TAMAÑO LISTA RETORNO "+listOfStudents.size());
+		
 		ExcelGeneratorFotoWms generator = new ExcelGeneratorFotoWms(listOfStudents);
 		generator.generateExcelFile(response);
 	}

@@ -169,13 +169,16 @@ public class CrucePmmWmsController {
 				
 				ajustePmmWms.setIdTblPmmWms(x.getIdTblPmmWms());
 				ajustePmmWms.setIdTipoInventario(x.getIdTipoInventario());
+							
 				ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
 			}
-		
+					);
+			
+
+			// WILBER ACTUALIZAR ESTADO
+			// this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(idCrucePmmWms, Constantes.ESTADO_CUADRATURA_CERRADO);
 
 			
-					
-					);
 			/*inicio invoca a procesar procesarAjusteSDI*/
 			
 			CuadraturaTransfer cuadraturaTransfer = null;
@@ -225,7 +228,7 @@ public class CrucePmmWmsController {
 
 			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
 			 
-			/*fin invoca a procesar procesarAjusteSDI*/
+			/*fin invoca a procesar procesarAjusteSDI*/			
 
 			return new ResponseEntity<String>("Procesamiento Correcto.", HttpStatus.OK);
 			// return

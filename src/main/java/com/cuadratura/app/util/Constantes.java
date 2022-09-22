@@ -10,6 +10,7 @@ public interface Constantes {
 	
 	public static final Integer ESTADO_CUADRATURA_PROCESO = 2;
 	public static final Integer ESTADO_CUADRATURA_VALIDACION = 3;
+	public static final Integer ESTADO_CUADRATURA_CERRADO = 4;
 	
 	public static final Boolean ESTADO_INACTIVO = false;
 }
