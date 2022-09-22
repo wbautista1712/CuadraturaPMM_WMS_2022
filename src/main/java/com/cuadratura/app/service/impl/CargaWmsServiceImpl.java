@@ -54,6 +54,7 @@ private static final Logger LOGGER = LogManager.getLogger(CargaWmsServiceImpl.cl
 			fotoWms.setRegistros( filaObj[6] == null ? 0  : (Integer)filaObj[6]);	
 			fotoWms.setUsuario(filaObj[7] == null ?"": filaObj[7].toString());
 			fotoWms.setEstado(filaObj[8] == null ?"": filaObj[8].toString());
+			fotoWms.setNroCarga(filaObj[9] == null ? null : Integer.parseInt(filaObj[9].toString()));
 			
 			listaClasificadores.add(fotoWms);
 		}

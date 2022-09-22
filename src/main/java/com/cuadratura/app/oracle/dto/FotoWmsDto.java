@@ -12,6 +12,14 @@ public class FotoWmsDto {
 	public Integer registros;
 	public String usuario;
 	public String estado;
+	public int nroCarga;
+	
+	public int getNroCarga() {
+		return nroCarga;
+	}
+	public void setNroCarga(int nroCarga) {
+		this.nroCarga = nroCarga;
+	}
 	public Integer getIdCD() {
 		return idCD;
 	}
