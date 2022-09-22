@@ -28,6 +28,7 @@ import com.cuadratura.app.util.ExcelGeneratorFotoPmm;
 @RequestMapping(path = "/api/wmsmysql")
 @CrossOrigin(origins = "*")
 public class CargaPmmController {
+	
 	private static final Logger LOGGER = LogManager.getLogger(CargaPmmController.class);
 
 	@Autowired
