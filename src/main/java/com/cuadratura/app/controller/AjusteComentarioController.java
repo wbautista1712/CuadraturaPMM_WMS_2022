@@ -61,8 +61,7 @@ public class AjusteComentarioController {
 		 * new ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));
 		 */
 
-		Optional<AjusteComentario> tutorialData = this.ajusteComentarioService
-				.findByIdAjusteComentario(idAjusteComentario);
+		Optional<AjusteComentario> tutorialData = this.ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario);
 
 		if (tutorialData.isPresent()) {
 			return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
