@@ -65,8 +65,7 @@ public class CargaWmsController {
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=FotoWms" + currentDateTime + ".xlsx";
 		response.setHeader(headerKey, headerValue);
-		LOGGER.info("fechaDesde "+fechaDesde);
-		LOGGER.info("fechaHasta "+fechaHasta);		
+
 		
 		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWmsExcel(idCD, fechaDesde, fechaHasta);
 		LOGGER.info("TAMAÑO LISTA RETORNO "+listOfStudents.size());
