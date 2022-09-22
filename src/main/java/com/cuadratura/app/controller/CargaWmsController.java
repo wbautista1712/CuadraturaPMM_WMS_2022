@@ -56,7 +56,7 @@ public class CargaWmsController {
 	}
 	
 	@GetMapping("/exportFotoWmsExcel")
-	public void exportFotoWmsExcelFile(@RequestParam String idCD,
+	public void exportFotoWmsExcelFile(@RequestParam Integer idCD,
 			@RequestParam String fechaDesde, @RequestParam String fechaHasta, HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");

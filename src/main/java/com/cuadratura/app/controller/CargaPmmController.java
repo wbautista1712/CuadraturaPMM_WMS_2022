@@ -52,10 +52,10 @@ public class CargaPmmController {
 	}
 
 	@GetMapping("/exportFotoPmmExcel")
-	public void exportFotoPmmExcelFile(@RequestParam String idCD, @RequestParam String fechaDesde,
+	public void exportFotoPmmExcelFile(@RequestParam Integer idCD, @RequestParam String fechaDesde,
 			@RequestParam String fechaHasta, HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		String currentDateTime = dateFormatter.format(new Date());
 
 		String headerKey = "Content-Disposition";
@@ -63,6 +63,7 @@ public class CargaPmmController {
 		response.setHeader(headerKey, headerValue);
 
 		List<FotoPmmDto> listOfStudents = this.cargaPmmService.getAllFindFotoPmmExcel(idCD, fechaDesde, fechaHasta);
+		LOGGER.info("listOfStudents size " + listOfStudents.size());
 		ExcelGeneratorFotoPmm generator = new ExcelGeneratorFotoPmm(listOfStudents);
 
 		generator.generateExcelFile(response);
