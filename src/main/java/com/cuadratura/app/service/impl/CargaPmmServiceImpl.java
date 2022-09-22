@@ -34,9 +34,28 @@ public class CargaPmmServiceImpl extends GenericServiceImpl<CargaPmm, Integer> i
 	}
 
 	@Override
-	public List<FotoPmmDto> getAllFindFotoPmmExcel(String idCentroDistribucion, String fechaDesde, String fechaHasta) {
+	public List<FotoPmmDto> getAllFindFotoPmmExcel(Integer idCentroDistribucion, String fechaDesde, String fechaHasta) {
 		LOGGER.info("get getAllFindFotoPmm");
-		return cargaPmmRepository.getAllFindFotoPmmExcel(idCentroDistribucion, fechaDesde, fechaHasta);
+		List<FotoPmmDto> listaClasificadores = new ArrayList<FotoPmmDto>();
+		List<Object[]> lista = cargaPmmRepository.getExportFotoPmm(idCentroDistribucion, fechaDesde, fechaHasta);
+		FotoPmmDto fotoWms;
+		for (Object[] filaObj : lista) {
+			fotoWms = new FotoPmmDto();
+
+			fotoWms.setIdCarga_Pmm(filaObj[0] == null ? 0 : (Integer) filaObj[0]);
+			fotoWms.setFecha_Foto(filaObj[1] == null ? "" : filaObj[1].toString());
+			fotoWms.setHora_Foto(filaObj[2] == null ? "" : filaObj[2].toString());
+			fotoWms.setFecha_Carga(filaObj[3] == null ? "" : filaObj[3].toString());
+			fotoWms.setHora_Carga(filaObj[4] == null ? "" : filaObj[4].toString());
+			fotoWms.setRegistros(filaObj[5] == null ? 0 : (Integer) filaObj[5]);
+			fotoWms.setUsuario(filaObj[6] == null ? "" : filaObj[6].toString());
+			fotoWms.setNombre_Archivo(filaObj[7] == null ? "" : filaObj[7].toString());
+			fotoWms.setEstado(filaObj[8] == null ? "" : filaObj[8].toString());
+
+			listaClasificadores.add(fotoWms);
+
+		}
+		return listaClasificadores;
 	}
 
 	@Override

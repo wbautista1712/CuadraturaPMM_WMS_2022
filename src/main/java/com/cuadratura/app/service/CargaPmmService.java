@@ -8,7 +8,7 @@ import com.cuadratura.app.oracle.dto.FotoPmmDto;
 public interface CargaPmmService  extends GenericService<CargaPmm, Integer> {
 	public Long saveCargaPmm(CargaPmm cargaPmm);
 	
-	public List<FotoPmmDto> getAllFindFotoPmmExcel(String idCentroDistribucion, String fechaDesde, String fechaHasta);
+	public List<FotoPmmDto> getAllFindFotoPmmExcel(Integer idCentroDistribucion, String fechaDesde, String fechaHasta);
 	
 	public List<FotoPmmDto> getAllFindFotoPmm(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end);
 	

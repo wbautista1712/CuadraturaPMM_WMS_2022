@@ -11,5 +11,8 @@ public interface CargaWmsRepositoryCustom {
 	public List<Object[]> getAllFindFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta , Integer start, Integer end);
 	
 	public Integer countFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception;
+	
+	
+	public List<Object[]> getExportFotoWms(Integer idCentroDistribucion, String fechaDesde, String fechaHasta);
 
 }
