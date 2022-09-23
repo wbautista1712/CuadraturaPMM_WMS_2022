@@ -29,13 +29,13 @@ public class AjustePmmWmsDto {
 	private Integer wmsBj;
 	private Integer difMermasBj;
 	private Integer bolsaDiscrepancia;
-	private String pmmEconomatoDisponible;
-	private String wmsEc;
-	private String difEconoDisponible;
-	private String pmmEconomatoBloqueado;
-	private String wmsEb;
-	private String difEconoBloqueado;
-	private String bolsaDiscrepanciaEcono;
+	private Integer pmmEconomatoDisponible;
+	private Integer wmsEc;
+	private Integer difEconoDisponible;
+	private Integer pmmEconomatoBloqueado;
+	private Integer wmsEb;
+	private Integer difEconoBloqueado;
+	private Integer bolsaDiscrepanciaEcono;
 	private String descMaterial;
 
 	public String getDescCD() {
@@ -262,59 +262,59 @@ public class AjustePmmWmsDto {
 		this.bolsaDiscrepancia = bolsaDiscrepancia;
 	}
 
-	public String getPmmEconomatoDisponible() {
+	public Integer getPmmEconomatoDisponible() {
 		return pmmEconomatoDisponible;
 	}
 
-	public void setPmmEconomatoDisponible(String pmmEconomatoDisponible) {
+	public void setPmmEconomatoDisponible(Integer pmmEconomatoDisponible) {
 		this.pmmEconomatoDisponible = pmmEconomatoDisponible;
 	}
 
-	public String getWmsEc() {
+	public Integer getWmsEc() {
 		return wmsEc;
 	}
 
-	public void setWmsEc(String wmsEc) {
+	public void setWmsEc(Integer wmsEc) {
 		this.wmsEc = wmsEc;
 	}
 
-	public String getDifEconoDisponible() {
+	public Integer getDifEconoDisponible() {
 		return difEconoDisponible;
 	}
 
-	public void setDifEconoDisponible(String difEconoDisponible) {
+	public void setDifEconoDisponible(Integer difEconoDisponible) {
 		this.difEconoDisponible = difEconoDisponible;
 	}
 
-	public String getPmmEconomatoBloqueado() {
+	public Integer getPmmEconomatoBloqueado() {
 		return pmmEconomatoBloqueado;
 	}
 
-	public void setPmmEconomatoBloqueado(String pmmEconomatoBloqueado) {
+	public void setPmmEconomatoBloqueado(Integer pmmEconomatoBloqueado) {
 		this.pmmEconomatoBloqueado = pmmEconomatoBloqueado;
 	}
 
-	public String getWmsEb() {
+	public Integer getWmsEb() {
 		return wmsEb;
 	}
 
-	public void setWmsEb(String wmsEb) {
+	public void setWmsEb(Integer wmsEb) {
 		this.wmsEb = wmsEb;
 	}
 
-	public String getDifEconoBloqueado() {
+	public Integer getDifEconoBloqueado() {
 		return difEconoBloqueado;
 	}
 
-	public void setDifEconoBloqueado(String difEconoBloqueado) {
+	public void setDifEconoBloqueado(Integer difEconoBloqueado) {
 		this.difEconoBloqueado = difEconoBloqueado;
 	}
 
-	public String getBolsaDiscrepanciaEcono() {
+	public Integer getBolsaDiscrepanciaEcono() {
 		return bolsaDiscrepanciaEcono;
 	}
 
-	public void setBolsaDiscrepanciaEcono(String bolsaDiscrepanciaEcono) {
+	public void setBolsaDiscrepanciaEcono(Integer bolsaDiscrepanciaEcono) {
 		this.bolsaDiscrepanciaEcono = bolsaDiscrepanciaEcono;
 	}
 }

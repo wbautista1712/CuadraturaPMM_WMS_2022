@@ -325,32 +325,32 @@ public class CrucePmmWmsServiceImpl extends GenericServiceImpl<CrucePmmWms, Inte
 
 					if (jsonarr.getJSONObject(i).has("pmm_economato_disponible")) {
 						ajustePmmWmsDto.setPmmEconomatoDisponible(
-								jsonarr.getJSONObject(i).getString("pmm_economato_disponible").toString());
+								jsonarr.getJSONObject(i).getInt("pmm_economato_disponible"));
 					}
 
 					if (jsonarr.getJSONObject(i).has("wms_ec")) {
-						ajustePmmWmsDto.setWmsEc(jsonarr.getJSONObject(i).getString("wms_ec").toString());
+						ajustePmmWmsDto.setWmsEc(jsonarr.getJSONObject(i).getInt("wms_ec"));
 					}
 					if (jsonarr.getJSONObject(i).has("dif_econo_disponible")) {
 						ajustePmmWmsDto.setDifEconoDisponible(
-								jsonarr.getJSONObject(i).getString("dif_econo_disponible").toString());
+								jsonarr.getJSONObject(i).getInt("dif_econo_disponible"));
 					}
 
 					if (jsonarr.getJSONObject(i).has("pmm_economato_bloqueado")) {
 						ajustePmmWmsDto.setPmmEconomatoBloqueado(
-								jsonarr.getJSONObject(i).getString("pmm_economato_bloqueado").toString());
+								jsonarr.getJSONObject(i).getInt("pmm_economato_bloqueado"));
 					}
 
 					if (jsonarr.getJSONObject(i).has("wms_eb")) {
-						ajustePmmWmsDto.setWmsEb(jsonarr.getJSONObject(i).getString("wms_eb").toString());
+						ajustePmmWmsDto.setWmsEb(jsonarr.getJSONObject(i).getInt("wms_eb"));
 					}
 					if (jsonarr.getJSONObject(i).has("dif_econo_bloqueado")) {
 						ajustePmmWmsDto.setDifEconoBloqueado(
-								jsonarr.getJSONObject(i).getString("dif_econo_bloqueado").toString());
+								jsonarr.getJSONObject(i).getInt("dif_econo_bloqueado"));
 					}
 					if (jsonarr.getJSONObject(i).has("bolsa_discrepancia_econo")) {
 						ajustePmmWmsDto.setBolsaDiscrepanciaEcono(
-								jsonarr.getJSONObject(i).getString("bolsa_discrepancia_econo").toString());
+								jsonarr.getJSONObject(i).getInt("bolsa_discrepancia_econo"));
 					}
 				}
 
