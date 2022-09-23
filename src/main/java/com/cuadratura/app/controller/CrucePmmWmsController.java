@@ -141,14 +141,14 @@ public class CrucePmmWmsController {
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
 
-			LOGGER.info("pruebita si cae " + jsonData);
+			LOGGER.info("pruebita si cae 1" + jsonData);
 			
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
 			AjustePmmWms ajustePmmWms  = new AjustePmmWms();
 			// List<CrucePmmWmsDto> result =
 			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
 			// rows);
-			LOGGER.info("pruebita si cae " + ajustePmmWms);
+			LOGGER.info("pruebita si cae 2" + ajustePmmWms);
 			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {
 			});
 			LOGGER.info("nextAjusteBolsaDiscrepancia " + registroJsonList.size());
