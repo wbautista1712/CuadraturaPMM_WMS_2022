@@ -70,13 +70,13 @@ public class TblPmmController {
 		for (Fapinvbalee obj : listaTblPmmForm) {
 			LOGGER.info(".::: insert sobj.getDisponiblesWms():::. " + obj.getCurrCode());
 			tblPmm = new TblPmm();
-			tblPmm.setCurrCode(obj.getCurrCode());
+			tblPmm.setCurrCode(obj.getCurrCode().trim());
 			tblPmm.setFirstPisDate(obj.getFirstPisDate());
 			tblPmm.setFirstSalesDate(obj.getFirstSalesDate());
 			tblPmm.setFirstShippedDate(obj.getFirstShippedDate());
 
 			tblPmm.setIdCargaPMM(id);
-			tblPmm.setInvTypeCode(obj.getFapinvbaleePK().getInvTypeCode());
+			tblPmm.setInvTypeCode(obj.getFapinvbaleePK().getInvTypeCode().trim());
 
 			tblPmm.setLastChgDate(obj.getLastChgDate());
 			tblPmm.setLastPisDate(obj.getLastPisDate());
@@ -111,7 +111,7 @@ public class TblPmmController {
 			// tblPmm.setPrdLvlChild(obj.getPrdLvlChild());
 			tblPmm.setPrdLvlChild((int) (long) (obj.getFapinvbaleePK().getPrdLvlChild()));
 
-			tblPmm.setPrdSllUom(obj.getPrdSllUom());
+			tblPmm.setPrdSllUom(obj.getPrdSllUom().trim());
 			tblPmm.setToIntrnCost(obj.getToIntrnCost());
 			tblPmm.setToIntrnCostHm(obj.getToIntrnCostHm());
 			tblPmm.setToIntrnQty(obj.getToIntrnQty());
@@ -125,10 +125,10 @@ public class TblPmmController {
 			tblPmm.setToOrdWeight(obj.getToOrdWeight());
 
 			// tblPmm.setTransLote(obj.getTransLote());
-			tblPmm.setTransLote(obj.getFapinvbaleePK().getTransLote());
+			tblPmm.setTransLote(obj.getFapinvbaleePK().getTransLote().trim());
 
 			tblPmm.setTransVctoLote(obj.getTransVctoLote());
-			tblPmm.setWeightUom(obj.getWeightUom());
+			tblPmm.setWeightUom(obj.getWeightUom().trim());
 
 			tblPmmService.save(tblPmm);
 
