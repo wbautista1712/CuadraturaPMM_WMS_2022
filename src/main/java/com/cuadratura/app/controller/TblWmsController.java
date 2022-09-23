@@ -76,25 +76,25 @@ public class TblWmsController {
 
 
 				tblWms.setNroCarga(obj.getNroCarga().intValue());
-				tblWms.setCreateDate(obj.getCreateDate());
-				tblWms.setFacilityCode(obj.getFacilityCode());
-				tblWms.setCompanyCode(obj.getCompanyCode());
+				tblWms.setCreateDate(obj.getCreateDate().trim());
+				tblWms.setFacilityCode(obj.getFacilityCode().trim());
+				tblWms.setCompanyCode(obj.getCompanyCode().trim());
 
-				tblWms.setItemPartA(obj.getItemPartA());
-				tblWms.setItemPartB(obj.getItemPartB());
-				tblWms.setItemPartC(obj.getItemPartC());
-				tblWms.setItemPartD(obj.getItemPartD());
-				tblWms.setItemPartE(obj.getItemPartE());
-				tblWms.setItemPartF(obj.getItemPartF());
+				tblWms.setItemPartA(obj.getItemPartA().trim());
+				tblWms.setItemPartB(obj.getItemPartB().trim());
+				tblWms.setItemPartC(obj.getItemPartC().trim());
+				tblWms.setItemPartD(obj.getItemPartD().trim());
+				tblWms.setItemPartE(obj.getItemPartE().trim());
+				tblWms.setItemPartF(obj.getItemPartF().trim());
 
-				tblWms.setHierarchy1Code(obj.getHierarchy1Code());
-				tblWms.setHierarchy2Code(obj.getHierarchy2Code());
-				tblWms.setHierarchy3Code(obj.getHierarchy3Code());
-				tblWms.setHierarchy4Code(obj.getHierarchy4Code());
-				tblWms.setHierarchy5Code(obj.getHierarchy5Code());
+				tblWms.setHierarchy1Code(obj.getHierarchy1Code().trim());
+				tblWms.setHierarchy2Code(obj.getHierarchy2Code().trim());
+				tblWms.setHierarchy3Code(obj.getHierarchy3Code().trim());
+				tblWms.setHierarchy4Code(obj.getHierarchy4Code().trim());
+				tblWms.setHierarchy5Code(obj.getHierarchy5Code().trim());
 
-				tblWms.setBatchNbr(obj.getBatchNbr());
-				tblWms.setPrePackCode(obj.getPrePackCode());
+				tblWms.setBatchNbr(obj.getBatchNbr().trim());
+				tblWms.setPrePackCode(obj.getPrePackCode().trim());
 				tblWms.setPrePackRatio(obj.getPrePackRatio());
 				tblWms.setPrePackUnits(obj.getPrePackUnits());
 
@@ -121,39 +121,39 @@ public class TblWmsController {
 				tblWms.setFourWallInventory(obj.getFourWallInventory());
 				tblWms.setOpenOrderQty(obj.getOpenOrderQty());
 
-				tblWms.setLockCode1(obj.getLockCode1());
+				tblWms.setLockCode1(obj.getLockCode1().trim());
 				tblWms.setLockCodeQty1(obj.getLockCodeQty1());
 
-				tblWms.setLockCode2(obj.getLockCode2());
+				tblWms.setLockCode2(obj.getLockCode2().trim());
 				tblWms.setLockCodeQty2(obj.getLockCodeQty2());
 
-				tblWms.setLockCode3(obj.getLockCode3());
+				tblWms.setLockCode3(obj.getLockCode3().trim());
 				tblWms.setLockCodeQty3(obj.getLockCodeQty3());
 
-				tblWms.setLockCode4(obj.getLockCode4());
+				tblWms.setLockCode4(obj.getLockCode4().trim());
 				tblWms.setLockCodeQty4(obj.getLockCodeQty4());
 
-				tblWms.setLockCode5(obj.getLockCode5());
+				tblWms.setLockCode5(obj.getLockCode5().trim());
 				tblWms.setLockCodeQty5(obj.getLockCodeQty5());
 
-				tblWms.setLockCode6(obj.getLockCode6());
+				tblWms.setLockCode6(obj.getLockCode6().trim());
 				tblWms.setLockCodeQty6(obj.getLockCodeQty6());
 
-				tblWms.setLockCode7(obj.getLockCode7());
+				tblWms.setLockCode7(obj.getLockCode7().trim());
 				tblWms.setLockCodeQty7(obj.getLockCodeQty7());
 
-				tblWms.setLockCode8(obj.getLockCode8());
+				tblWms.setLockCode8(obj.getLockCode8().trim());
 				tblWms.setLockCodeQty8(obj.getLockCodeQty8());
 
-				tblWms.setLockCode9(obj.getLockCode9());
+				tblWms.setLockCode9(obj.getLockCode9().trim());
 				tblWms.setLockCodeQty9(obj.getLockCodeQty9());
 
-				tblWms.setLockCode10(obj.getLockCode10());
+				tblWms.setLockCode10(obj.getLockCode10().trim());
 				tblWms.setLockCodeQty10(obj.getLockCodeQty10());
 
 				tblWms.setDownloadDate1(obj.getDownloadDate1());
 				tblWms.setErrorCode(obj.getErrorCode());
-				tblWms.setObservacionError(obj.getObservacionError());
+				tblWms.setObservacionError(obj.getObservacionError().trim());
 				tblWms.setFlgTipo(obj.getFlgTipo().intValue());
 
 				tblWmsService.save(tblWms);
