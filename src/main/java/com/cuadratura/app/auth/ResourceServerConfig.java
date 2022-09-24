@@ -32,8 +32,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
+		
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+		
+		String origins[] = new String[] { "http://localhost:3000", "https://dev-pmm-monitor-cuadratura.solucionestifps.com" };		
+		config.setAllowedOrigins(Arrays.asList(origins));
+		
+		//config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
 		//config.setAllowedOrigins(Arrays.asList("https://dev-pmm-monitor-cuadratura.solucionestifps.com"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);

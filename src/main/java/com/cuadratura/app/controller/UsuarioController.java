@@ -1,10 +1,15 @@
 package com.cuadratura.app.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,9 +36,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.Usuario;
 import com.cuadratura.app.mysql.entity.UsuarioRol;
+import com.cuadratura.app.oracle.dto.FotoWmsDto;
 import com.cuadratura.app.oracle.dto.UsuarioDto;
 import com.cuadratura.app.service.UsuarioRolService;
 import com.cuadratura.app.service.UsuarioService;
+import com.cuadratura.app.util.ExcelGeneratorFotoWms;
 
 @RestController
 @RequestMapping("/api/seguridad")
@@ -189,5 +196,24 @@ public class UsuarioController {
 		 List<UsuarioDto>  list =	this.usuarioService.getUsuarioRol();
 		 return new ResponseEntity<List<UsuarioDto> >(list, HttpStatus.OK);
 	
+	}
+	
+	@GetMapping("/exportUsuarioExcel")
+	public void exportUsuarioExcelFile(HttpServletResponse response) throws IOException {
+		response.setContentType("application/octet-stream");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=FotoWms" + currentDateTime + ".xlsx";
+		response.setHeader(headerKey, headerValue);
+
+		
+		List<UsuarioDto>  listUsuario =	this.usuarioService.getUsuarioRol();
+		LOGGER.info("TAMAÑO LISTA RETORNO "+listUsuario.size());
+		
+		// ExcelGeneratorFotoWms generator = new ExcelGeneradorUsuario(listUsuario);
+		// generator.generateExcelFile(response);
 	}
 }
