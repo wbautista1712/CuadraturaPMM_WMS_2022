@@ -235,8 +235,7 @@ public class CrucePmmWmsController {
 				}else { 
 					LOGGER.info("is null " );
 					cuadraturaTransfer.setTransVctoLote(null);
-				}
-				
+				}				
 			
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
 				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
