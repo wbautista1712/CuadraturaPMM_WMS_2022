@@ -53,8 +53,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				+ "     trans_inners                 , " + "    trans_lote                  , "
 				+ "     trans_vcto_lote             "
 				+ "       ) values ( CUADRATURAWYP.CUADRATURA_TRANSFER_seq.nextval,? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
-		
-		
+
 		LOGGER.info(" saveCuadraturaTransfer fin getTransSession " + cuadraturaTransfer.getTransSession());
 		LOGGER.info(" saveCuadraturaTransfer fin getTransUser " + cuadraturaTransfer.getTransUser());
 		LOGGER.info(" saveCuadraturaTransfer fin getTransBatchDate " + cuadraturaTransfer.getTransBatchDate());
@@ -94,12 +93,11 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 
 				cuadraturaTransfer.getTransVctoLote());
 
-
 	}
 
 	public void spCuadraturaTransfer(int idSesion) throws SQLException {
-		LOGGER.info("idSesion "+ idSesion);
-		
+		LOGGER.info("idSesion " + idSesion);
+
 		DataSource ds = jdbcTemplate.getDataSource();
 		Connection conn = null;
 		CallableStatement csmt = null;
