@@ -25,10 +25,11 @@ public class PrdpcdeeServiceImpl extends GenericServiceImpl<Prdpcdee, Long> impl
 		return prdpcdeeRepository;
 	}
 	@Override
-	public Prdpcdee findPrdpcdee(String numeroProd) {
+	public long findPrdpcdee(String numeroProd) {
 		// TODO Auto-generated method stub
-		Prdpcdee lista = prdpcdeeRepository.findPrdpcdee(numeroProd);
-		LOGGER.info("get getInnerPackId " + lista.getInnerPackId());
+		long lista = prdpcdeeRepository.findPrdpcdee(numeroProd);
+		LOGGER.info("get oooo " );
+		LOGGER.info("get getInnerPackId " + lista);
 		
 		return lista;
 	}

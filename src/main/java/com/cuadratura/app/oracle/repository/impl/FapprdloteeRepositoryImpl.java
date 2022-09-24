@@ -1,45 +1,65 @@
 package com.cuadratura.app.oracle.repository.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.jpa.QueryHints;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.cuadratura.app.oracle.entity.Fapprdlotee;
 import com.cuadratura.app.oracle.repository.FapprdloteeRepositoryCustom;
+import com.cuadratura.app.util.Constantes;
 
 @Repository
 @Transactional
 public class FapprdloteeRepositoryImpl implements FapprdloteeRepositoryCustom {
 	private static final Logger LOGGER = LogManager.getLogger(FapprdloteeRepositoryImpl.class);
 
+	@Autowired
+	@Qualifier("jdbctemplateOne")
+	private JdbcTemplate jdbcTemplate;
 
+	@Override
+	public String findFapprdlotee(Integer cd, String numeroLote) throws SQLException {
+		LOGGER.info("cd " + cd);
+		LOGGER.info("numeroLote " + numeroLote);
 
-	@PersistenceContext(unitName = "jpa_oracle")
-	private EntityManager em;
-
-	@Override	
-	public Fapprdlotee findFapprdlotee(Integer cd, String numeroLote) {
-		LOGGER.info("cd " +cd);
-		LOGGER.info("numeroLote " +numeroLote);
+		DataSource ds = jdbcTemplate.getDataSource();
+		Connection conn = null;
+		CallableStatement csmt = null;
 		// TODO Auto-generated method stub
-		String sql = "SELECT * "
-				+ "  FROM pmm.fapprdlotee x "
-				+ " WHERE x.prd_lvl_child = :cd AND x.prd_nlote = :numeroLote ";		
-	
-		Query query = this.em.createNativeQuery(sql, Fapprdlotee.class);
-	query.setParameter("cd", cd);
-		query.setParameter("numeroLote", numeroLote);
+		LOGGER.info(this.getClass().getName() + "." + new Exception().getStackTrace()[0].getMethodName());
 
-	
-	
-		query.setHint(QueryHints.HINT_CACHEABLE, true);
-		return (Fapprdlotee) query.getSingleResult();
+		String resultado = "";
+		try {
+			conn = ds.getConnection();
+			csmt = conn.prepareCall("{? = call cuadraturawyp.pkg_cuadratura.get_lote_fecha_vcto(?,?)}");
+			csmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+			csmt.setInt(2, cd);
+			csmt.setString(3, numeroLote);
+
+			csmt.execute();
+			resultado = csmt.getString(1);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			LOGGER.error("Error: ", ex);
+			resultado = Constantes.MENSAJE_ERROR_STORE_FUNCTION;
+		} finally {
+			if (csmt != null) {
+				csmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return resultado;
 	}
 
 }

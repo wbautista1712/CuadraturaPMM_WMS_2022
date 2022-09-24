@@ -1,7 +1,7 @@
 package com.cuadratura.app.oracle.repository;
 
-import com.cuadratura.app.oracle.entity.Fapprdlotee;
+import java.sql.SQLException;
 
 public interface FapprdloteeRepositoryCustom {
-	public Fapprdlotee findFapprdlotee(Integer cd, String numeroLote);
+	public String findFapprdlotee(Integer cd, String numeroLote) throws SQLException;
 }

@@ -53,6 +53,31 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				+ "     trans_inners                 , " + "    trans_lote                  , "
 				+ "     trans_vcto_lote             "
 				+ "       ) values ( CUADRATURAWYP.CUADRATURA_TRANSFER_seq.nextval,? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
+		
+		
+		LOGGER.info(" saveCuadraturaTransfer fin getTransSession " + cuadraturaTransfer.getTransSession());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransUser " + cuadraturaTransfer.getTransUser());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransBatchDate " + cuadraturaTransfer.getTransBatchDate());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransSource " + cuadraturaTransfer.getTransSource());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransAudited " + cuadraturaTransfer.getTransAudited());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransSequence " + cuadraturaTransfer.getTransSequence());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransTrnCode " + cuadraturaTransfer.getTransTrnCode());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransTypeCode " + cuadraturaTransfer.getTransTypeCode());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransDate " + cuadraturaTransfer.getTransDate());
+		LOGGER.info(" saveCuadraturaTransfer fin getInvMrptCode " + cuadraturaTransfer.getInvMrptCode());
+		LOGGER.info(" saveCuadraturaTransfer fin getInvDrptCode " + cuadraturaTransfer.getInvDrptCode());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransCurrCode " + cuadraturaTransfer.getTransCurrCode());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransOrgLvlNumber " + cuadraturaTransfer.getTransOrgLvlNumber());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransPrdLvlNumber " + cuadraturaTransfer.getTransPrdLvlNumber());
+		LOGGER.info(" saveCuadraturaTransfer fin getProcSource " + cuadraturaTransfer.getProcSource());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransQty " + cuadraturaTransfer.getTransQty());
+		LOGGER.info(" saveCuadraturaTransfer fin getInnerPackId " + cuadraturaTransfer.getInnerPackId());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransInners " + cuadraturaTransfer.getTransInners());
+		LOGGER.info(" saveCuadraturaTransfer fin getTransLote " + cuadraturaTransfer.getTransLote());
+
+		LOGGER.info(" saveCuadraturaTransfer fin getTransVctoLote " + cuadraturaTransfer.getTransVctoLote());
+
+		LOGGER.info(" saveCuadraturaTransfer fin INSERT_QUERY " + INSERT_QUERY);
 
 		jdbcTemplate.update(INSERT_QUERY,
 
@@ -69,9 +94,9 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 
 				cuadraturaTransfer.getTransVctoLote());
 
-		LOGGER.info("fin ");
+
 	}
-	
+
 	public void spCuadraturaTransfer(int idSesion) throws SQLException {
 		// String sqlQuery=" call cuadratura.sp_actualizarEstado_WMS_PMM_Total
 		// pidCruce_pmm_wms=?, idEstado=? ";
@@ -79,13 +104,11 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 		Connection conn = null;
 		CallableStatement csmt = null;
 
-	
 		try {
 			conn = ds.getConnection();
 			csmt = conn.prepareCall("{call cuadraturawyp.pr_cuadratura_transfer(?)}");
 
 			csmt.setInt(1, idSesion);
-		
 
 			csmt.execute();
 
