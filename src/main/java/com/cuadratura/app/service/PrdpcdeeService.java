@@ -1,7 +1,7 @@
 package com.cuadratura.app.service;
 
-import com.cuadratura.app.oracle.entity.Prdpcdee;
+import java.sql.SQLException;
 
 public interface PrdpcdeeService {
-	public long findPrdpcdee(String numeroProd) ;
+	public Integer findPrdpcdee(String numeroProd) throws SQLException;
 }

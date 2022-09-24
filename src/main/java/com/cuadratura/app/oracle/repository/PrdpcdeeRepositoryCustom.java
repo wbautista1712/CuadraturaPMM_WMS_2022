@@ -1,8 +1,7 @@
 package com.cuadratura.app.oracle.repository;
 
-import com.cuadratura.app.oracle.entity.Fapprdlotee;
-import com.cuadratura.app.oracle.entity.Prdpcdee;
+import java.sql.SQLException;
 
 public interface PrdpcdeeRepositoryCustom {
-	public Long  findPrdpcdee(String numeroProd) ;
+	public Integer  findPrdpcdee(String numeroProd)  throws SQLException  ;
 }

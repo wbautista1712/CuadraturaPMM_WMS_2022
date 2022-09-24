@@ -1,5 +1,7 @@
 package com.cuadratura.app.service.impl;
 
+import java.sql.SQLException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,9 @@ public class PrdpcdeeServiceImpl extends GenericServiceImpl<Prdpcdee, Long> impl
 		return prdpcdeeRepository;
 	}
 	@Override
-	public long findPrdpcdee(String numeroProd) {
+	public Integer findPrdpcdee(String numeroProd)throws SQLException {
 		// TODO Auto-generated method stub
-		long lista = prdpcdeeRepository.findPrdpcdee(numeroProd);
+		Integer lista = prdpcdeeRepository.findPrdpcdee(numeroProd);
 		LOGGER.info("get oooo " );
 		LOGGER.info("get getInnerPackId " + lista);
 		

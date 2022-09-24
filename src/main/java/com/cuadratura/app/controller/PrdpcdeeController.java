@@ -1,5 +1,7 @@
 package com.cuadratura.app.controller;
 
+import java.sql.SQLException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class PrdpcdeeController {
 	private PrdpcdeeService prdpcdeeService;
 	
 	@GetMapping(value = "/obtenerPrdpcdee")
-	public ResponseEntity<Long> obtenerPrdpcdee(String codigoMaterial) {
+	public ResponseEntity<Integer> obtenerPrdpcdee(String codigoMaterial) throws SQLException{
 		LOGGER.info("obtenerPrdpcdee");
 		return ResponseEntity.ok().body(prdpcdeeService.findPrdpcdee("143540"));
 	}
