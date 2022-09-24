@@ -54,12 +54,6 @@ public class AjusteComentarioController {
 		 * ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));
 		 */
 
-		/*
-		 * return Optional.ofNullable(ajusteComentarioService.findByIdAjusteComentario(
-		 * idAjusteComentario)) .map(result -> new
-		 * ResponseEntity<AjusteComentario>(result, HttpStatus.FOUND)) .orElseGet(() ->
-		 * new ResponseEntity<AjusteComentario>(HttpStatus.NOT_FOUND));
-		 */
 
 		Optional<AjusteComentario> tutorialData = this.ajusteComentarioService.findByIdAjusteComentario(idAjusteComentario);
 
