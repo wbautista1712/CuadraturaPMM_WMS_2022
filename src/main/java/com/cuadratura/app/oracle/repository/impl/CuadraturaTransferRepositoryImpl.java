@@ -98,15 +98,15 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 	}
 
 	public void spCuadraturaTransfer(int idSesion) throws SQLException {
-		// String sqlQuery=" call cuadratura.sp_actualizarEstado_WMS_PMM_Total
-		// pidCruce_pmm_wms=?, idEstado=? ";
+		LOGGER.info("idSesion "+ idSesion);
+		
 		DataSource ds = jdbcTemplate.getDataSource();
 		Connection conn = null;
 		CallableStatement csmt = null;
 
 		try {
 			conn = ds.getConnection();
-			csmt = conn.prepareCall("{call cuadraturawyp.pr_cuadratura_transfer(?)}");
+			csmt = conn.prepareCall("{call cuadraturawyp.pkg_cuadratura.pr_cuadratura_transfer(?)}");
 
 			csmt.setInt(1, idSesion);
 
