@@ -1,6 +1,8 @@
 package com.cuadratura.app.controller;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -44,10 +46,12 @@ public class AjustePmmWmsController {
 	@GetMapping(value = "/procesarAjusteSDI")
 	public ResponseEntity<String> procesarAjusteSDI() {
 		LOGGER.info("procesarAjusteSDI " );
+		
+		 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			CuadraturaTransfer cuadraturaTransfer = null;
-			Fapprdlotee fapprdlotee = null;
-			Prdpcdee prdpcdee = null;
+			String fapprdlotee = null;
+			long prdpcdee ;
 			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();
 			LOGGER.info("result " + result.size());
 			Long idSesion = cuadraturaTransferService.getSequence();
@@ -77,13 +81,14 @@ public class AjustePmmWmsController {
 				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty() + ""));// valor absoluto
 
 				prdpcdee = prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
-				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId()));// usar consulta oracle																					
+				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee));// usar consulta oracle																					
 
 				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
 
-				fapprdlotee = fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());																												
-				cuadraturaTransfer.setTransVctoLote(fapprdlotee.getLotFechaVcto());
+				fapprdlotee = fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());	
+				Date date = formatter.parse(fapprdlotee);
+				cuadraturaTransfer.setTransVctoLote(date);
 
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
 				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());

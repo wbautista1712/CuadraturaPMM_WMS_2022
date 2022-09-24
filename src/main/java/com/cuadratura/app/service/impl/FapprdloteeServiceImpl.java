@@ -27,13 +27,13 @@ public class FapprdloteeServiceImpl extends GenericServiceImpl<Fapprdlotee, Fapp
 	}
 
 	@Override
-	public Fapprdlotee findFapprdlotee(Integer cd, String numeroLote)  throws Exception {
+	public String findFapprdlotee(Integer cd, String numeroLote)  throws Exception {
 		// TODO Auto-generated method stub
 		
 		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		//List<Fapprdlotee> listaClasificadores = new ArrayList<Fapprdlotee>();
-		Fapprdlotee lista = fapprdloteeRepository.findFapprdlotee(cd, numeroLote);
-		LOGGER.info("get getLotFechaVcto " + lista.getLotFechaVcto());
+		String lista = fapprdloteeRepository.findFapprdlotee(cd, numeroLote);
+		LOGGER.info("get getLotFechaVcto " + lista);
 		/*Fapprdlotee fotoWms;
 		FapprdloteePK id;
 		Date date  = null;

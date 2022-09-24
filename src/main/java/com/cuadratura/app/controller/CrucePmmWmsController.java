@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -83,6 +84,8 @@ public class CrucePmmWmsController {
 
 			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
 
+			LOGGER.info("id==... " + id);
+			
 			this.tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
 
 			this.crucePmmWmsService.spActualizarEstadoWMSPMMTotal(id, Constantes.ESTADO_CUADRATURA_PROCESO);
@@ -139,9 +142,10 @@ public class CrucePmmWmsController {
 	public ResponseEntity<String> nextAjusteBolsaDiscrepancia(@RequestBody String jsonData) {
 		ObjectMapper om = new ObjectMapper();
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		  SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 
-			LOGGER.info("pruebita si cae 1" + jsonData);
+			LOGGER.info("pruebita si cae 1 " + jsonData);
 			
 			LOGGER.info("nextAjusteBolsaDiscrepancia");
 			AjustePmmWms ajustePmmWms  = new AjustePmmWms();
@@ -185,8 +189,8 @@ public class CrucePmmWmsController {
 			/*inicio invoca a procesar procesarAjusteSDI*/
 			
 			CuadraturaTransfer cuadraturaTransfer = null;
-			Fapprdlotee fapprdlotee = null;
-			Prdpcdee prdpcdee = null;
+			String fapprdlotee = null;
+			long prdpcdee ;
 			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();
 			LOGGER.info("result procesarAjusteSDI " + result.size());
 			Long idSesion = cuadraturaTransferService.getSequence();
@@ -194,7 +198,7 @@ public class CrucePmmWmsController {
 			int i =1;
 			for (SpBolsaSdiDto objeto : result) {
 				cuadraturaTransfer = new CuadraturaTransfer();
-
+				LOGGER.info("11111111111111111111 " );
 				cuadraturaTransfer.setTransSession(BigInteger.valueOf((idSesion))); //pk
 				cuadraturaTransfer.setTransUser(objeto.getTransUser());// arreglar
 				cuadraturaTransfer.setTransBatchDate(objeto.getTransBatchDate());
@@ -203,7 +207,7 @@ public class CrucePmmWmsController {
 				cuadraturaTransfer.setTransSequence(new BigInteger( i +""));// pk //objeto.getTransSequence()
 				cuadraturaTransfer.setTransTrnCode(objeto.getTransTrnCode());
 				cuadraturaTransfer.setTransTypeCode(objeto.getTransTypeCode());
-
+				LOGGER.info("2222222222222222 " );
 				cuadraturaTransfer.setTransDate(objeto.getTransDate());
 				cuadraturaTransfer.setInvMrptCode(objeto.getInvMrptCode());
 				cuadraturaTransfer.setInvDrptCode(objeto.getInvDrptCode());
@@ -214,23 +218,32 @@ public class CrucePmmWmsController {
 
 				cuadraturaTransfer.setProcSource(objeto.getProcSource());
 				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty() + ""));// valor absoluto
-
+				LOGGER.info("3333333333333333 " );
 				prdpcdee = prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
-				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee.getInnerPackId()));// usar consulta oracle																					
-
+				LOGGER.info("3333333333333333 prdpcdee "+prdpcdee );
+				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee));// usar consulta oracle																					
+				LOGGER.info("444444444444444 " );
 				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
 
-				fapprdlotee = fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());																												
-				cuadraturaTransfer.setTransVctoLote(fapprdlotee.getLotFechaVcto());
-
+				fapprdlotee = fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());	
+				LOGGER.info("55555555555555555 "+fapprdlotee );
+				if (fapprdlotee!= null) {
+					LOGGER.info("55555555555555555xxxx "+fapprdlotee );
+					Date date = formatter.parse(fapprdlotee);
+					cuadraturaTransfer.setTransVctoLote(date);
+				}else { 
+					LOGGER.info("is null " );
+					cuadraturaTransfer.setTransVctoLote(null);
+				}				
+			
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
 				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
 				i=i+1;
 			}
-
+			LOGGER.info("por aqui paso " );
 			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
-			 
+			LOGGER.info("por aqui paso fin " );
 			/*fin invoca a procesar procesarAjusteSDI*/			
 
 			return new ResponseEntity<String>("Procesamiento Correcto.", HttpStatus.OK);

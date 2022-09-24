@@ -13,4 +13,6 @@ public interface Constantes {
 	public static final Integer ESTADO_CUADRATURA_CERRADO = 4;
 	
 	public static final Boolean ESTADO_INACTIVO = false;
+	
+	public static final String MENSAJE_ERROR_STORE_FUNCTION = "ERROR";
 }
