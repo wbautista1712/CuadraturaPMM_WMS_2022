@@ -2,6 +2,7 @@ package com.cuadratura.app.auth;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,9 @@ import org.springframework.web.filter.CorsFilter;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+	@Value("${url_cuadratura}")
+    private String url;
+	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/clientes", "/api/clientes/page/**", "/api/uploads/img/**", "/images/**").permitAll()
@@ -39,7 +43,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		// config.setAllowedOrigins(Arrays.asList(origins));
 		
 		//config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-		config.setAllowedOrigins(Arrays.asList("https://dev-pmm-monitor-cuadratura.solucionestifps.com"));
+		config.setAllowedOrigins(Arrays.asList(this.url));
 		//config.setAllowedOrigins(Arrays.asList("https://qas-pmm-monitor-cuadratura.solucionestifps.com"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);
