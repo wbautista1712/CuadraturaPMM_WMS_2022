@@ -35,7 +35,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		
 		CorsConfiguration config = new CorsConfiguration();
 		
-		String origins[] = new String[] { "http://localhost:3000", "https://dev-pmm-monitor-cuadratura.solucionestifps.com" };		
+		String origins[] = new String[] { "http://localhost:3000", "https://dev-pmm-monitor-cuadratura.solucionestifps.com", "https://qas-pmm-monitor-cuadratura.solucionestifps.com" };		
 		config.setAllowedOrigins(Arrays.asList(origins));
 		
 		//config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
