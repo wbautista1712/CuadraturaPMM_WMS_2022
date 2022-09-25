@@ -150,10 +150,13 @@ public class CrucePmmWmsController {
 			// List<CrucePmmWmsDto> result =
 			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
 			// rows);
+			
 			LOGGER.info("pruebita si cae 2" + ajustePmmWms);
-			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {
-			});
+			
+			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {});
+			
 			LOGGER.info("nextAjusteBolsaDiscrepancia " + registroJsonList.size());
+			
 			registroJsonList.stream().forEach(x -> {
 
 				// LOGGER.info(x.getIdTipoInventario());
