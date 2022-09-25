@@ -20,7 +20,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.repository.CargaWmsRepositoryCustom;
-import com.cuadratura.app.oracle.dto.FotoWmsDto;
 
 @Repository
 @Transactional

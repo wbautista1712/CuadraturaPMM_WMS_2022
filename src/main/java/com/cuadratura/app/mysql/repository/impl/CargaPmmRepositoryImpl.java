@@ -20,7 +20,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.repository.CargaPmmRepositoryCustom;
-import com.cuadratura.app.oracle.dto.FotoPmmDto;
 
 @Repository
 @Transactional
