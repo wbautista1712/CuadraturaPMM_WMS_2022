@@ -35,11 +35,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		
 		CorsConfiguration config = new CorsConfiguration();
 		
-		String origins[] = new String[] { "http://localhost:3000", "https://dev-pmm-monitor-cuadratura.solucionestifps.com", "https://qas-pmm-monitor-cuadratura.solucionestifps.com" };		
-		config.setAllowedOrigins(Arrays.asList(origins));
+		// String origins[] = new String[] { "http://localhost:3000", "https://dev-pmm-monitor-cuadratura.solucionestifps.com", "https://qas-pmm-monitor-cuadratura.solucionestifps.com" };		
+		// config.setAllowedOrigins(Arrays.asList(origins));
 		
 		//config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-		//config.setAllowedOrigins(Arrays.asList("https://dev-pmm-monitor-cuadratura.solucionestifps.com"));
+		config.setAllowedOrigins(Arrays.asList("https://dev-pmm-monitor-cuadratura.solucionestifps.com"));
+		//config.setAllowedOrigins(Arrays.asList("https://qas-pmm-monitor-cuadratura.solucionestifps.com"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(true);
 		config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
