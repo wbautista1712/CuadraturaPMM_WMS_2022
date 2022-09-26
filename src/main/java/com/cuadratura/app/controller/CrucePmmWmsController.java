@@ -33,6 +33,7 @@ import com.cuadratura.app.service.FapprdloteeService;
 import com.cuadratura.app.service.PrdpcdeeService;
 import com.cuadratura.app.service.TblPmmWmsService;
 import com.cuadratura.app.util.Constantes;
+import com.cuadratura.app.util.Message;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -137,10 +138,13 @@ public class CrucePmmWmsController {
 	}
 
 	@PostMapping(value = "/nextAjusteBolsaDiscrepancia")
-	public ResponseEntity<String> nextAjusteBolsaDiscrepancia(@RequestBody String jsonData) {
+	public ResponseEntity<Message> nextAjusteBolsaDiscrepancia(@RequestBody String jsonData) {
 		ObjectMapper om = new ObjectMapper();
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Message msg = new Message();
+		Integer codError = 0;// error
+		String rpta = "";
 		try {
 
 			LOGGER.info("pruebita si cae 1 " + jsonData);
@@ -150,13 +154,14 @@ public class CrucePmmWmsController {
 			// List<CrucePmmWmsDto> result =
 			// this.crucePmmWmsService.listarAjusteBolsaDiscrepancia(idCrucePmmWms, start,
 			// rows);
-			
+
 			LOGGER.info("pruebita si cae 2" + ajustePmmWms);
-			
-			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {});
-			
+
+			List<CrucePmmWmsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<CrucePmmWmsDto>>() {
+			});
+
 			LOGGER.info("nextAjusteBolsaDiscrepancia " + registroJsonList.size());
-			
+
 			registroJsonList.stream().forEach(x -> {
 
 				// LOGGER.info(x.getIdTipoInventario());
@@ -243,11 +248,13 @@ public class CrucePmmWmsController {
 			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
 			LOGGER.info("por aqui paso fin ");
 			/* fin invoca a procesar procesarAjusteSDI */
-
-			return new ResponseEntity<String>("Procesamiento Correcto.", HttpStatus.OK);
+			codError = 1;// correcto
+			rpta = "Procesamiento Correcto.";
+			msg.setCodError(codError);
+			msg.setMsjError(rpta);
+			return new ResponseEntity<Message>(msg, HttpStatus.OK);
 			// return
-			// ResponseEntity.status(HttpStatus.OK).body(listResponse.getPaginador(page,
-			// rows, records, result));
+			
 
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
