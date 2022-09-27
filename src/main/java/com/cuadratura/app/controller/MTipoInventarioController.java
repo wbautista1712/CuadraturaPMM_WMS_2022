@@ -35,6 +35,4 @@ public class MTipoInventarioController {
 		return ResponseEntity.ok().body(mTipoInventarioService.getTipoInventarioLote(codigoMaterial));
 	}
 	
-	
-
 }
