@@ -30,7 +30,7 @@ public class CuadraturaTransferServiceImpl extends GenericServiceImpl<Cuadratura
 	public Long getSequence() {
 		return this.cuadraturaTransferRepository.getSequence();
 	}
-	public void saveCuadraturaTransferService(CuadraturaTransfer cuadraturaTransfer) {
+	public void saveCuadraturaTransferService(CuadraturaTransfer cuadraturaTransfer)throws SQLException {
 		LOGGER.info("cuadraturaTransfer "+cuadraturaTransfer.getProcSource());
 		this.cuadraturaTransferRepository.saveCuadraturaTransfer(cuadraturaTransfer);
 	}

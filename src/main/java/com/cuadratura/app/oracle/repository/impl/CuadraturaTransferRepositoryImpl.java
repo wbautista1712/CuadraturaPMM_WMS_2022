@@ -40,7 +40,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 		return seq;
 	}
 
-	public void saveCuadraturaTransfer(CuadraturaTransfer cuadraturaTransfer) {
+	public void saveCuadraturaTransfer(CuadraturaTransfer cuadraturaTransfer) throws SQLException {
 		LOGGER.info("getIdCuadraturaTransfer " + cuadraturaTransfer.getIdCuadraturaTransfer());
 		LOGGER.info("getTransSession " + cuadraturaTransfer.getTransSession());
 		LOGGER.info("getTransUser " + cuadraturaTransfer.getTransUser());
@@ -94,7 +94,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				cuadraturaTransfer.getInnerPackId(), cuadraturaTransfer.getTransInners(),
 				cuadraturaTransfer.getTransLote(), cuadraturaTransfer.getTransVctoLote());
 		*/
-
+/*
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 				PreparedStatement ps = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
@@ -133,7 +133,66 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				return ps;
 			}
 		});
+*/
+		
+		   
+		DataSource ds = jdbcTemplate.getDataSource();
+		Connection conn = null;
+		CallableStatement ps = null;
+        try{ 
+        	LOGGER.info("-- 1cd enviarCierreCancelacionFormatoFinacieroAlCliente " );
+        	conn = ds.getConnection();
+        	ps = conn.prepareCall("{call cuadraturawyp.pkg_cuadratura.pr_cuadratura_transfer(? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+         
+             
+             ps.setInt(1, cuadraturaTransfer.getTransSession().intValue());
+				ps.setString(2, cuadraturaTransfer.getTransUser());
+				
+				java.util.Date utilDate = cuadraturaTransfer.getTransBatchDate();
+				java.sql.Date sqlDateTransBatchDate = new java.sql.Date(utilDate.getTime());
+				    
+				ps.setDate(3, sqlDateTransBatchDate);
+				ps.setString(4, cuadraturaTransfer.getTransSource());
+				ps.setString(5, cuadraturaTransfer.getTransAudited());
+				ps.setInt(6, cuadraturaTransfer.getTransSequence().intValue());
+				ps.setString(7, cuadraturaTransfer.getTransTrnCode());
+				ps.setString(8, cuadraturaTransfer.getTransTypeCode());
+				
+				java.util.Date utilDateCuadraturaTransfer = cuadraturaTransfer.getTransDate();
+				java.sql.Date sqlDateCuadraturaTransfer = new java.sql.Date(utilDateCuadraturaTransfer.getTime());
+				ps.setDate(9, sqlDateCuadraturaTransfer);
+				ps.setString(10, cuadraturaTransfer.getInvMrptCode());
+				ps.setString(11, cuadraturaTransfer.getInvDrptCode());
+				ps.setString(12, cuadraturaTransfer.getTransCurrCode());
+				ps.setInt(13, cuadraturaTransfer.getTransOrgLvlNumber().intValue());
+				ps.setString(14, cuadraturaTransfer.getTransPrdLvlNumber());
+				ps.setString(15, cuadraturaTransfer.getProcSource());
+				ps.setInt(16, cuadraturaTransfer.getTransQty().intValue());
+				ps.setInt(17, cuadraturaTransfer.getInnerPackId().intValue());
+				ps.setInt(18, cuadraturaTransfer.getTransInners().intValue());
+				ps.setString(19, cuadraturaTransfer.getTransLote());
+				
+				java.util.Date utilDateTransVctoLote =  cuadraturaTransfer.getTransVctoLote();
+				java.sql.Date sqlDateTransVctoLote = new java.sql.Date(utilDateTransVctoLote.getTime());
+				ps.setDate(20,sqlDateTransVctoLote);
+             
+				ps.execute();
+            
+         }catch(Exception ex){
+        	 LOGGER.error("Error en saveCuadraturaTransfer=",ex);
+               
+         }finally {        
+        	 if (ps != null) {
+        		 ps.close();
+ 			}
+ 			if (conn != null) {
+ 				conn.close();
+ 			}
+         }
+        LOGGER.info("-- 0cd saveCuadraturaTransfer - res :  " );
 
+		
+		
 	}
 
 	public void spCuadraturaTransfer(int idSesion) throws SQLException {
