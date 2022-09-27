@@ -2,7 +2,9 @@ package com.cuadratura.app.oracle.repository.impl;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
@@ -12,6 +14,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.oracle.entity.CuadraturaTransfer;
@@ -78,9 +83,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 
 		LOGGER.info(" saveCuadraturaTransfer fin INSERT_QUERY " + INSERT_QUERY);
 
-		jdbcTemplate.update(INSERT_QUERY,
-
-				cuadraturaTransfer.getTransSession(), cuadraturaTransfer.getTransUser(),
+		/*jdbcTemplate.update(INSERT_QUERY, cuadraturaTransfer.getTransSession(), cuadraturaTransfer.getTransUser(),
 				cuadraturaTransfer.getTransBatchDate(), cuadraturaTransfer.getTransSource(),
 				cuadraturaTransfer.getTransAudited(), cuadraturaTransfer.getTransSequence(),
 				cuadraturaTransfer.getTransTrnCode(), cuadraturaTransfer.getTransTypeCode(),
@@ -89,9 +92,47 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				cuadraturaTransfer.getTransOrgLvlNumber(), cuadraturaTransfer.getTransPrdLvlNumber(),
 				cuadraturaTransfer.getProcSource(), cuadraturaTransfer.getTransQty(),
 				cuadraturaTransfer.getInnerPackId(), cuadraturaTransfer.getTransInners(),
-				cuadraturaTransfer.getTransLote(),
+				cuadraturaTransfer.getTransLote(), cuadraturaTransfer.getTransVctoLote());
+		*/
 
-				cuadraturaTransfer.getTransVctoLote());
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
+
+				ps.setInt(1, cuadraturaTransfer.getTransSession().intValue());
+				ps.setString(2, cuadraturaTransfer.getTransUser());
+				
+				java.util.Date utilDate = cuadraturaTransfer.getTransBatchDate();
+				java.sql.Date sqlDateTransBatchDate = new java.sql.Date(utilDate.getTime());
+				    
+				ps.setDate(3, sqlDateTransBatchDate);
+				ps.setString(4, cuadraturaTransfer.getTransSource());
+				ps.setString(5, cuadraturaTransfer.getTransAudited());
+				ps.setInt(6, cuadraturaTransfer.getTransSequence().intValue());
+				ps.setString(7, cuadraturaTransfer.getTransTrnCode());
+				ps.setString(8, cuadraturaTransfer.getTransTypeCode());
+				
+				java.util.Date utilDateCuadraturaTransfer = cuadraturaTransfer.getTransDate();
+				java.sql.Date sqlDateCuadraturaTransfer = new java.sql.Date(utilDateCuadraturaTransfer.getTime());
+				ps.setDate(9, sqlDateCuadraturaTransfer);
+				ps.setString(10, cuadraturaTransfer.getInvMrptCode());
+				ps.setString(11, cuadraturaTransfer.getInvDrptCode());
+				ps.setString(12, cuadraturaTransfer.getTransCurrCode());
+				ps.setInt(13, cuadraturaTransfer.getTransOrgLvlNumber().intValue());
+				ps.setString(14, cuadraturaTransfer.getTransPrdLvlNumber());
+				ps.setString(15, cuadraturaTransfer.getProcSource());
+				ps.setInt(16, cuadraturaTransfer.getTransQty().intValue());
+				ps.setInt(17, cuadraturaTransfer.getInnerPackId().intValue());
+				ps.setInt(18, cuadraturaTransfer.getTransInners().intValue());
+				ps.setString(19, cuadraturaTransfer.getTransLote());
+				
+				java.util.Date utilDateTransVctoLote =  cuadraturaTransfer.getTransVctoLote();
+				java.sql.Date sqlDateTransVctoLote = new java.sql.Date(utilDateTransVctoLote.getTime());
+				ps.setDate(20,sqlDateTransVctoLote);
+
+				return ps;
+			}
+		});
 
 	}
 

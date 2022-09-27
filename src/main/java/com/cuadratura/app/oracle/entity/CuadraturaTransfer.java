@@ -58,7 +58,7 @@ public class CuadraturaTransfer implements Serializable {
     @NotNull
     @Lob
     @Column(name = "TRANS_USER")
-    private Object transUser;
+    private String transUser;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRANS_BATCH_DATE")
@@ -81,12 +81,12 @@ public class CuadraturaTransfer implements Serializable {
     @NotNull
     @Lob
     @Column(name = "TRANS_TRN_CODE")
-    private Object transTrnCode;
+    private String transTrnCode;
     @Basic(optional = false)
     @NotNull
     @Lob
     @Column(name = "TRANS_TYPE_CODE")
-    private Object transTypeCode;
+    private String transTypeCode;
     @Basic(optional = false)
     @NotNull
     @Column(name = "TRANS_DATE")
@@ -96,12 +96,12 @@ public class CuadraturaTransfer implements Serializable {
     @NotNull
     @Lob
     @Column(name = "INV_MRPT_CODE")
-    private Object invMrptCode;
+    private String invMrptCode;
     @Basic(optional = false)
     @NotNull
     @Lob
     @Column(name = "INV_DRPT_CODE")
-    private Object invDrptCode;
+    private String invDrptCode;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -115,7 +115,7 @@ public class CuadraturaTransfer implements Serializable {
     @NotNull
     @Lob
     @Column(name = "TRANS_PRD_LVL_NUMBER")
-    private Object transPrdLvlNumber;
+    private String transPrdLvlNumber;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)

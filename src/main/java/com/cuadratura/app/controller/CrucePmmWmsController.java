@@ -200,7 +200,7 @@ public class CrucePmmWmsController {
 			String fapprdlotee = null;
 			long prdpcdee;
 			
-			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();
+			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();// mysql
 			Long idSesion = cuadraturaTransferService.getSequence();
 			
 			int i = 1;
@@ -250,7 +250,7 @@ public class CrucePmmWmsController {
 					cuadraturaTransfer.setTransVctoLote(null);
 				} */
 
-				// this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
+				 this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
 				
 				// this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
 				
