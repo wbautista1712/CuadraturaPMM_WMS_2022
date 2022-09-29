@@ -142,7 +142,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
         try{ 
         	LOGGER.info("-- 1cd enviarCierreCancelacionFormatoFinacieroAlCliente " );
         	conn = ds.getConnection();
-        	ps = conn.prepareCall("{call cuadraturawyp.pkg_cuadratura.pr_cuadratura_transfer(? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+        	ps = conn.prepareCall("{call cuadraturawyp.pkg_cuadratura.insert_cuadratura_transfer(? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
          
              
              ps.setInt(1, cuadraturaTransfer.getTransSession().intValue());

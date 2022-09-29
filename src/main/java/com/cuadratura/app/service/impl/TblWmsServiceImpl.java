@@ -147,4 +147,8 @@ public class TblWmsServiceImpl extends GenericServiceImpl<TblWms, Integer> imple
 			this.tblWmsRepository.saveTblWms(statement, idCargaWMS);
 		}
 	}
+	
+	public void uploadTblWms(TblWms tblWms) throws SQLException {
+		this.tblWmsRepository.uploadTblWms(tblWms);
+	}
 }

@@ -6,6 +6,7 @@
 package com.cuadratura.app.mysql.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Basic;

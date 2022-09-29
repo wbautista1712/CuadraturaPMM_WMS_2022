@@ -3,46 +3,78 @@ package com.cuadratura.app.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cuadratura.app.mysql.entity.TblWms;
-import com.cuadratura.app.oracle.dto.AjustePmmWmsDto;
-import com.cuadratura.app.util.Message;
+import com.cuadratura.app.oracle.dto.CrucePmmWmsDto;
+import com.cuadratura.app.oracle.dto.WmsCinsDto;
+import com.cuadratura.app.service.TblWmsService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(path = "/api/wmsmysql")
 @CrossOrigin(origins = "*")
 public class PruebaController {
 	private static final Logger LOGGER = LogManager.getLogger(PruebaController.class);
-
+	
+	@Autowired
+	private TblWmsService tblWmsService;
 	@PostMapping("/uploadTextoCuadratura")
-	// public ResponseEntity<String> uploadTextoCuadratura(@RequestParam("file")
-	// MultipartFile file) throws Exception {
-	public ResponseEntity<String> uploadTextoCuadratura() throws Exception {
-		File doc = new File("C:\\claudio\\trabajo-extra\\ddl.txt");
+   public ResponseEntity<String> uploadTextoCuadratura(@RequestBody String jsonData) throws Exception {
+	//public ResponseEntity<String> uploadTextoCuadratura() throws Exception {
+		ObjectMapper om = new ObjectMapper();
+		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		try {
+		TblWms ajustePmmWms = new TblWms();
+		// File convertFile = new File(originalFilename);
+		 
+		//  LOGGER.info(convertFile.getAbsolutePath());
+		//  LOGGER.info(convertFile.getPath());
+	   //   convertFile.createNewFile();
+	   //   FileOutputStream fout = new FileOutputStream(convertFile);
+		  List<WmsCinsDto> registroJsonList = om.readValue(jsonData, new TypeReference<List<WmsCinsDto>>() {
+			});
 
-		BufferedReader obj = new BufferedReader(new FileReader(doc));
+			registroJsonList.stream().forEach(x -> {
+			
+			
 
-		// String colores = "rojo,amarillo,verde,azul,morado,marrón";
+					try {
+						
+						ajustePmmWms.setIdCargaWMS(1);// reecupera id						
+					ajustePmmWms.setCreateDate(x.getCreateDate());
+					
+						tblWmsService.uploadTblWms(ajustePmmWms);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+			});
+		  
+/*
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		for (String line = obj.readLine(); line != null; line = obj.readLine()) {
 			LOGGER.info("xx " + line);
@@ -51,21 +83,20 @@ public class PruebaController {
 			String separador = Pattern.quote("|");
 			String[] arrayColores = line.split(separador);
 			LOGGER.info("arrayColores.length " + arrayColores.length);
-			// En este momento tenemos un array en el que cada elemento es un color.
-
-			//for (int i = 0; i < arrayColores.length; i++) {
+		
 			int i = 0;
 			if (arrayColores !=null) {
 				objeto = new TblWms();
 
-				LOGGER.info("ooo " + arrayColores[i]);
-
-				objeto.setNroCarga(Integer.parseInt(arrayColores[i]));
-				objeto.setCreateDate(arrayColores[i + 1]);
-				objeto.setFacilityCode(arrayColores[i + 2]);
-				objeto.setCompanyCode(arrayColores[i + 3]);
-				objeto.setItemAlternate(arrayColores[i + 4]);
-				objeto.setItemPartA(arrayColores[i + 5]);
+				LOGGER.info("ooo " + arrayColores[i]);*/
+			//	objeto.setIdCargaWMS(1);// reecupera id
+			//	objeto.setNroCarga( new Long(arrayColores[i]));
+		//	objeto.setCreateDate(arrayColores[i]);
+			
+			/*objeto.setFacilityCode(arrayColores[i + 1]);
+				objeto.setCompanyCode(arrayColores[i + 2]);
+				objeto.setItemAlternate(arrayColores[i + 3]);
+				objeto.setItemPartA(arrayColores[i + 4]);
 				objeto.setItemPartB(arrayColores[i + 6]);
 				objeto.setItemPartC(arrayColores[i + 7]);
 				objeto.setItemPartD(arrayColores[i + 8]);
@@ -131,10 +162,19 @@ public class PruebaController {
 
 				objeto.setErrorCode(Integer.parseInt(arrayColores[i + 59]));
 				objeto.setObservacionError(arrayColores[i + 60]);
-				objeto.setFlgTipo(Integer.parseInt(arrayColores[i + 61]));
-
+				objeto.setFlgTipo(Integer.parseInt(arrayColores[i + 61]));*/
+				
+				/*tblWmsService.uploadTblWms(objeto);
 			}
 		}
-		return new ResponseEntity<String>("Stringss", HttpStatus.OK);
+		
+		*/
+		
+			
+		} catch (Exception ex) {
+			// return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
+			
+		}
+		return new ResponseEntity<String>("Carga Exitoso", HttpStatus.OK);
 	}
 }
