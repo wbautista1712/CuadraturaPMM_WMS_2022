@@ -45,6 +45,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 		LOGGER.info("getTransSession " + cuadraturaTransfer.getTransSession());
 		LOGGER.info("getTransUser " + cuadraturaTransfer.getTransUser());
 
+		/*
 		String INSERT_QUERY = " insert into CUADRATURAWYP.CUADRATURA_TRANSFER " + "    ( "
 				+ "      id_cuadratura_transfer        , " + "      trans_session               , "
 				+ "     trans_user                 , " + "    trans_batch_date             , "
@@ -58,6 +59,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				+ "     trans_inners                 , " + "    trans_lote                  , "
 				+ "     trans_vcto_lote             "
 				+ "       ) values ( CUADRATURAWYP.CUADRATURA_TRANSFER_seq.nextval,? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) ";
+				*/
 
 		LOGGER.info(" saveCuadraturaTransfer fin getTransSession " + cuadraturaTransfer.getTransSession());
 		LOGGER.info(" saveCuadraturaTransfer fin getTransUser " + cuadraturaTransfer.getTransUser());
@@ -81,7 +83,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 
 		LOGGER.info(" saveCuadraturaTransfer fin getTransVctoLote " + cuadraturaTransfer.getTransVctoLote());
 
-		LOGGER.info(" saveCuadraturaTransfer fin INSERT_QUERY " + INSERT_QUERY);
+		// LOGGER.info(" saveCuadraturaTransfer fin INSERT_QUERY " + INSERT_QUERY);
 
 		/*jdbcTemplate.update(INSERT_QUERY, cuadraturaTransfer.getTransSession(), cuadraturaTransfer.getTransUser(),
 				cuadraturaTransfer.getTransBatchDate(), cuadraturaTransfer.getTransSource(),
@@ -142,7 +144,7 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
         try{ 
         	LOGGER.info("-- 1cd enviarCierreCancelacionFormatoFinacieroAlCliente " );
         	conn = ds.getConnection();
-        	ps = conn.prepareCall("{call cuadraturawyp.pkg_cuadratura.pr_cuadratura_transfer(? ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+        	ps = conn.prepareCall("{call cuadraturawyp.pkg_cuadratura.insert_cuadratura_transfer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
          
              
              ps.setInt(1, cuadraturaTransfer.getTransSession().intValue());
@@ -158,24 +160,51 @@ public class CuadraturaTransferRepositoryImpl implements CuadraturaTransferRepos
 				ps.setString(7, cuadraturaTransfer.getTransTrnCode());
 				ps.setString(8, cuadraturaTransfer.getTransTypeCode());
 				
-				java.util.Date utilDateCuadraturaTransfer = cuadraturaTransfer.getTransDate();
-				java.sql.Date sqlDateCuadraturaTransfer = new java.sql.Date(utilDateCuadraturaTransfer.getTime());
-				ps.setDate(9, sqlDateCuadraturaTransfer);
+				if(cuadraturaTransfer.getTransDate()!=null)
+				{
+					java.util.Date utilDateCuadraturaTransfer = cuadraturaTransfer.getTransDate();
+					java.sql.Date sqlDateCuadraturaTransfer = new java.sql.Date(utilDateCuadraturaTransfer.getTime());
+					ps.setDate(9, sqlDateCuadraturaTransfer);
+				}
+				else {
+					ps.setDate(9, null);
+				}
+				
 				ps.setString(10, cuadraturaTransfer.getInvMrptCode());
 				ps.setString(11, cuadraturaTransfer.getInvDrptCode());
 				ps.setString(12, cuadraturaTransfer.getTransCurrCode());
+				
 				ps.setInt(13, cuadraturaTransfer.getTransOrgLvlNumber().intValue());
+				
 				ps.setString(14, cuadraturaTransfer.getTransPrdLvlNumber());
 				ps.setString(15, cuadraturaTransfer.getProcSource());
+				
 				ps.setInt(16, cuadraturaTransfer.getTransQty().intValue());
-				ps.setInt(17, cuadraturaTransfer.getInnerPackId().intValue());
+				
+				if(cuadraturaTransfer.getInnerPackId()!=null)
+				{
+					ps.setInt(17, cuadraturaTransfer.getInnerPackId().intValue());
+			    }
+				else
+				{
+					ps.setInt(17, 0);
+				}
+				
+				
 				ps.setInt(18, cuadraturaTransfer.getTransInners().intValue());
+				
 				ps.setString(19, cuadraturaTransfer.getTransLote());
 				
-				java.util.Date utilDateTransVctoLote =  cuadraturaTransfer.getTransVctoLote();
-				java.sql.Date sqlDateTransVctoLote = new java.sql.Date(utilDateTransVctoLote.getTime());
-				ps.setDate(20,sqlDateTransVctoLote);
-             
+				if(cuadraturaTransfer.getTransVctoLote()!=null)
+				{
+					java.util.Date utilDateTransVctoLote =  cuadraturaTransfer.getTransVctoLote();
+					java.sql.Date sqlDateTransVctoLote = new java.sql.Date(utilDateTransVctoLote.getTime());
+					ps.setDate(20,sqlDateTransVctoLote);
+				}
+				else {
+					ps.setDate(20,null);
+				}
+				
 				ps.execute();
             
          }catch(Exception ex){

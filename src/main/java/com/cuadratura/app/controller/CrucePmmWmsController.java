@@ -119,6 +119,16 @@ public class CrucePmmWmsController {
 		}
 
 	}
+	
+	@GetMapping(value = "/contador")
+	public String contador(@RequestParam Integer contador) throws InterruptedException {
+		
+		LOGGER.info("Iniando Thread: ");
+		
+		Thread.sleep(contador*1000);
+
+		return "Hola mundo - contador igual a =" + contador + " segundos";
+	}
 
 	@GetMapping(value = "/getAjusteBolsaDiscrepancia")
 	public ResponseEntity<List<CrucePmmWmsDto>> getAjusteBolsaDiscrepancia(@RequestParam Integer idCrucePmmWms) {
@@ -198,7 +208,7 @@ public class CrucePmmWmsController {
 			
 			CuadraturaTransfer cuadraturaTransfer = null;
 			String fapprdlotee = null;
-			long prdpcdee;
+			long innerPackId;
 			
 			List<SpBolsaSdiDto> result = this.ajustePmmWmsService.getAllBolsaSdi();// mysql
 			Long idSesion = cuadraturaTransferService.getSequence();
@@ -228,17 +238,16 @@ public class CrucePmmWmsController {
 				
 				cuadraturaTransfer.setTransQty(new BigInteger(objeto.getTransQty() + ""));// valor absoluto
 				
+				innerPackId = prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
+				LOGGER.info(innerPackId);
 				
-				prdpcdee = prdpcdeeService.findPrdpcdee(objeto.getTransPrdLvlNumber());
-			
-				
-				// cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(prdpcdee));// usar consulta oracle
+				cuadraturaTransfer.setInnerPackId(BigInteger.valueOf(innerPackId));// usar consulta oracle
 				
 				
 				cuadraturaTransfer.setTransInners(new BigInteger(objeto.getTransInners()));
 				cuadraturaTransfer.setTransLote(objeto.getTransLote());
 
-				/*
+				
 				fapprdlotee = fapprdloteeService.findFapprdlotee(objeto.getPrdLvlChild(), objeto.getTransLote());
 				
 				if (fapprdlotee != null) {
@@ -248,16 +257,16 @@ public class CrucePmmWmsController {
 				} else {
 				
 					cuadraturaTransfer.setTransVctoLote(null);
-				} */
+				} 
 
 				 this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
 				
-				// this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
+				 this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
 				
 				i = i + 1;
 			}
 			
-			// this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
+			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
 			
 			
 		} catch (Exception ex) {
@@ -270,9 +279,10 @@ public class CrucePmmWmsController {
 	}
 	
 	
+	
+	
 	@PostMapping(value = "/nextAjuste")
 	public Map<String, Object> nextAjuste(@RequestBody String jsonData) {
-		
 		
 		ObjectMapper om = new ObjectMapper();
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -303,8 +313,6 @@ public class CrucePmmWmsController {
 					ajustePmmWmsService.saveAjustePmmWms(ajustePmmWms);
 				}
 			});
-
-
 
 			CuadraturaTransfer cuadraturaTransfer = null;
 			String fapprdlotee = null;
@@ -357,18 +365,23 @@ public class CrucePmmWmsController {
 				}
 
 				this.cuadraturaTransferService.saveCuadraturaTransferService(cuadraturaTransfer);
-				this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
+				
+				 this.ajustePmmWmsService.updateAjustePmmWms(objeto.getIdAjustePMMWMS());
+				 
 				i = i + 1;
 			}
 			
+			LOGGER.info("Después de la operación ");
+			
 			this.cuadraturaTransferService.spCuadraturaTransfer(idSesion.intValue());
 			
-			
+			LOGGER.info("Después de la operación ");
 			
 		} catch (Exception ex) {
 			rpta.put("Respuesta", ex.getMessage());
 		}
 		
+		LOGGER.info("Insertado correctamente ");
 		return rpta;
 	}
 

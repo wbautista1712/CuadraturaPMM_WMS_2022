@@ -40,8 +40,8 @@ public class ScheduledTasks {
 
 	// Agregado por wilber
 
-	private static final String cronExpressionWms = "0 16 09 ? * * ";
-	private static final String cronExpressionPmm = "0 12 10 ? * * ";
+	private static final String cronExpressionWms = "0 16 09 ? * 1 ";
+	private static final String cronExpressionPmm = "0 12 10 ? * 1 ";
 	
 //	private static final String cronExpressionWms = "0 02 10 ? * 2 ";
 //	private static final String cronExpressionPmm = "0 12 10 ? * 2 ";
