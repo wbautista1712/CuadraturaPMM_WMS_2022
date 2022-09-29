@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.mysql.repository.TblWmsRepositoryCustom;
 import com.cuadratura.app.oracle.dto.WmsCinsDto;
 
@@ -88,6 +89,19 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 				idCargaWMS);
 		LOGGER.info("> insercion correcta " + insertCount);
 
+	}
+	
+	@Override
+	public void uploadTblWms(TblWms tblWms) throws SQLException {
+		String sql = "INSERT INTO cuadratura.tbl_wms "
+				+ "( create_date,  idCarga_WMS )"
+			
+				+ "VALUES( ?, ?) ";
+
+		int insertCount = jdbcTemplate.update(sql,
+
+				tblWms.getCreateDate(), tblWms.getIdCargaWMS());
+		LOGGER.info("> insercion correcta " + insertCount);
 	}
 
 	@Override
