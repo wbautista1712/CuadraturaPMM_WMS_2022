@@ -10,4 +10,8 @@ public interface WmsCinsRepository {
 	public List<Object[]> getFechaHoraFotoWms(String idCD);
 	
 	public List<Object[]> getCDXFechaHoraFotoWms();
+	
+	public List<Object[]> getNroCargaFotoWms(String idCD);
+	
+	List<Object[]> findAllxNroCargaWMSWmsCins(Integer nroCarga) throws Exception;
 }

@@ -47,10 +47,11 @@ public class TblWmsController {
 	@PostMapping(value = "/crearCuadraturaWMS")
 	public ResponseEntity<String> crearCuadraturaWMS(@RequestParam String fechaProceso, @RequestParam String idCD) throws Exception {
 		LOGGER.info("inicio");
-		List<WmsCinsCDDto> listaFH = wmsCinsService.getFechaHoraFotoWms(idCD);
-
+		//List<WmsCinsCDDto> listaFH = wmsCinsService.getFechaHoraFotoWms(idCD);
+		List<WmsCinsCDDto> listaFH = wmsCinsService.getNroCargaFotoWms(idCD);
 		for (int j = 0; j < listaFH.size(); j++) {
-			List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins( listaFH.get(j).getFechaHora());
+			//List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllWMSWmsCins( listaFH.get(j).getFechaHora());
+			List<WmsCinsDto> listaWmsCinsDto = wmsCinsService.findAllxNroCargaWMSWmsCins( listaFH.get(j).getNroCarga());
 			CargaWms cargaWms = new CargaWms();
 			org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022
 																										// 14:06:33
