@@ -58,8 +58,11 @@ public class PrdpcdeeRepositoryImpl implements PrdpcdeeRepositoryCustom {
 			csmt.setString(2, numeroProd);
 
 			csmt.execute();
+			
 			resultado = csmt.getInt(1);
-			LOGGER.info("findPrdpcdee resultado=== " + resultado);
+			
+			LOGGER.info("findPrdpcdee: innerPackId resultado=== " + resultado);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			LOGGER.error("Error: ", ex);
