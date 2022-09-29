@@ -10,7 +10,7 @@ public interface CargaWmsService extends GenericService<CargaWms, Integer> {
 	
 	public List<FotoWmsDto> getAllFindFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta, Integer start, Integer end);
 	
-	public List<FotoWmsDto> getAllFindFotoWmsExcel(Integer idCentroDistribucion, String fechaDesde, String fechaHasta);
+	public List<FotoWmsDto> getAllFindFotoWmsExcel(Integer idCarga_WMS);
 	
 	public Integer countFotoWms(String idCentroDistribucion, String fechaDesde, String fechaHasta) throws Exception ;
 }
