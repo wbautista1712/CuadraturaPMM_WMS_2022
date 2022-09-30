@@ -3,6 +3,7 @@ package com.cuadratura.app.service.impl;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -153,6 +154,12 @@ public class TblWmsServiceImpl extends GenericServiceImpl<TblWms, Integer> imple
 		this.tblWmsRepository.uploadTblWms(tblWms);
 	}
 	
+
+
+	public List<Map<String, Object>> obtenerFotoWMSCuadratura(Integer idCargaWMS) throws SQLException{
+		return this.tblWmsRepository.obtenerFotoWMSCuadratura(idCargaWMS);
+		}
+
 	public List<FotoWmsByCargaDto> getExportFotoWmsByIdCarga(Integer idCargaWMS) throws SQLException{
 	 return this.tblWmsRepository.getExportFotoWmsByIdCarga(idCargaWMS);
 	}

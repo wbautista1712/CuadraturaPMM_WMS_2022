@@ -2,7 +2,10 @@ package com.cuadratura.app.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -135,6 +138,38 @@ public class TblPmmController {
 		}
 	
 		return ResponseEntity.status(HttpStatus.CREATED).body("Proceso Completo");
+	}
+	
+	@PostMapping("/obtenerFotoPMMCuadratura")
+	public Map<String, Object> obtenerFotoPMMCuadratura(@RequestParam @Valid Integer idCargaPMM) throws Exception {
+		Map<String, Object> rpta = new HashMap<String, Object>();
+		List<Map<String, Object>> rdata = new ArrayList<Map<String, Object>>();
+		
+		String typeMsg = "E";
+		String message = "";
+		
+		try {
+			if(idCargaPMM != null){
+				rdata = tblPmmService.obtenerFotoPMMCuadratura(idCargaPMM);
+				if(rdata.size() > 0){
+					typeMsg = "S";
+				}else {
+					message = "Ningun registro encontrado";
+				}
+			}else{
+				message = "Id incorrecto";
+			}
+			
+		} catch (Exception e) {
+			message = e.getMessage();
+			LOGGER.info("error obtenerFotoPMMCuadratura - " + e.getMessage());
+		}
+		
+		rpta.put("rpta", rdata);
+		rpta.put("v_type_message", typeMsg);
+		rpta.put("v_message", message);
+		
+		return rpta;
 	}
 
 }

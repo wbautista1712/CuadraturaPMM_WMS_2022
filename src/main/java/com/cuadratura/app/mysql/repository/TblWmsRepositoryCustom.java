@@ -2,6 +2,7 @@ package com.cuadratura.app.mysql.repository;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.oracle.dto.FotoWmsByCargaDto;
@@ -15,5 +16,7 @@ public interface TblWmsRepositoryCustom {
 	
 	public void uploadTblWms(TblWms tblWms) throws SQLException;
 	
+	public List<Map<String, Object>> obtenerFotoWMSCuadratura(int idCargaWMS) throws SQLException;
 	public List<FotoWmsByCargaDto> getExportFotoWmsByIdCarga(Integer idCargaWMS) throws SQLException;
+
 }

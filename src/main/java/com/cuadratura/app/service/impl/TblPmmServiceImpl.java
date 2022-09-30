@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -145,6 +146,11 @@ public class TblPmmServiceImpl extends GenericServiceImpl<TblPmm, Integer> imple
 			this.tblPmmRepository.saveTblPmm(statement, idCargaPMM);
 		}
 
+	}
+
+	@Override
+	public List<Map<String, Object>> obtenerFotoPMMCuadratura(int idCargaPMM) throws SQLException {
+		return tblPmmRepository.obtenerFotoPMMCuadratura(idCargaPMM);
 	}
 
 }
