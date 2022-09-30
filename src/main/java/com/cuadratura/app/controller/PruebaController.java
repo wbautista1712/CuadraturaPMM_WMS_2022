@@ -322,9 +322,14 @@ public class PruebaController {
 						LOGGER.info("valor capturado 41== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(41)));
 						
 						 testDate = CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(41));
-					
+					if (testDate!= null) {
 						Date date = formatter.parse(testDate);
 						cabeceraExcelForm.setTransVctoLote(date);
+					}else {
+						cabeceraExcelForm.setTransVctoLote(null);
+					}
+					
+						
 						cabeceraExcelForm.setIdCargaPMM(id);
 						LOGGER.info("valor capturado 00== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(0)));
 						LOGGER.info("valor capturado 01== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(1)));
