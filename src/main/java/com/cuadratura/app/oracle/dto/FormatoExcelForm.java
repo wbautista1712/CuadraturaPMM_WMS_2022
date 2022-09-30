@@ -1,6 +1,7 @@
 package com.cuadratura.app.oracle.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class FormatoExcelForm {
 
@@ -11,7 +12,7 @@ public class FormatoExcelForm {
 	private String onHandQty	;
 	private String onHandRetl	;
 	private String onHandCost	;
-	private BigDecimal poOrdQty	;
+	private String poOrdQty	;
 	private String poOrdRetl	;
 	private String poOrdCost	;
 	private String poIntrnQty;
@@ -45,7 +46,7 @@ public class FormatoExcelForm {
 	private String onHandRetlHm	;
 	private String toIntrnCostHm	;
 	private String toIntrnRetlHm	;
-	private String transVctoLote;
+	private Date transVctoLote;
 	private Integer idCargaPMM;
 	public Integer getIdCargaPMM() {
 		return idCargaPMM;
@@ -95,10 +96,10 @@ public class FormatoExcelForm {
 	public void setOnHandCost(String onHandCost) {
 		this.onHandCost = onHandCost;
 	}
-	public BigDecimal getPoOrdQty() {
+	public String getPoOrdQty() {
 		return poOrdQty;
 	}
-	public void setPoOrdQty(BigDecimal poOrdQty) {
+	public void setPoOrdQty(String poOrdQty) {
 		this.poOrdQty = poOrdQty;
 	}
 	public String getPoOrdRetl() {
@@ -299,10 +300,10 @@ public class FormatoExcelForm {
 	public void setToIntrnRetlHm(String toIntrnRetlHm) {
 		this.toIntrnRetlHm = toIntrnRetlHm;
 	}
-	public String getTransVctoLote() {
+	public Date getTransVctoLote() {
 		return transVctoLote;
 	}
-	public void setTransVctoLote(String transVctoLote) {
+	public void setTransVctoLote(Date transVctoLote) {
 		this.transVctoLote = transVctoLote;
 	}
 

@@ -2,6 +2,8 @@ package com.cuadratura.app.controller;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -216,7 +219,7 @@ public class PruebaController {
 			HttpServletRequest request, Model model) throws Exception {
 		// GenericResponse response = new GenericResponse();
 		Message msg = new Message();
-
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 
 			LOGGER.info(excelfile.getOriginalFilename());
@@ -254,7 +257,7 @@ public class PruebaController {
 
 			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 			LOGGER.info("id..."+id);
-			
+			String testDate  = "";
 			// Read the Sheet
 			for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
 				Sheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
@@ -266,17 +269,24 @@ public class PruebaController {
 					Row hssfRow = hssfSheet.getRow(rowNum);
 					if (hssfRow != null) {
 						cabeceraExcelForm = new FormatoExcelForm();
-
+						LOGGER.info("idccc..."+ hssfRow.getCell(7));
 						cabeceraExcelForm.setOrgLvlChild(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(0)));
+						LOGGER.info("11...");
 						cabeceraExcelForm.setPrdLvlChild(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(1)));
 						cabeceraExcelForm.setInvTypeCode(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(2)));
+						LOGGER.info("22...");
 						cabeceraExcelForm.setTransLote(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(3)));
 						cabeceraExcelForm.setOnHandQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(4)));
+						LOGGER.info("33...");
 						cabeceraExcelForm.setOnHandRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(5)));
 						cabeceraExcelForm.setOnHandCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(6)));
-						cabeceraExcelForm.setPoOrdQty(  CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)) == null ? null :new BigDecimal( CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)) ));
+						LOGGER.info("aaaaa...");
+						cabeceraExcelForm.setPoOrdQty( CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)));
+						LOGGER.info("cccc..."+CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)) );
 						cabeceraExcelForm.setPoOrdRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(8)));
+						LOGGER.info("bbbb...");
 						cabeceraExcelForm.setPoOrdCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(9)));
+						LOGGER.info("444...");
 						cabeceraExcelForm.setPoIntrnQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(10)));
 						cabeceraExcelForm.setPoIntrnRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(11)));
 						cabeceraExcelForm.setPoIntrnCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(12)));
@@ -285,6 +295,7 @@ public class PruebaController {
 						cabeceraExcelForm.setToOrdCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(15)));
 						cabeceraExcelForm.setToIntrnQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(16)));
 						cabeceraExcelForm.setToIntrnRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(17)));
+						LOGGER.info("555...");
 						cabeceraExcelForm.setToIntrnCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(18)));
 						cabeceraExcelForm.setFirstPisDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(19)));
 						cabeceraExcelForm.setLastPisDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(20)));
@@ -308,7 +319,12 @@ public class PruebaController {
 						cabeceraExcelForm.setOnHandRetlHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(38)));
 						cabeceraExcelForm.setToIntrnCostHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(39)));
 						cabeceraExcelForm.setToIntrnRetlHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(40)));
-						cabeceraExcelForm.setTransVctoLote(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(41)));
+						LOGGER.info("valor capturado 41== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(41)));
+						
+						 testDate = CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(41));
+					
+						Date date = formatter.parse(testDate);
+						cabeceraExcelForm.setTransVctoLote(date);
 						cabeceraExcelForm.setIdCargaPMM(id);
 						LOGGER.info("valor capturado 00== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(0)));
 						LOGGER.info("valor capturado 01== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(1)));
@@ -339,7 +355,7 @@ public class PruebaController {
 			LOGGER.info("-- " + msg.getCodError());
 			LOGGER.info("-- " + msg.getMsjError());
 
-			if (msg.getCodError() == 0) {
+			if (msg.getCodError() == 1) {
 
 				return new ResponseEntity<Object>(msg.getMsjError(), HttpStatus.OK);
 

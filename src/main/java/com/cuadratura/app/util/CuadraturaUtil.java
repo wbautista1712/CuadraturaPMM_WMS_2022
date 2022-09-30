@@ -36,7 +36,7 @@ public abstract class CuadraturaUtil {
 				valorRetorno = cell.getStringCellValue();
 				return valorRetorno;
 			case BLANK:
-				return valorRetorno;
+				return null;
 			case ERROR:
 				valorRetorno = String.valueOf(cell.getErrorCellValue());
 				return valorRetorno;

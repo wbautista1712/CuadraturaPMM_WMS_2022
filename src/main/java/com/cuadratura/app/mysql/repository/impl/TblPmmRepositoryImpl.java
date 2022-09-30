@@ -85,6 +85,9 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 	@Override
 	public Message saveExcelTblPmm(FormatoExcelForm obj) throws SQLException {
 		Message msg = new Message();
+		 java.util.Date utilDate =  obj.getTransVctoLote();
+		 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		 LOGGER.info("> saveExcelTblPmm sqlDate " + sqlDate);
 		String sql = "insert into cuadratura.tbl_pmm ( "
 				+ "ORG_LVL_CHILD,	PRD_LVL_CHILD,	INV_TYPE_CODE,	TRANS_LOTE,	ON_HAND_QTY,	ON_HAND_RETL, "
 				+ "ON_HAND_COST,	PO_ORD_QTY	,PO_ORD_RETL,	PO_ORD_COST,	PO_INTRN_QTY,	PO_INTRN_RETL	, "
@@ -106,10 +109,17 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 				obj.getPoIntrnWeight(), obj.getToOrdWeight(), obj.getToIntrnWeight(), obj.getLtdWeight(),
 				obj.getPrdSllUom(), obj.getCurrCode(), obj.getOnHandEaches(), obj.getFirstShippedDate(),
 				obj.getFirstSalesDate(), obj.getOnHandCostHm(), obj.getOnHandRetlHm(), obj.getToIntrnCostHm(),
-				obj.getToIntrnRetlHm(), obj.getTransVctoLote(), obj.getIdCargaPMM());
+				obj.getToIntrnRetlHm(),sqlDate, obj.getIdCargaPMM());
 
 		LOGGER.info("> insercion correcta saveExcelTblPmm " + insertCount);
-		msg.setCodError(insertCount);
+		if (insertCount== 1) {
+			msg.setCodError(insertCount);
+			msg.setMsjError("Proceso Correcto");
+		}else  {
+			msg.setCodError(-1);
+			msg.setMsjError("Proceso inválido.");
+		}
+	
 		
 return msg;
 
