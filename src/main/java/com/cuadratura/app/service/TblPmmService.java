@@ -11,9 +11,7 @@ import com.cuadratura.app.oracle.entity.Fapinvbalee;
 public interface TblPmmService  extends GenericService<TblPmm, Integer> {
 	void saveTblPmm(List<Fapinvbalee> listaTblPmmForm, int idCargaPMM) throws SQLException ;
 	
-<<<<<<< HEAD
+
 	public List<Map<String, Object>> obtenerFotoPMMCuadratura(int idCargaPMM) throws SQLException;
-=======
-	
->>>>>>> 633cd97567525193721d17667586c85dd6a50b76
+
 }

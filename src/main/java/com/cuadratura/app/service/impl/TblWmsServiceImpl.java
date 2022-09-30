@@ -154,13 +154,13 @@ public class TblWmsServiceImpl extends GenericServiceImpl<TblWms, Integer> imple
 		this.tblWmsRepository.uploadTblWms(tblWms);
 	}
 	
-<<<<<<< HEAD
+
 
 	public List<Map<String, Object>> obtenerFotoWMSCuadratura(Integer idCargaWMS) throws SQLException{
 		return this.tblWmsRepository.obtenerFotoWMSCuadratura(idCargaWMS);
-=======
+		}
+
 	public List<FotoWmsByCargaDto> getExportFotoWmsByIdCarga(Integer idCargaWMS) throws SQLException{
 	 return this.tblWmsRepository.getExportFotoWmsByIdCarga(idCargaWMS);
->>>>>>> 633cd97567525193721d17667586c85dd6a50b76
 	}
 }

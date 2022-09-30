@@ -6,12 +6,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
-=======
 import java.util.Date;
->>>>>>> 633cd97567525193721d17667586c85dd6a50b76
 import java.util.List;
 import java.util.Map;
 
@@ -182,7 +179,6 @@ public class TblWmsController {
 		return ResponseEntity.status(HttpStatus.OK).body( "Proceso Correcto");
 	}
 	
-<<<<<<< HEAD
 	@PostMapping("/obtenerFotoWMSCuadratura")
 	public Map<String, Object> obtenerFotoWMSCuadratura(@RequestParam @Valid Integer idCargaWMS) throws Exception {
 		Map<String, Object> rpta = new HashMap<String, Object>();
@@ -213,7 +209,8 @@ public class TblWmsController {
 		rpta.put("v_message", message);
 		
 		return rpta;
-=======
+	}
+	
 	@GetMapping("/exportFotoWmsByCargaExcel")
 	public void exportFotoWmsByCargaExcel(@RequestParam Integer idCargaWMS, HttpServletResponse response) throws IOException, SQLException {
 		response.setContentType("application/octet-stream");
@@ -230,6 +227,5 @@ public class TblWmsController {
 		
 		ExcelGeneratorFotoWmsByCarga generator = new ExcelGeneratorFotoWmsByCarga(listOfStudents);
 		generator.generateExcelFile(response);
->>>>>>> 633cd97567525193721d17667586c85dd6a50b76
 	}
 }
