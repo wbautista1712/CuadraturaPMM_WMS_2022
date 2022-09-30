@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.mysql.repository.TblWmsRepository;
+import com.cuadratura.app.oracle.dto.FotoWmsByCargaDto;
 import com.cuadratura.app.oracle.dto.WmsCinsDto;
 import com.cuadratura.app.service.TblWmsService;
 
@@ -150,5 +151,9 @@ public class TblWmsServiceImpl extends GenericServiceImpl<TblWms, Integer> imple
 	
 	public void uploadTblWms(TblWms tblWms) throws SQLException {
 		this.tblWmsRepository.uploadTblWms(tblWms);
+	}
+	
+	public List<FotoWmsByCargaDto> getExportFotoWmsByIdCarga(Integer idCargaWMS) throws SQLException{
+	 return this.tblWmsRepository.getExportFotoWmsByIdCarga(idCargaWMS);
 	}
 }

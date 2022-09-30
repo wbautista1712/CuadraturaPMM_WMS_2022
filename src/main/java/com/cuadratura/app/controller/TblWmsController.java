@@ -1,8 +1,15 @@
 package com.cuadratura.app.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +27,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.entity.TblWms;
+import com.cuadratura.app.oracle.dto.FotoWmsByCargaDto;
+import com.cuadratura.app.oracle.dto.FotoWmsDto;
 import com.cuadratura.app.oracle.dto.WmsCinsCDDto;
 import com.cuadratura.app.oracle.dto.WmsCinsDto;
 import com.cuadratura.app.service.CargaWmsService;
 import com.cuadratura.app.service.TblWmsService;
 import com.cuadratura.app.service.WmsCinsService;
 import com.cuadratura.app.util.Constantes;
+import com.cuadratura.app.util.ExcelGeneratorFotoWms;
+import com.cuadratura.app.util.ExcelGeneratorFotoWmsByCarga;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -162,5 +174,23 @@ public class TblWmsController {
 			}
 		}	
 		return ResponseEntity.status(HttpStatus.OK).body( "Proceso Correcto");
+	}
+	
+	@GetMapping("/exportFotoWmsByCargaExcel")
+	public void exportFotoWmsByCargaExcel(@RequestParam Integer idCargaWMS, HttpServletResponse response) throws IOException, SQLException {
+		response.setContentType("application/octet-stream");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDateTime = dateFormatter.format(new Date());
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=FotoWmsByCarga" + currentDateTime + ".xlsx";
+		response.setHeader(headerKey, headerValue);
+
+		
+		List<FotoWmsByCargaDto> listOfStudents = this.tblWmsService.getExportFotoWmsByIdCarga(idCargaWMS);
+		LOGGER.info("TAMAÑO LISTA RETORNO "+listOfStudents.size());
+		
+		ExcelGeneratorFotoWmsByCarga generator = new ExcelGeneratorFotoWmsByCarga(listOfStudents);
+		generator.generateExcelFile(response);
 	}
 }
