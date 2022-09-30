@@ -56,8 +56,7 @@ public class CargaWmsController {
 	}
 	
 	@GetMapping("/exportFotoWmsExcel")
-	public void exportFotoWmsExcelFile(@RequestParam Integer idCD,
-			@RequestParam String fechaDesde, @RequestParam String fechaHasta, HttpServletResponse response) throws IOException {
+	public void exportFotoWmsExcelFile(@RequestParam Integer idCarga_WMS, HttpServletResponse response) throws IOException {
 		response.setContentType("application/octet-stream");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		String currentDateTime = dateFormatter.format(new Date());
@@ -67,7 +66,7 @@ public class CargaWmsController {
 		response.setHeader(headerKey, headerValue);
 
 		
-		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWmsExcel(idCD, fechaDesde, fechaHasta);
+		List<FotoWmsDto> listOfStudents = this.cargaWmsService.getAllFindFotoWmsExcel(idCarga_WMS);
 		LOGGER.info("TAMAÑO LISTA RETORNO "+listOfStudents.size());
 		
 		ExcelGeneratorFotoWms generator = new ExcelGeneratorFotoWms(listOfStudents);

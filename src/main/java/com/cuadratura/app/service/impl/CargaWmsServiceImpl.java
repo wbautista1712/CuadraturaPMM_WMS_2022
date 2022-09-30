@@ -64,12 +64,11 @@ public class CargaWmsServiceImpl extends GenericServiceImpl<CargaWms, Integer> i
 		return listaClasificadores;
 	}
 
-	public List<FotoWmsDto> getAllFindFotoWmsExcel(Integer idCentroDistribucion, String fechaDesde, String fechaHasta) {
-		LOGGER.info("get getAllFindFotoWms fechaDesde " + fechaDesde);
-		LOGGER.info("get getAllFindFotoWms fechaHasta " + fechaHasta);
+	public List<FotoWmsDto> getAllFindFotoWmsExcel(Integer idCarga_WMS) {
+		
 		List<FotoWmsDto> listaClasificadores = new ArrayList<FotoWmsDto>();
 		FotoWmsDto fotoWms;
-		List<Object[]> lista = cargaWmsRepository.getExportFotoWms(idCentroDistribucion, fechaDesde, fechaHasta);
+		List<Object[]> lista = cargaWmsRepository.getExportFotoWms(idCarga_WMS);
 		for (Object[] filaObj : lista) {
 			fotoWms = new FotoWmsDto();
 
