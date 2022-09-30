@@ -1,29 +1,49 @@
 package com.cuadratura.app.controller;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.format.DateTimeFormat;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.entity.CargaWms;
 import com.cuadratura.app.mysql.entity.TblWms;
+import com.cuadratura.app.oracle.dto.FormatoExcelForm;
 import com.cuadratura.app.oracle.dto.WmsCinsDto;
+import com.cuadratura.app.service.CargaPmmService;
 import com.cuadratura.app.service.CargaWmsService;
+import com.cuadratura.app.service.TblPmmService;
 import com.cuadratura.app.service.TblWmsService;
 import com.cuadratura.app.util.Constantes;
+import com.cuadratura.app.util.CuadraturaUtil;
+import com.cuadratura.app.util.Message;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,8 +58,16 @@ public class PruebaController {
 
 	@Autowired
 	private TblWmsService tblWmsService;
+	
 	@Autowired
 	private CargaWmsService cargaWmsService;
+	
+	@Autowired
+	private TblPmmService tblPmmService;
+	
+
+	@Autowired
+	private CargaPmmService cargaPmmService;
 
 	@PostMapping("/uploadTextoCuadratura")
 	public ResponseEntity<String> uploadTextoCuadratura(@RequestBody String jsonData) throws Exception {
@@ -181,4 +209,162 @@ public class PruebaController {
 		}
 		return new ResponseEntity<String>("Carga Exitoso", HttpStatus.OK);
 	}
+
+	// cargar excel
+	@RequestMapping(value = "/procesarExcel", method = RequestMethod.POST)
+	public ResponseEntity<Object> procesarExcel(@RequestPart(value = "file", required = false) MultipartFile excelfile,
+			HttpServletRequest request, Model model) throws Exception {
+		// GenericResponse response = new GenericResponse();
+		Message msg = new Message();
+
+		try {
+
+			LOGGER.info(excelfile.getOriginalFilename());
+
+			List<FormatoExcelForm> lstCabecera = new ArrayList<FormatoExcelForm>();
+
+			// File archivoExcel = new File(System.getProperty("java.io.tmpdir") +
+			// System.getProperty("file.separator") + excelfile.getOriginalFilename());
+			// HSSFWorkbook hssfWorkbook = new HSSFWorkbook(excelfile.getInputStream());
+			String lowerCaseFileName = excelfile.getOriginalFilename().toLowerCase();
+
+			Workbook hssfWorkbook;
+
+			if (lowerCaseFileName.endsWith(".xlsx")) {
+				hssfWorkbook = new XSSFWorkbook(excelfile.getInputStream());
+			} else {
+				hssfWorkbook = new HSSFWorkbook(excelfile.getInputStream());
+			}
+
+			FormatoExcelForm cabeceraExcelForm = null;
+			
+			// codigo de carga carga_pmm
+			CargaPmm cargaPmm = new CargaPmm();
+
+			cargaPmm.setFechaFoto(new Date());
+			cargaPmm.setHoraFoto(dateTimeFormatter.format(LocalDateTime.now()));
+			//cargaPmm.setNumRegistros(listaTblPmmForm.size());
+			cargaPmm.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+
+			cargaPmm.setEstado(true);
+
+			cargaPmm.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
+			cargaPmm.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
+			cargaPmm.setOrgLvlChild(5346); // revisar
+
+			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
+			LOGGER.info("id..."+id);
+			
+			// Read the Sheet
+			for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
+				Sheet hssfSheet = hssfWorkbook.getSheetAt(numSheet);
+				if (hssfSheet == null) {
+					continue;
+				}
+				// Read the Row
+				for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
+					Row hssfRow = hssfSheet.getRow(rowNum);
+					if (hssfRow != null) {
+						cabeceraExcelForm = new FormatoExcelForm();
+
+						cabeceraExcelForm.setOrgLvlChild(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(0)));
+						cabeceraExcelForm.setPrdLvlChild(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(1)));
+						cabeceraExcelForm.setInvTypeCode(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(2)));
+						cabeceraExcelForm.setTransLote(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(3)));
+						cabeceraExcelForm.setOnHandQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(4)));
+						cabeceraExcelForm.setOnHandRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(5)));
+						cabeceraExcelForm.setOnHandCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(6)));
+						cabeceraExcelForm.setPoOrdQty(  CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)) == null ? null :new BigDecimal( CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)) ));
+						cabeceraExcelForm.setPoOrdRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(8)));
+						cabeceraExcelForm.setPoOrdCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(9)));
+						cabeceraExcelForm.setPoIntrnQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(10)));
+						cabeceraExcelForm.setPoIntrnRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(11)));
+						cabeceraExcelForm.setPoIntrnCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(12)));
+						cabeceraExcelForm.setToOrdQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(13)));
+						cabeceraExcelForm.setToOrdRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(14)));
+						cabeceraExcelForm.setToOrdCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(15)));
+						cabeceraExcelForm.setToIntrnQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(16)));
+						cabeceraExcelForm.setToIntrnRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(17)));
+						cabeceraExcelForm.setToIntrnCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(18)));
+						cabeceraExcelForm.setFirstPisDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(19)));
+						cabeceraExcelForm.setLastPisDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(20)));
+						cabeceraExcelForm.setLtdQty(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(21)));
+						cabeceraExcelForm.setLtdRetl(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(22)));
+						cabeceraExcelForm.setLtdCost(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(23)));
+						cabeceraExcelForm.setLastChgDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(24)));
+						cabeceraExcelForm.setOnHandWeight(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(25)));
+						cabeceraExcelForm.setWeightUom(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(26)));
+						cabeceraExcelForm.setPoOrdWeight(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(27)));
+						cabeceraExcelForm.setPoIntrnWeight(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(28)));
+						cabeceraExcelForm.setToOrdWeight(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(29)));
+						cabeceraExcelForm.setToIntrnWeight(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(30)));
+						cabeceraExcelForm.setLtdWeight(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(31)));
+						cabeceraExcelForm.setPrdSllUom(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(32)));
+						cabeceraExcelForm.setCurrCode(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(33)));
+						cabeceraExcelForm.setOnHandEaches(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(34)));
+						cabeceraExcelForm.setFirstShippedDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(35)));
+						cabeceraExcelForm.setFirstSalesDate(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(36)));
+						cabeceraExcelForm.setOnHandCostHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(37)));
+						cabeceraExcelForm.setOnHandRetlHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(38)));
+						cabeceraExcelForm.setToIntrnCostHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(39)));
+						cabeceraExcelForm.setToIntrnRetlHm(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(40)));
+						cabeceraExcelForm.setTransVctoLote(CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(41)));
+						cabeceraExcelForm.setIdCargaPMM(id);
+						LOGGER.info("valor capturado 00== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(0)));
+						LOGGER.info("valor capturado 01== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(1)));
+						LOGGER.info("valor capturado 02== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(2)));
+						LOGGER.info("valor capturado 03== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(3)));
+
+						LOGGER.info("valor capturado 04== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(4)));
+						LOGGER.info("valor capturado 05== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(5)));
+						LOGGER.info("valor capturado 06== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(6)));
+						LOGGER.info("valor capturado 07== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(7)));
+
+						LOGGER.info("valor capturado 08== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(8)));
+						LOGGER.info("valor capturado 09== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(9)));
+						LOGGER.info("valor capturado 10== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(10)));
+						LOGGER.info("valor capturado 11== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(11)));
+
+						LOGGER.info("listo para addd");
+						lstCabecera.add(cabeceraExcelForm);
+					}
+
+				}
+
+			}
+
+			LOGGER.info("===size===>>> " + lstCabecera.size());
+			msg = this.tblPmmService.saveExcelTblPmm(cabeceraExcelForm);
+
+			LOGGER.info("-- " + msg.getCodError());
+			LOGGER.info("-- " + msg.getMsjError());
+
+			if (msg.getCodError() == 0) {
+
+				return new ResponseEntity<Object>(msg.getMsjError(), HttpStatus.OK);
+
+			} else if (msg.getCodError() == -1) {
+
+				return new ResponseEntity<Object>(msg.getMsjError(), HttpStatus.BAD_REQUEST);
+
+			} else {
+				return new ResponseEntity<Object>("Archivo inválido.", HttpStatus.BAD_REQUEST);
+			}
+			// response.setCodError(msg.getCodError());
+			// response.setMensaje(msg.getMsjError());
+			// hssfWorkbook.close();
+			// ((OutputStream) hssfWorkbook).close();
+		
+		} catch (Exception ex) {
+			LOGGER.error(ex.getMessage());
+			return new ResponseEntity<Object>("Archivo inválido.", HttpStatus.BAD_REQUEST);
+		} finally {
+		
+			  
+			excelfile.getInputStream().close();
+		}
+		// return response;
+
+	}
+
 }

@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.cuadratura.app.mysql.entity.TblPmm;
 import com.cuadratura.app.mysql.repository.TblPmmRepository;
+import com.cuadratura.app.oracle.dto.FormatoExcelForm;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
 import com.cuadratura.app.oracle.entity.pk.FapinvbaleePK;
 import com.cuadratura.app.service.TblPmmService;
+import com.cuadratura.app.util.Message;
 
 @Service
 public class TblPmmServiceImpl extends GenericServiceImpl<TblPmm, Integer> implements TblPmmService {
@@ -29,7 +31,10 @@ public class TblPmmServiceImpl extends GenericServiceImpl<TblPmm, Integer> imple
 		// TODO Auto-generated method stub
 		return tblPmmRepository;
 	}
-
+	public Message saveExcelTblPmm(FormatoExcelForm obj) throws SQLException{
+		return this.tblPmmRepository.saveExcelTblPmm(obj);
+	}
+	
 	@Override
 	public void saveTblPmm(List<Fapinvbalee> listaTblPmmForm, int idCargaPMM) throws SQLException {
 		LOGGER.info("> listaTblPmmForm", listaTblPmmForm.size());

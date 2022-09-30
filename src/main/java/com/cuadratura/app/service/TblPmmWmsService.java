@@ -2,10 +2,12 @@ package com.cuadratura.app.service;
 
 import java.util.List;
 
+import com.cuadratura.app.mysql.entity.TblPmm;
+import com.cuadratura.app.mysql.entity.TblPmmWms;
 import com.cuadratura.app.oracle.dto.ConsolidadoPmmWmsDto;
 import com.cuadratura.app.oracle.dto.ResultadoPmmWmsDto;
 
-public interface TblPmmWmsService {
+public interface TblPmmWmsService extends GenericService<TblPmmWms, Integer>{
 	
 	List<ConsolidadoPmmWmsDto> getAllConsolidadoPmmWms( Integer idCargaWms,	Integer idCargaPmm, String idCD);
 	

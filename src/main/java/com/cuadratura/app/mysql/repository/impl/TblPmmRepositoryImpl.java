@@ -17,7 +17,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.repository.TblPmmRepositoryCustom;
+import com.cuadratura.app.oracle.dto.FormatoExcelForm;
 import com.cuadratura.app.oracle.entity.Fapinvbalee;
+import com.cuadratura.app.util.Message;
 
 @Repository
 public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
@@ -47,17 +49,15 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 				obj.getFapinvbaleePK().getOrgLvlChild(), obj.getFapinvbaleePK().getPrdLvlChild(),
 				obj.getFapinvbaleePK().getInvTypeCode(), obj.getFapinvbaleePK().getTransLote(),
 
-				obj.getOnHandQty(),
-				obj.getOnHandRetl(), obj.getOnHandCost(), obj.getPoOrdQty(), obj.getPoOrdRetl(), obj.getPoOrdCost(),
+				obj.getOnHandQty(), obj.getOnHandRetl(), obj.getOnHandCost(), obj.getPoOrdQty(), obj.getPoOrdRetl(),
+				obj.getPoOrdCost(),
 
 				obj.getPoIntrnQty(), obj.getPoIntrnRetl(), obj.getPoIntrnCost(), obj.getToOrdQty(), obj.getToOrdRetl(),
 				obj.getToOrdCost(), obj.getToIntrnQty(), obj.getToIntrnRetl(), obj.getToIntrnCost(),
 
-				obj.getFirstPisDate(),
-				obj.getLastPisDate(),
+				obj.getFirstPisDate(), obj.getLastPisDate(),
 
-				obj.getLtdQty(), obj.getLtdRetl(), obj.getLtdCost(),
-				obj.getLastChgDate(),
+				obj.getLtdQty(), obj.getLtdRetl(), obj.getLtdCost(), obj.getLastChgDate(),
 
 				obj.getOnHandWeight(),
 
@@ -67,13 +67,45 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 				obj.getLtdWeight(), obj.getPrdSllUom(), obj.getCurrCode(), obj.getOnHandEaches(),
 				obj.getFirstShippedDate(),
 
-				obj.getFirstSalesDate(),
-				obj.getOnHandCostHm(), obj.getOnHandRetlHm(), obj.getToIntrnCostHm(), obj.getToIntrnRetlHm(),
-				obj.getTransVctoLote(),
+				obj.getFirstSalesDate(), obj.getOnHandCostHm(), obj.getOnHandRetlHm(), obj.getToIntrnCostHm(),
+				obj.getToIntrnRetlHm(), obj.getTransVctoLote(),
 
 				idCargaPMM);
 
 		LOGGER.info("> insercion correcta " + insertCount);
+
+	}
+
+	@Override
+	public Message saveExcelTblPmm(FormatoExcelForm obj) throws SQLException {
+		Message msg = new Message();
+		String sql = "insert into cuadratura.tbl_pmm ( "
+				+ "ORG_LVL_CHILD,	PRD_LVL_CHILD,	INV_TYPE_CODE,	TRANS_LOTE,	ON_HAND_QTY,	ON_HAND_RETL, "
+				+ "ON_HAND_COST,	PO_ORD_QTY	,PO_ORD_RETL,	PO_ORD_COST,	PO_INTRN_QTY,	PO_INTRN_RETL	, "
+				+ "PO_INTRN_COST	,TO_ORD_QTY,	TO_ORD_RETL	,TO_ORD_COST,	TO_INTRN_QTY,	TO_INTRN_RETL	, "
+				+ "TO_INTRN_COST,	FIRST_PIS_DATE	,LAST_PIS_DATE	,LTD_QTY,	LTD_RETL	,LTD_COST	,LAST_CHG_DATE	, "
+				+ "ON_HAND_WEIGHT,	WEIGHT_UOM	,PO_ORD_WEIGHT,	PO_INTRN_WEIGHT	,TO_ORD_WEIGHT	,TO_INTRN_WEIGHT	, "
+				+ "LTD_WEIGHT,	PRD_SLL_UOM	,CURR_CODE	,ON_HAND_EACHES,	FIRST_SHIPPED_DATE,	FIRST_SALES_DATE, "
+				+ "ON_HAND_COST_HM	,ON_HAND_RETL_HM,	TO_INTRN_COST_HM	,TO_INTRN_RETL_HM	,TRANS_VCTO_LOTE,  "
+				+ "idCarga_PMM) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?) ";
+
+		int insertCount = jdbcTemplate.update(sql,
+
+				obj.getOrgLvlChild(), obj.getPrdLvlChild(), obj.getInvTypeCode(), obj.getTransLote(),
+				obj.getOnHandQty(), obj.getOnHandRetl(), obj.getOnHandCost(), obj.getPoOrdQty(), obj.getPoOrdRetl(),
+				obj.getPoOrdCost(), obj.getPoIntrnQty(), obj.getPoIntrnRetl(), obj.getPoIntrnCost(), obj.getToOrdQty(),
+				obj.getToOrdRetl(), obj.getToOrdCost(), obj.getToIntrnQty(), obj.getToIntrnRetl(), obj.getToIntrnCost(),
+				obj.getFirstPisDate(), obj.getLastPisDate(), obj.getLtdQty(), obj.getLtdRetl(), obj.getLtdCost(),
+				obj.getLastChgDate(), obj.getOnHandWeight(), obj.getWeightUom(), obj.getPoOrdWeight(),
+				obj.getPoIntrnWeight(), obj.getToOrdWeight(), obj.getToIntrnWeight(), obj.getLtdWeight(),
+				obj.getPrdSllUom(), obj.getCurrCode(), obj.getOnHandEaches(), obj.getFirstShippedDate(),
+				obj.getFirstSalesDate(), obj.getOnHandCostHm(), obj.getOnHandRetlHm(), obj.getToIntrnCostHm(),
+				obj.getToIntrnRetlHm(), obj.getTransVctoLote(), obj.getIdCargaPMM());
+
+		LOGGER.info("> insercion correcta saveExcelTblPmm " + insertCount);
+		msg.setCodError(insertCount);
+		
+return msg;
 
 	}
 
