@@ -1,11 +1,17 @@
 package com.cuadratura.app.mysql.repository.impl;
 
 import java.math.BigDecimal;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -248,4 +254,45 @@ public class TblPmmRepositoryImpl implements TblPmmRepositoryCustom {
 			}
 		}
 	}
+
+	public List<Map<String, Object>> obtenerFotoPMMCuadratura(int idCargaPMM) throws SQLException {
+		
+		List<Map<String, Object>> ms_result = new ArrayList<Map<String,Object>>();
+		
+		DataSource ds = jdbcTemplate.getDataSource();
+		Connection conn = null;
+		CallableStatement csmt = null;
+	
+		try {
+			conn = ds.getConnection();
+			csmt = conn.prepareCall("{call cuadratura.sp_obtener_foto_pmm_cuadratura(?)}");
+			csmt.setInt(1, idCargaPMM);
+			csmt.execute();
+			ResultSet rs = csmt.getResultSet();
+			
+			ResultSetMetaData md = rs.getMetaData();
+		    int columns = md.getColumnCount();
+			
+			while (rs.next()) {
+		        Map<String,Object> row = new HashMap<String, Object>(columns);
+		        for(int i=1; i<=columns; ++i) {
+		            row.put(md.getColumnName(i),rs.getObject(i));
+		        }
+		        ms_result.add(row);
+		    }
+
+		} catch (Exception ex) {
+			LOGGER.error("Error en sp_obtener_foto_pmm_cuadratura", ex);
+		} finally {
+			if (csmt != null) {
+				csmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		
+		return ms_result;
+	}
+	
 }

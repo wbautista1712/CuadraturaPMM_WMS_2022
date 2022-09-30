@@ -2,7 +2,12 @@ package com.cuadratura.app.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -162,5 +167,37 @@ public class TblWmsController {
 			}
 		}	
 		return ResponseEntity.status(HttpStatus.OK).body( "Proceso Correcto");
+	}
+	
+	@PostMapping("/obtenerFotoWMSCuadratura")
+	public Map<String, Object> obtenerFotoWMSCuadratura(@RequestParam @Valid Integer idCargaWMS) throws Exception {
+		Map<String, Object> rpta = new HashMap<String, Object>();
+		List<Map<String, Object>> rdata = new ArrayList<Map<String, Object>>();
+		
+		String typeMsg = "E";
+		String message = "";
+		
+		try {
+			if(idCargaWMS != null){
+				rdata = tblWmsService.obtenerFotoWMSCuadratura(idCargaWMS);
+				if(rdata.size() > 0){
+					typeMsg = "S";
+				}else {
+					message = "Ningun registro encontrado";
+				}
+			}else{
+				message = "Id incorrecto";
+			}
+			
+		} catch (Exception e) {
+			message = e.getMessage();
+			LOGGER.info("error obtenerFotoPMMCuadratura - " + e.getMessage());
+		}
+		
+		rpta.put("rpta", rdata);
+		rpta.put("v_type_message", typeMsg);
+		rpta.put("v_message", message);
+		
+		return rpta;
 	}
 }

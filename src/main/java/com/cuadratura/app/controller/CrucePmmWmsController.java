@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,8 +78,18 @@ public class CrucePmmWmsController {
 			return ResponseEntity.badRequest().body("Error Procesamiento");
 		} else {
 			CrucePmmWms crucePmmWms = new CrucePmmWms();
-
-			crucePmmWms.setFechaMatch(new Date());
+			
+			Date fechaCruce=new Date();
+			LOGGER.info("Hora Sistema: " + fechaCruce.toString());
+			
+			SimpleDateFormat sdf=new SimpleDateFormat();
+			sdf.setTimeZone(TimeZone.getTimeZone("GMT-5"));
+			
+			LOGGER.info("Hora GMT-5: " + sdf.format(fechaCruce));
+			
+			// Fecha cruce
+			crucePmmWms.setFechaMatch(fechaCruce);
+			
 			crucePmmWms.setHoraMatch(dateTimeFormatter.format(LocalDateTime.now()));
 			crucePmmWms.setIdCargaPMM(idCargaPMM);
 			crucePmmWms.setIdCargaWMS(idCargaWMS);
@@ -86,8 +97,6 @@ public class CrucePmmWmsController {
 			crucePmmWms.setIdEstadoCuadratura(Constantes.ESTADO_CUADRATURA);
 
 			Integer id = this.crucePmmWmsService.saveCrucePmmWms(crucePmmWms).intValue();
-
-			LOGGER.info("id==... " + id);
 
 			this.tblPmmWmsService.saveCrucePmmWms(idCargaPMM, idCargaWMS, idCD, idUsuario, id);
 
