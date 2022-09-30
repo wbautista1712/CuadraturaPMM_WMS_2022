@@ -23,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cuadratura.app.mysql.entity.TblWms;
 import com.cuadratura.app.mysql.repository.TblWmsRepositoryCustom;
+import com.cuadratura.app.oracle.dto.FotoWmsByCargaDto;
 import com.cuadratura.app.oracle.dto.WmsCinsDto;
 
 @Repository
@@ -96,12 +97,11 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 		LOGGER.info("> insercion correcta " + insertCount);
 
 	}
-	
+
 	@Override
 	public void uploadTblWms(TblWms tblWms) throws SQLException {
-		String sql = "INSERT INTO cuadratura.tbl_wms "
-				+ "( create_date,  idCarga_WMS )"
-			
+		String sql = "INSERT INTO cuadratura.tbl_wms " + "( create_date,  idCarga_WMS )"
+
 				+ "VALUES( ?, ?) ";
 
 		int insertCount = jdbcTemplate.update(sql,
@@ -334,6 +334,54 @@ public class TblWmsRepositoryImpl implements TblWmsRepositoryCustom {
 		}
 		
 		return ms_result;
+	}
+
+	@Override
+	public List<FotoWmsByCargaDto> getExportFotoWmsByIdCarga(Integer idCargaWMS) throws SQLException{
+		String sql = "	SELECT C.idCarga_WMS, CD.org_lvl_child,  			"
+				+ "	date_format(C.fechaCarga, '%d/%m/%Y') AS FECHA_CARGA, C.horaCarga AS HORA_CARGA,			"
+				+ "	WMS.nro_carga, WMS.create_date, WMS.facility_code, WMS.company_code, WMS.item_alternate, WMS.item_part_a, WMS.item_part_b,item_part_c,			"
+				+ "	WMS.item_part_d, WMS.item_part_e, WMS.item_part_f, WMS.hierarchy1_code, WMS.hierarchy2_code, WMS.hierarchy3_code, WMS.hierarchy4_code, WMS.hierarchy5_code,			"
+				+ "	WMS.batch_nbr, WMS.pre_pack_code, WMS.tbl_wmscol, WMS.pre_pack_ratio, WMS.pre_pack_units, WMS.oblpn_total, WMS.active_total, WMS.active_allocated,			"
+				+ "	WMS.active_allocated_lockcode, WMS.active_available,active_lockcode,iblpn_total,iblpn_allocated,iblpn_allocated_lockcode,			"
+				+ "	WMS.iblpn_available, WMS.iblpn_notverified, WMS.iblpn_lockcode, WMS.iblpn_lost, WMS.total_allocated, WMS.total_available, WMS.total_inventory,			"
+				+ "	WMS.four_wall_inventory, WMS.open_order_qty, WMS.lock_code_1, WMS.lock_code_qty_1, WMS.lock_code_2, WMS.lock_code_qty_2, WMS.lock_code_3, WMS.lock_code_qty_3,			"
+				+ "	WMS.lock_code_4, WMS.lock_code_qty_4, WMS.lock_code_5, WMS.lock_code_qty_5, WMS.lock_code_6, WMS.lock_code_qty_6, WMS.lock_code_7, WMS.lock_code_qty_7, WMS.lock_code_8,			"
+				+ "	WMS.lock_code_qty_8, WMS.lock_code_9, WMS.lock_code_qty_9, WMS.lock_code_10, WMS.lock_code_qty_10, WMS.download_date1, WMS.error_code, WMS.observacion_error, WMS.flg_tipo			"
+				+ "	FROM cuadratura.carga_wms C  			"
+				+ "	INNER JOIN cuadratura.tbl_wms WMS ON C.idCarga_WMS=WMS.idCarga_WMS			"
+				+ "	INNER JOIN cuadratura.m_orgmstee CD ON C.org_name_short=CD.org_name_short			"
+				+ "	WHERE C.idCarga_WMS="+idCargaWMS;
+
+		return jdbcTemplate.query(sql, (rs, rowNum) -> new FotoWmsByCargaDto(
+				/*
+				 * rs.getLong("id"), rs.getString("name"), rs.getInt("age"),
+				 * rs.getTimestamp("created_date").toLocalDateTime()
+				 */
+
+				rs.getString("idcarga_wms"), rs.getString("org_lvl_child"), rs.getString("fecha_carga"),
+				rs.getString("hora_carga"), rs.getString("nro_carga"), rs.getString("create_date"),
+				rs.getString("facility_code"), rs.getString("company_code"), rs.getString("item_alternate"),
+				rs.getString("item_part_a"), rs.getString("item_part_b"), rs.getString("item_part_c"),
+				rs.getString("item_part_d"), rs.getString(" item_part_e"), rs.getString("item_part_f"),
+				rs.getString("hierarchy1_code"), rs.getString("hierarchy2_code"), rs.getString("hierarchy3_code"),
+				rs.getString("hierarchy4_code"), rs.getString("hierarchy5_code"), rs.getString("batch_nbr"),
+				rs.getString("pre_pack_code"), rs.getString("tbl_wmscol"), rs.getString("pre_pack_ratio"),
+				rs.getString("pre_pack_units"), rs.getString("oblpn_total"), rs.getString("active_total"),
+				rs.getString("active_allocated"), rs.getString("active_allocated_lockcode"),
+				rs.getString("active_available"), rs.getString("active_lockcode"), rs.getString("iblpn_total"),
+				rs.getString("iblpn_allocated"), rs.getString("iblpn_allocated_lockcode"),
+				rs.getString("iblpn_available"), rs.getString("iblpn_notverified"), rs.getString("iblpn_lockcode"),
+				rs.getString("iblpn_lost"), rs.getString("total_allocated"), rs.getString("total_available"),
+				rs.getString("total_inventory"), rs.getString("four_wall_inventory"), rs.getString("open_order_qty"),
+				rs.getString("lock_code_1"), rs.getString("lock_code_qty_1"), rs.getString("lock_code_2"),
+				rs.getString("lock_code_qty_2"), rs.getString("lock_code_3"), rs.getString("lock_code_qty_3"),
+				rs.getString("lock_code_4"), rs.getString("lock_code_qty_4"), rs.getString("lock_code_5"),
+				rs.getString("lock_code_qty_5"), rs.getString("lock_code_6"), rs.getString("lock_code_qty_6"),
+				rs.getString("lock_code_7"), rs.getString("lock_code_qty_7"), rs.getString("lock_code_8"),
+				rs.getString("lock_code_qty_8"), rs.getString("lock_code_9"), rs.getString("lock_code_qty_9"),
+				rs.getString("lock_code_10"), rs.getString("lock_code_qty_10 "), rs.getString("download_date1"),
+				rs.getString("error_code"), rs.getString("observacion_error"), rs.getString("flg_tipo")));
 	}
 
 }
