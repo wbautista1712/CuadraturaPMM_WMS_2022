@@ -1,12 +1,10 @@
 package com.cuadratura.app.controller;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,13 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.format.DateTimeFormat;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,8 +51,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping(path = "/api/wmsmysql")
 @CrossOrigin(origins = "*")
-public class PruebaController {
-	private static final Logger LOGGER = LogManager.getLogger(PruebaController.class);
+public class ProcesoImportacionController {
+	private static final Logger LOGGER = LogManager.getLogger(ProcesoImportacionController.class);
 
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -216,6 +213,7 @@ public class PruebaController {
 	// cargar excel
 	@RequestMapping(value = "/procesarExcel", method = RequestMethod.POST)
 	public ResponseEntity<Object> procesarExcel(@RequestPart(value = "file", required = false) MultipartFile excelfile,
+			@RequestParam Integer idCD,
 			HttpServletRequest request, Model model) throws Exception {
 		// GenericResponse response = new GenericResponse();
 		Message msg = new Message();
@@ -224,7 +222,7 @@ public class PruebaController {
 
 			LOGGER.info(excelfile.getOriginalFilename());
 
-			List<FormatoExcelForm> lstCabecera = new ArrayList<FormatoExcelForm>();
+		//	List<FormatoExcelForm> lstCabecera = new ArrayList<FormatoExcelForm>();
 
 			// File archivoExcel = new File(System.getProperty("java.io.tmpdir") +
 			// System.getProperty("file.separator") + excelfile.getOriginalFilename());
@@ -253,7 +251,7 @@ public class PruebaController {
 
 			cargaPmm.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
 			cargaPmm.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
-			cargaPmm.setOrgLvlChild(5346); // revisar
+			cargaPmm.setOrgLvlChild(idCD); // revisar
 
 			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 			LOGGER.info("id..."+id);
@@ -347,15 +345,16 @@ public class PruebaController {
 						LOGGER.info("valor capturado 11== " + CuadraturaUtil.evaluaCeldaExcel(hssfRow.getCell(11)));
 
 						LOGGER.info("listo para addd");
-						lstCabecera.add(cabeceraExcelForm);
+						//lstCabecera.add(cabeceraExcelForm);
+						msg = this.tblPmmService.saveExcelTblPmm(cabeceraExcelForm);
 					}
 
 				}
 
 			}
 
-			LOGGER.info("===size===>>> " + lstCabecera.size());
-			msg = this.tblPmmService.saveExcelTblPmm(cabeceraExcelForm);
+		//	LOGGER.info("===size===>>> " + lstCabecera.size());
+		
 
 			LOGGER.info("-- " + msg.getCodError());
 			LOGGER.info("-- " + msg.getMsjError());
