@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.oracle.dto.SpBolsaSdiDto;
 import com.cuadratura.app.oracle.entity.CuadraturaTransfer;
-import com.cuadratura.app.oracle.entity.Fapprdlotee;
-import com.cuadratura.app.oracle.entity.Prdpcdee;
 import com.cuadratura.app.service.AjustePmmWmsService;
 import com.cuadratura.app.service.CuadraturaTransferService;
 import com.cuadratura.app.service.FapprdloteeService;
