@@ -101,11 +101,120 @@ public class ProcesoImportacionController {
 
 				try {
 
-					ajustePmmWms.setIdCargaWMS(id);// reecupera id
+					// idTbl_WMS AUTOMÁTICO
 					ajustePmmWms.setNroCarga(id);
-					ajustePmmWms.setCreateDate(x.getCreateDate());
+					
+					if(x.getCreateDate()!=null)
+					{
+						ajustePmmWms.setCreateDate(x.getCreateDate());
+					}
+					else
+					{
+						ajustePmmWms.setCreateDate(null);
+					}
+					
+					
+					ajustePmmWms.setFacilityCode(x.getFacilityCode());
+					
+					ajustePmmWms.setCompanyCode(x.getCompanyCode());
+					ajustePmmWms.setItemAlternate(x.getItemAlternate());
+					ajustePmmWms.setItemPartA(x.getItemPartA());
+					ajustePmmWms.setItemPartB(x.getItemPartB());
+					ajustePmmWms.setItemPartC(x.getItemPartC());
+					ajustePmmWms.setItemPartD(x.getItemPartD());
+					ajustePmmWms.setItemPartE(x.getItemPartE());
+					ajustePmmWms.setItemPartF(x.getItemPartF());
+					ajustePmmWms.setHierarchy1Code(x.getHierarchy1Code());
+					ajustePmmWms.setHierarchy2Code(x.getHierarchy2Code());
+					ajustePmmWms.setHierarchy3Code(x.getHierarchy3Code());
+					ajustePmmWms.setHierarchy4Code(x.getHierarchy4Code());
+					ajustePmmWms.setHierarchy5Code(x.getHierarchy5Code());
+					ajustePmmWms.setBatchNbr(x.getBatchNbr());
+					ajustePmmWms.setPrePackCode(x.getPrePackCode());
+					
+					ajustePmmWms.setPrePackRatio(x.getPrePackRatio());
+					ajustePmmWms.setPrePackUnits(x.getPrePackUnits());
+					ajustePmmWms.setOblpnTotal(x.getOblpnTotal());
+					ajustePmmWms.setActiveTotal(x.getActiveTotal());
+					ajustePmmWms.setActiveAllocated(x.getActiveAllocated());
+					ajustePmmWms.setActiveAllocatedLockcode(x.getActiveAllocatedLockcode());
+					ajustePmmWms.setActiveAvailable(x.getActiveAvailable());
+					ajustePmmWms.setActiveLockcode(x.getActiveLockcode());
+					ajustePmmWms.setIblpnTotal(x.getIblpnTotal());
+					ajustePmmWms.setIblpnAllocated(x.getIblpnAllocated());
+					ajustePmmWms.setIblpnAllocatedLockcode(x.getIblpnAllocatedLockcode());
+					ajustePmmWms.setIblpnAvailable(x.getIblpnAvailable());
+					ajustePmmWms.setIblpnNotverified(x.getIblpnNotverified());
+					ajustePmmWms.setIblpnLockcode(x.getIblpnLockcode());
+					ajustePmmWms.setIblpnLost(x.getIblpnLost());
+					ajustePmmWms.setTotalAllocated(x.getTotalAllocated());
+					ajustePmmWms.setTotalAvailable(x.getTotalAvailable());
+					ajustePmmWms.setTotalInventory(x.getTotalInventory());
+					ajustePmmWms.setFourWallInventory(x.getFourWallInventory());
+					ajustePmmWms.setOpenOrderQty(x.getOpenOrderQty());
+					
+					ajustePmmWms.setLockCode1(x.getLockCode1());
+					ajustePmmWms.setLockCodeQty1(x.getLockCodeQty1());
+					
+					ajustePmmWms.setLockCode2(x.getLockCode2());
+					ajustePmmWms.setLockCodeQty2(x.getLockCodeQty2());
+					
+					ajustePmmWms.setLockCode3(x.getLockCode3());
+					ajustePmmWms.setLockCodeQty3(x.getLockCodeQty3());
+					
+					ajustePmmWms.setLockCode4(x.getLockCode4());
+					ajustePmmWms.setLockCodeQty4(x.getLockCodeQty4());
+					
+					ajustePmmWms.setLockCode5(x.getLockCode5());
+					ajustePmmWms.setLockCodeQty5(x.getLockCodeQty5());
+					
+					ajustePmmWms.setLockCode6(x.getLockCode6());
+					ajustePmmWms.setLockCodeQty6(x.getLockCodeQty6());
+					
+					ajustePmmWms.setLockCode7(x.getLockCode7());
+					ajustePmmWms.setLockCodeQty7(x.getLockCodeQty7());
+					
+					ajustePmmWms.setLockCode8(x.getLockCode8());
+					ajustePmmWms.setLockCodeQty8(x.getLockCodeQty8());
+					
+					ajustePmmWms.setLockCode9(x.getLockCode9());
+					ajustePmmWms.setLockCodeQty9(x.getLockCodeQty9());
+					
+					ajustePmmWms.setLockCode10(x.getLockCode10());
+					ajustePmmWms.setLockCodeQty10(x.getLockCodeQty10());
+					
+					if(x.getDownloadDate1()!=null)
+					{
+						ajustePmmWms.setDownloadDate1(x.getDownloadDate1());
+					}
+					else
+					{
+						ajustePmmWms.setDownloadDate1(null);
+					}
+					
+					if(x.getErrorCode()!=null)
+					{
+						ajustePmmWms.setErrorCode(x.getErrorCode());
+					}
+					else {
+						ajustePmmWms.setErrorCode(null);
+					}
+					
+					ajustePmmWms.setObservacionError(x.getObservacionError());
+					
+					if(x.getFlgTipo()!=null)
+					{
+						ajustePmmWms.setFlgTipo(x.getFlgTipo());
+					}
+					else
+					{
+						ajustePmmWms.setFlgTipo(null);
+					}
+
+					ajustePmmWms.setIdCargaWMS(id);// reecupera id
 
 					tblWmsService.uploadTblWms(ajustePmmWms);
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
