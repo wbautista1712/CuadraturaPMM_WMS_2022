@@ -26,8 +26,10 @@ import com.cuadratura.app.mysql.entity.CargaPmm;
 import com.cuadratura.app.mysql.entity.TblPmm;
 import com.cuadratura.app.oracle.dto.TblHstFtFapinvbaleeDto;
 import com.cuadratura.app.service.CargaPmmService;
+import com.cuadratura.app.service.ProcesoService;
 import com.cuadratura.app.service.TblHstFtFapinvbaleeService;
 import com.cuadratura.app.service.TblPmmService;
+import com.cuadratura.app.service.TblStateChargeService;
 import com.cuadratura.app.util.Constantes;
 
 @RestController
@@ -40,16 +42,26 @@ public class TblPmmController {
 
 	@Autowired
 	private CargaPmmService cargaPmmService;
+	
 	@Autowired
 	private TblPmmService tblPmmService;
 
 	@Autowired
 	private TblHstFtFapinvbaleeService tblHstFtFapinvbaleeService;
+	
+	@Autowired
+	private ProcesoService procesoService;
+	
+	@Autowired
+	private TblStateChargeService tblStateChargeService;
 
 	@PostMapping(value = "/crearCuadraturaPMM")
 	public ResponseEntity<String> crearCuadraturaPMM(@RequestParam @Valid String fechaProceso) throws Exception {
-		// List<Fapinvbalee> listaTblPmmForm =
-		// this.fapinvbaleeService.findAllPMMFapinvbalee(idCD);
+		// ejecutar procedimiento
+		this.procesoService.cargarPmmTemp();
+		this.procesoService.cargarPmmHistorial();
+		
+		// despues del procedimiento
 		List<TblHstFtFapinvbaleeDto> listaTblPmmForm = this.tblHstFtFapinvbaleeService.listTblHstFtFapinvbalee();
 		TblPmm tblPmm = null;
 		LOGGER.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
@@ -139,8 +151,13 @@ public class TblPmmController {
 				tblPmm.setWeightUom(obj.getWeightUom().trim());
 
 				tblPmmService.save(tblPmm);
+				
+			
 
 			}
+			LOGGER.info(".::: fin proceso id_estado actualiza :::. ");
+			this.tblStateChargeService.updateTblStateCharge(listaTblPmmForm.get(0).getAuditNumber().intValue());
+			
 			return ResponseEntity.status(HttpStatus.OK).body("Proceso Correcto");
 
 		} else {
