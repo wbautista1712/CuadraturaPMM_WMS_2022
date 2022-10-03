@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuadratura.app.service.FapprdloteeService;
-import com.cuadratura.app.service.PrdpcdeeService;
 
 @RestController
 @RequestMapping(path = "/api/wmsmysql")

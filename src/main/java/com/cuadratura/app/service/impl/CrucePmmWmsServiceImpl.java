@@ -4,11 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import com.cuadratura.app.mysql.repository.MTipoInventarioRepository;
 import com.cuadratura.app.oracle.dto.AjustePmmWmsDto;
 import com.cuadratura.app.oracle.dto.CrucePmmWmsDto;
 import com.cuadratura.app.service.CrucePmmWmsService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
