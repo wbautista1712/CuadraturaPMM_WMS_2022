@@ -5,5 +5,5 @@ import java.util.List;
 import com.cuadratura.app.oracle.dto.TblHstFtFapinvbaleeDto;
 
 public interface TblHstFtFapinvbaleeService {
-	public List<TblHstFtFapinvbaleeDto> listTblHstFtFapinvbalee(Integer idStateCharge) ;
+	public List<TblHstFtFapinvbaleeDto> listTblHstFtFapinvbalee() ;
 }

@@ -74,8 +74,9 @@ public class TblWmsController {
 				List<WmsCinsDto> listaWmsCinsDto = wmsCinsService
 						.findAllxNroCargaWMSWmsCins(listaFH.get(j).getNroCarga());
 				CargaWms cargaWms = new CargaWms();
-				org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022
-																											// 14:06:33
+				// org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy"); // 21/08/2022 // 14:06:33
+				org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+				
 				DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
 
 				cargaWms.setFechaCarga(dateTimeProceso.toDate());
@@ -84,7 +85,7 @@ public class TblWmsController {
 				cargaWms.setNumRegistros(listaWmsCinsDto.size());
 				cargaWms.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
 				cargaWms.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
-				cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+				cargaWms.setUsuarioCarga(Constantes.USUARIO_CARGA_DEMANDA);
 				cargaWms.setOrgNameShort(idCD);
 				// cargaWms.setNombreArchivo(nombreArchivo);
 				Integer id = cargaWmsService.saveCargaWms(cargaWms).intValue();

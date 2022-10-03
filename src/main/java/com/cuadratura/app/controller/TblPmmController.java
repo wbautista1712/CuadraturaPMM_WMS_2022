@@ -47,30 +47,31 @@ public class TblPmmController {
 	private TblHstFtFapinvbaleeService tblHstFtFapinvbaleeService;
 
 	@PostMapping(value = "/crearCuadraturaPMM")
-	public ResponseEntity<String> crearCuadraturaPMM(@RequestParam @Valid String fechaProceso,
-			@RequestParam @Valid Integer idCD) throws Exception {
+	public ResponseEntity<String> crearCuadraturaPMM(@RequestParam @Valid String fechaProceso) throws Exception {
 		// List<Fapinvbalee> listaTblPmmForm =
 		// this.fapinvbaleeService.findAllPMMFapinvbalee(idCD);
-		List<TblHstFtFapinvbaleeDto> listaTblPmmForm = this.tblHstFtFapinvbaleeService.listTblHstFtFapinvbalee(idCD);
+		List<TblHstFtFapinvbaleeDto> listaTblPmmForm = this.tblHstFtFapinvbaleeService.listTblHstFtFapinvbalee();
 		TblPmm tblPmm = null;
 		LOGGER.info(".::: obj.listaTblPmmForm() :::. " + listaTblPmmForm.size());
 		if (listaTblPmmForm.size() > 0) {
 
-			org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+			 //org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+			org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
 			DateTime dateTimeProceso = DateTime.parse(fechaProceso, formatter);
 			// codigo de carga carga_pmm
 			CargaPmm cargaPmm = new CargaPmm();
 
+			// cargaPmm.setFechaFoto(dateTimeProceso.toDate());
 			cargaPmm.setFechaFoto(dateTimeProceso.toDate());
 			cargaPmm.setHoraFoto(dateTimeFormatter.format(LocalDateTime.now()));
 			cargaPmm.setNumRegistros(listaTblPmmForm.size());
-			cargaPmm.setUsuarioCarga(Constantes.USUARIO_CARGA_AUTOMATICO);
+			cargaPmm.setUsuarioCarga(Constantes.USUARIO_CARGA_DEMANDA);
 
 			cargaPmm.setEstado(true);
 
 			cargaPmm.setIdmTipoImportacion(Constantes.TIPO_IMPORTACION);
 			cargaPmm.setIdmestadoCuadratura(Constantes.ESTADO_CUADRATURA);
-			cargaPmm.setOrgLvlChild(idCD); // distinct
+			cargaPmm.setOrgLvlChild(5343); // distinct
 
 			Integer id = cargaPmmService.saveCargaPmm(cargaPmm).intValue();
 

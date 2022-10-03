@@ -19,9 +19,9 @@ public class TblHstFtFapinvbaleeServiceImpl implements TblHstFtFapinvbaleeServic
 	@Autowired
 	private TblHstFtFapinvbaleeRepositoryCustom tblHstFtFapinvbaleeRepository;
 	
-	public List<TblHstFtFapinvbaleeDto> listTblHstFtFapinvbalee(Integer idStateCharge){
-		LOGGER.info("listTblHstFtFapinvbalee "+idStateCharge);
-		return this.tblHstFtFapinvbaleeRepository.listTblHstFtFapinvbalee(idStateCharge);
+	public List<TblHstFtFapinvbaleeDto> listTblHstFtFapinvbalee(){
+		// LOGGER.info("listTblHstFtFapinvbalee "+idStateCharge);
+		return this.tblHstFtFapinvbaleeRepository.listTblHstFtFapinvbalee();
 	}
 	
 }

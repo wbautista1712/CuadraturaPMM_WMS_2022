@@ -60,7 +60,7 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "WMS.org_name_short=:idCD_org_name_short " + "ORDER BY C.fechaMatch DESC	"; */
 
 		String sql="SELECT DISTINCT ATE.idCruce_pmm_wms,  ATE.fechaMatch, ATE.horaMatch, ATE.USUARIO, ATE.fechaFotoPMM, ATE.horaFotoPMM, "
-				+ "ATE.fechaFotoWMS, ATE.horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
+				+ "ATE.fechaFotoWMS, MAX(ATE.horaFotoWMS) AS horaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
 				+ "FROM ("
 				+ "SELECT  C.idCruce_pmm_wms, date_format(C.fechaMatch, '%d/%m/%Y') AS fechaMatch, C.horaMatch, concat(PMM.usuarioCarga,'/',WMS.usuario_carga) as USUARIO, "
 				+ "date_format(PMM.fechaFoto, '%d/%m/%Y') AS fechaFotoPMM, PMM.horaFoto AS horaFotoPMM, "
@@ -73,7 +73,9 @@ public class TblPmmWmsRepositoryImpl implements TblPmmWmsRepositoryCustom {
 				+ "INNER JOIN cuadratura.m_estado_cuadratura EC ON C.idEstadoCuadratura=EC.id_m_estadoCuadratura "
 				+ "inner join cuadratura.tbl_wms tWMS on WMS.idCarga_WMS=tWMS.idCarga_WMS "
 				+ "WHERE C.fechaMatch BETWEEN :fechaDesde AND :fechaHasta AND WMS.org_name_short=:idCD_org_name_short "
-				+ ")ATE ORDER BY ATE.fechaMatch DESC";
+				+ ")ATE "
+				+ "GROUP BY ATE.idCruce_pmm_wms,  ATE.fechaMatch, ATE.horaMatch, ATE.USUARIO, ATE.fechaFotoPMM, ATE.horaFotoPMM, ATE.fechaFotoWMS, ATE.idCarga_PMM, ATE.idCarga_WMS, ATE.estado "
+				+ "ORDER BY ATE.fechaMatch DESC";
 		
 		
 		Query query = this.em.createNativeQuery(sql);

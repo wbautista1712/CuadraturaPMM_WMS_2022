@@ -22,9 +22,10 @@ public class TblHstFtFapinvbaleeRepositoryImpl implements TblHstFtFapinvbaleeRep
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<TblHstFtFapinvbaleeDto> listTblHstFtFapinvbalee(Integer idStateCharge) {
+	public List<TblHstFtFapinvbaleeDto> listTblHstFtFapinvbalee() {
 		// TODO Auto-generated method stub
-		String sql = "SELECT /*+ ALL_ROWS */ * FROM CUADRATURAWYP.TBL_HST_FT_FAPINVBALEE  x WHERE x.audit_number = "+idStateCharge;
+		// String sql = "SELECT /*+ ALL_ROWS */ * FROM CUADRATURAWYP.TBL_HST_FT_FAPINVBALEE  x WHERE x.audit_number = "+idStateCharge;
+		String sql = "SELECT /*+ ALL_ROWS */ * FROM CUADRATURAWYP.TBL_HST_FT_FAPINVBALEE  x";
 		LOGGER.info(sql);
 		return jdbcTemplate.query(sql, (rs, rowNum) -> new TblHstFtFapinvbaleeDto(
 
